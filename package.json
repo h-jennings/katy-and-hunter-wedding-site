@@ -3,10 +3,13 @@
   "private": true,
   "scripts": {
     "build": "turbo run build",
+    "format-and-lint": "biome check .",
+    "format-and-lint:fix": "biome check . --write",
     "dev": "turbo run dev",
     "typecheck": "turbo run typecheck"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.1.1",
     "turbo": "^2.5.5",
     "typescript": "5.8.3"
   },
