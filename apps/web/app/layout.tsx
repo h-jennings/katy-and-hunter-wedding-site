@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Kapakana } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
+import { SiteLayout } from "~/app/components/primary-layout";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -25,7 +26,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${kapakana.variable}`}>{children}</body>
+      <body className={`${geistSans.variable} ${kapakana.variable}`}>
+        <SiteLayout>{children}</SiteLayout>
+      </body>
     </html>
   );
 }
