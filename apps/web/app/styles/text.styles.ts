@@ -10,7 +10,7 @@ export const callout = tv({
   base: "text-left font-medium font-sans text-[clamp(1.5rem,1.0178571428571428rem+1.3392857142857142vw,1.875rem)] text-text-primary leading-snug tracking-tighter",
 });
 
-export const eyebrow = tv({
+export const chunky = tv({
   base: "font-black text-lg text-text-primary uppercase leading-none tracking-tighter",
 });
 
@@ -38,5 +38,5 @@ export const label = tv({
 });
 
 export const copy = tv({
-  base: "max-w-prose font-normal text-sm text-text-primary",
+  base: "max-w-prose font-normal text-sm text-text-primary text-pretty",
 });

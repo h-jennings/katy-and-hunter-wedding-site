@@ -1,13 +1,13 @@
 import type * as React from "react";
 import { ANCHORS } from "~/app/constants/anchors.constants";
-import { copy, eyebrow, fancyHeading, label as labelStyles } from "~/app/styles/text.styles";
+import { chunky, copy, fancyHeading, label as labelStyles } from "~/app/styles/text.styles";
 
 export function Wedding() {
   return (
     <div className="px-16">
       <section className="mx-auto flex max-w-[1920px] flex-col gap-24 pb-40">
         <div className="mx-auto flex w-full max-w-[984px] flex-col gap-7 px-8 pt-20 text-center">
-          <h2 id={ANCHORS.OUR_STORY} className={eyebrow()}>
+          <h2 id={ANCHORS.OUR_STORY} className={chunky()}>
             Join Us in Richmond, VA
           </h2>
           <h3 className={fancyHeading({ size: "lg" })}>Our Wedding Weekend</h3>
@@ -93,8 +93,8 @@ export function Wedding() {
 function Day({ date, dow, children }: { date: string; dow: string; children: React.ReactNode }) {
   return (
     <div className="col-span-full grid grid-cols-subgrid items-start gap-y-10">
-      <div className={eyebrow()}>{date}</div>
-      <div className={eyebrow()}>{dow}</div>
+      <div className={chunky()}>{date}</div>
+      <div className={chunky()}>{dow}</div>
       <div className="col-span-full grid grid-cols-[auto_1fr] gap-x-10 gap-y-16 md:px-8 md:[grid-column:unset]">
         {children}
       </div>
