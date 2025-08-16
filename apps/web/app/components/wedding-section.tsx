@@ -13,7 +13,7 @@ export function Wedding() {
           <h3 className={fancyHeading({ size: "lg" })}>Our Wedding Weekend</h3>
         </div>
 
-        <div className="grid grid-cols-[auto_auto_1fr] gap-x-8 gap-y-16">
+        <div className="mx-auto grid grid-cols-[auto_auto_1fr] gap-x-8 gap-y-16">
           <Day date="5/15" dow="Friday">
             <Event name="Welcome Party">
               <EventDetail label="Time">
