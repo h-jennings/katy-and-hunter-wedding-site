@@ -1,7 +1,7 @@
 export function Hero() {
   return (
     <section className="h-[calc(40dvh-var(--spacing-site-header-h))] sm:h-[calc(50dvh-var(--spacing-site-header-h))] md:h-[calc(90dvh-var(--spacing-site-header-h))] lg:h-[calc(100dvh-var(--spacing-site-header-h))]">
-      <div className="grid h-full px-8 pb-8">
+      <div className="grid h-full px-6 pb-8 md:px-8">
         <div className="flex flex-col gap-20 bg-bg-inverse pt-8">
           <div className="grid flex-1 grid-cols-1 items-end gap-20 text-center">
             <span className="font-black text-2xl text-text-inverse uppercase leading-none tracking-tighter">

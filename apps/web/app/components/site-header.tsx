@@ -3,7 +3,7 @@ import { ANCHORS } from "~/app/constants/anchors.constants";
 
 export function SiteHeader() {
   return (
-    <header className="top-0 left-0 h-[50px] px-8">
+    <header className="top-0 left-0 h-[50px] px-6 md:px-8">
       <div className="mx-auto h-full w-full max-w-site-container-w">
         <nav className="flex h-full items-center justify-between">
           <ul className="flex gap-3">

@@ -7,7 +7,7 @@ export function Wedding() {
   return (
     <Container>
       <section className="flex flex-col gap-24 pb-40">
-        <div className="mx-auto flex w-full max-w-[984px] flex-col gap-7 px-8 pt-20 text-center">
+        <div className="mx-auto flex w-full max-w-[984px] flex-col gap-7 px-6 pt-20 text-center md:px-8">
           <h2 id={ANCHORS.EVENTS} className={chunky({ className: "scroll-mt-20" })}>
             Join Us in Richmond, VA
           </h2>

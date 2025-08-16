@@ -19,13 +19,14 @@ export const chunky = tv({
  *
  * Font size scales from 3rem to 4.5rem using clamp() based on viewport width.
  * The minimum viewport width is set to 36rem and the maximum is set to 64rem.
+
  */
 export const fancyHeading = tv({
   base: "font-script text-text-primary leading-tight",
   variants: {
     size: {
       lg: "text-[clamp(3rem,1.0714285714285716rem+5.357142857142857vw,4.5rem)]",
-      md: "text-5xl",
+      md: "text-[clamp(2.25rem,1.2857142857142858rem+2.6785714285714284vw,3rem)]",
     },
   },
   defaultVariants: {
