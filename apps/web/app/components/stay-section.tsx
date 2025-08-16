@@ -24,7 +24,14 @@ export function Stay() {
                 <div className={label()}>Price</div>
                 <div className={copy()}>~$300 per night</div>
                 <div className={label()}>Book</div>
-                <Link href="https://www.quirkhotels.com/">Visit Website</Link>
+                <Link
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-fit text-text-primary underline underline-offset-4 transition-colors hover:text-text-secondary"
+                  href="https://www.quirkhotels.com/"
+                >
+                  Visit Website
+                </Link>
               </div>
             </div>
             <div className="flex min-w-[min(45ch,100%)] flex-1 flex-col items-center gap-y-8">
@@ -41,7 +48,14 @@ export function Stay() {
                 <div className={label()}>Price</div>
                 <div className={copy()}>~$300 per night</div>
                 <div className={label()}>Book</div>
-                <Link href="https://www.hilton.com/en/hotels/ricgrgu-graduate-richmond/">Visit Website</Link>
+                <Link
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-fit text-text-primary underline underline-offset-4 transition-colors hover:text-text-secondary"
+                  href="https://www.hilton.com/en/hotels/ricgrgu-graduate-richmond/"
+                >
+                  Visit Website
+                </Link>
               </div>
             </div>
           </div>
