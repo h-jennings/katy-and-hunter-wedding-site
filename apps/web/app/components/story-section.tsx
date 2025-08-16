@@ -7,7 +7,7 @@ export function Story() {
       <h2 id={ANCHORS.OUR_STORY} className={eyebrow()}>
         Our Story
       </h2>
-      <h3 className={fancyHeading()}>A Night in the District</h3>
+      <h3 className={fancyHeading({ size: "lg" })}>A Night in the District</h3>
       <p className={callout()}>
         Their journey began, as many great love stories do, serendipitously on a night out in Washington, D.C. On the
         dance floor of Tropicalia, a basement bar and club, an undeniable gravity drew Hunter and Katy together. What

@@ -1,6 +1,6 @@
 import type * as React from "react";
 import { ANCHORS } from "~/app/constants/anchors.constants";
-import { eyebrow, fancyHeading } from "~/app/styles/text.styles";
+import { copy, eyebrow, fancyHeading, label as labelStyles } from "~/app/styles/text.styles";
 
 export function Wedding() {
   return (
@@ -10,7 +10,7 @@ export function Wedding() {
           <h2 id={ANCHORS.OUR_STORY} className={eyebrow()}>
             Join Us in Richmond, VA
           </h2>
-          <h3 className={fancyHeading()}>Our Wedding Weekend</h3>
+          <h3 className={fancyHeading({ size: "lg" })}>Our Wedding Weekend</h3>
         </div>
 
         <div className="grid grid-cols-[auto_auto_1fr] gap-x-8 gap-y-16">
@@ -105,7 +105,7 @@ function Day({ date, dow, children }: { date: string; dow: string; children: Rea
 function Event({ name, children }: { name: string; children: React.ReactNode }) {
   return (
     <div className="col-span-full grid grid-cols-subgrid gap-y-4">
-      <h4 className="col-span-full font-script text-5xl text-text-primary">{name}</h4>
+      <h4 className={fancyHeading({ size: "md", className: "col-span-full" })}>{name}</h4>
       {children}
     </div>
   );
@@ -114,8 +114,8 @@ function Event({ name, children }: { name: string; children: React.ReactNode }) 
 function EventDetail({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="col-span-full grid grid-cols-subgrid">
-      <span className="font-normal text-sm text-text-secondary uppercase">{label}</span>
-      <span className="max-w-prose font-normal text-sm text-text-primary">{children}</span>
+      <span className={labelStyles()}>{label}</span>
+      <span className={copy()}>{children}</span>
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { Hero } from "~/app/components/hero-section";
+import { Stay } from "~/app/components/stay-section";
 import { Story } from "~/app/components/story-section";
 import { Wedding } from "~/app/components/wedding-section";
 
@@ -8,6 +9,7 @@ export default function Home() {
       <Hero />
       <Story />
       <Wedding />
+      <Stay />
     </main>
   );
 }

@@ -21,5 +21,22 @@ export const eyebrow = tv({
  * The minimum viewport width is set to 36rem and the maximum is set to 64rem.
  */
 export const fancyHeading = tv({
-  base: "font-script text-[clamp(3rem,1.0714285714285716rem+5.357142857142857vw,4.5rem)] text-text-primary leading-tight",
+  base: "font-script text-text-primary leading-tight",
+  variants: {
+    size: {
+      lg: "text-[clamp(3rem,1.0714285714285716rem+5.357142857142857vw,4.5rem)]",
+      md: "text-5xl",
+    },
+  },
+  defaultVariants: {
+    size: "md",
+  },
+});
+
+export const label = tv({
+  base: "font-normal text-sm text-text-secondary uppercase",
+});
+
+export const copy = tv({
+  base: "max-w-prose font-normal text-sm text-text-primary",
 });
