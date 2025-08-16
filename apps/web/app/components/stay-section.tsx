@@ -48,7 +48,32 @@ export function Stay() {
               <Suggestion
                 name="North End Juice Co."
                 price="cheap"
-                description="These smoothie bowls and breakfast burritos have saved us after a night out quite a few times."
+                description="Fresh-pressed juices, smoothies, and acai bowls in Richmond's Museum District with quality ingredients and healthy options."
+              />
+              <Suggestion
+                name="Stanleys"
+                price="moderate"
+                description="Popular Richmond restaurant known for its welcoming atmosphere and locally-sourced American cuisine."
+              />
+              <Suggestion
+                name="Cochiloco"
+                price="moderate"
+                description="Vibrant Mexican restaurant featuring authentic flavors and creative cocktails in a lively atmosphere."
+              />
+              <Suggestion
+                name="The Roosevelt"
+                price="expensive"
+                description="Upscale Southern restaurant offering refined comfort food and an extensive bourbon selection in an elegant setting."
+              />
+              <Suggestion
+                name="Alewife"
+                price="expensive"
+                description="Award-winning Mid-Atlantic seafood restaurant in Church Hill, nationally recognized for innovative dishes and creative cocktails."
+              />
+              <Suggestion
+                name="Heritage"
+                price="expensive"
+                description="New American restaurant featuring seasonal cuisine and craft cocktails in a contemporary brick-walled space with innovative dishes."
               />
             </div>
             <div className="flex flex-1 flex-col gap-y-8">
@@ -56,15 +81,59 @@ export function Stay() {
               <Suggestion
                 name="Afterglow Coffee Cooperative"
                 price="cheap"
-                description="Great coffee here (and matcha!)"
+                description="Richmond's first worker-owned coffee cooperative featuring specialty single-origin beans and community-focused atmosphere."
               />
-              <Suggestion name="Brambley Park" price="cheap" description="Fun outdoor atmosphere" />
+              <Suggestion
+                name="Brambly Park"
+                price="moderate"
+                description="Unique multi-purpose venue combining a two-acre outdoor park, Southern Italian restaurant, and winery in Scott's Addition."
+              />
+              <Suggestion
+                name="Triple Crossing Beer"
+                price="cheap"
+                description="Local craft brewery known for innovative beers and a welcoming taproom atmosphere with regular food trucks."
+              />
+              <Suggestion
+                name="The Emerald Lounge"
+                price="moderate"
+                description="Tropical-themed cocktail bar in Church Hill specializing in rum and agave drinks with a relaxed getaway atmosphere."
+              />
+              <Suggestion
+                name="The Jasper"
+                price="moderate"
+                description="Intimate neighborhood bar and restaurant offering craft cocktails and elevated comfort food in a cozy setting."
+              />
+              <Suggestion
+                name="Get Tight Lounge"
+                price="moderate"
+                description="Hip cocktail lounge with creative drinks, DJ sets, and a trendy atmosphere perfect for late-night socializing."
+              />
             </div>
             <div className="flex flex-1 flex-col gap-y-8">
               <h3 className={fancyHeading({ size: "md", className: "text-center" })}>Play</h3>
               <Suggestion
                 name="Virginia Museum of Fine Arts"
-                description="Acclaimed New Southern fare in a homey, country-chic space with craft cocktails & Virginia wines."
+                description="Major cultural institution featuring diverse art collections and exhibitions in Richmond's Museum District."
+              />
+              <Suggestion
+                name="Lewis Ginter Botanical Garden"
+                description="50-acre botanical garden voted America's #4 public garden, featuring diverse gardens, waterway splash pad, and live music events."
+              />
+              <Suggestion
+                name="The James River"
+                description="Scenic river running through Richmond perfect for outdoor activities, rafting, and riverside walks."
+              />
+              <Suggestion
+                name="Maymont Park"
+                description="Historic 100-acre park featuring gardens, wildlife exhibits, mansion tours, and scenic river views."
+              />
+              <Suggestion
+                name="Hollywood Cemetery"
+                description="Historic 135-acre garden cemetery established in 1847, featuring presidential burial sites and heritage rose gardens."
+              />
+              <Suggestion
+                name="Carytown"
+                description="Vibrant shopping and dining district known as Richmond's 'Mile of Style' with unique boutiques and restaurants."
               />
             </div>
           </div>
