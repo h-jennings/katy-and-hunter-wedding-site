@@ -15,6 +15,12 @@
   --spacing-site-container-w: 1920px;
 }
 
+html {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
 body {
   color: var(--color-text-primary);
   background: var(--color-bg-foundation);

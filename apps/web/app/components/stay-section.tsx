@@ -7,7 +7,7 @@ export function Stay() {
   return (
     <Container>
       <section className="flex flex-col gap-24 pt-20 pb-40">
-        <h2 id={ANCHORS.STAY} className={fancyHeading({ size: "lg", className: "text-center" })}>
+        <h2 id={ANCHORS.STAY} className={fancyHeading({ size: "lg", className: "scroll-mt-20 text-center" })}>
           Stay Awhile
         </h2>
         <div className="flex flex-col gap-y-40">

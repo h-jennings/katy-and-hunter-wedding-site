@@ -8,7 +8,7 @@ export function Wedding() {
     <Container>
       <section className="flex flex-col gap-24 pb-40">
         <div className="mx-auto flex w-full max-w-[984px] flex-col gap-7 px-8 pt-20 text-center">
-          <h2 id={ANCHORS.OUR_STORY} className={chunky()}>
+          <h2 id={ANCHORS.EVENTS} className={chunky({ className: "scroll-mt-20" })}>
             Join Us in Richmond, VA
           </h2>
           <h3 className={fancyHeading({ size: "lg" })}>Our Wedding Weekend</h3>

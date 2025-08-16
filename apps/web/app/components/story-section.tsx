@@ -4,7 +4,7 @@ import { callout, chunky, fancyHeading } from "~/app/styles/text.styles";
 export function Story() {
   return (
     <section className="mx-auto flex w-full max-w-[984px] flex-col gap-7 px-8 pt-20 pb-40 text-center">
-      <h2 id={ANCHORS.OUR_STORY} className={chunky()}>
+      <h2 id={ANCHORS.OUR_STORY} className={chunky({ className: "scroll-mt-20" })}>
         Our Story
       </h2>
       <h3 className={fancyHeading({ size: "lg" })}>A Night in the District</h3>

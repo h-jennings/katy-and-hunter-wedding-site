@@ -1,4 +1,5 @@
 export const ANCHORS = {
-  OUR_STORY: "#our-story",
-  STAY: "#stay",
+  OUR_STORY: "our-story",
+  EVENTS: "events",
+  STAY: "stay",
 } as const;

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ANCHORS } from "~/app/constants/anchors.constants";
 
 export function SiteHeader() {
   return (
@@ -7,17 +8,22 @@ export function SiteHeader() {
         <nav className="flex h-full items-center justify-between">
           <ul className="flex gap-3">
             <li>
-              <Link href="" className="font-medium font-sans text-lg text-text-primary">
+              <Link
+                href={{
+                  hash: ANCHORS.OUR_STORY,
+                }}
+                className="font-medium font-sans text-lg text-text-primary"
+              >
                 Story
               </Link>
             </li>
             <li>
-              <Link href="" className="font-medium font-sans text-lg text-text-primary">
+              <Link href={{ hash: ANCHORS.EVENTS }} className="font-medium font-sans text-lg text-text-primary">
                 Events
               </Link>
             </li>
             <li>
-              <Link href="" className="font-medium font-sans text-lg text-text-primary">
+              <Link href={{ hash: ANCHORS.STAY }} className="font-medium font-sans text-lg text-text-primary">
                 Stay
               </Link>
             </li>
