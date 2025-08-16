@@ -11,7 +11,7 @@ export function Stay() {
         </h2>
         <div className="flex flex-col gap-y-40">
           <div className="flex flex-wrap gap-x-14 gap-y-16">
-            <div className="flex min-w-[30ch] flex-1 flex-col items-center gap-y-8">
+            <div className="flex min-w-[min(45ch,100%)] flex-1 flex-col items-center gap-y-8">
               <h3 className={fancyHeading({ size: "md", className: "text-center" })}>Quirk Hotel</h3>
               <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-10">
                 <div className={label()}>Details</div>
@@ -27,7 +27,7 @@ export function Stay() {
                 <Link href="https://www.quirkhotels.com/">Visit Website</Link>
               </div>
             </div>
-            <div className="flex min-w-[30ch] flex-1 flex-col items-center gap-y-8">
+            <div className="flex min-w-[min(45ch,100%)] flex-1 flex-col items-center gap-y-8">
               <h3 className={fancyHeading({ size: "md", className: "text-center" })}>Graduate Hotel</h3>
               <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-10">
                 <div className={label()}>Details</div>
@@ -46,7 +46,7 @@ export function Stay() {
             </div>
           </div>
           <div className="flex flex-wrap gap-x-14 gap-y-16">
-            <div className="flex min-w-[30ch] flex-1 flex-col items-center gap-y-8">
+            <div className="flex min-w-[min(30ch,100%)] flex-1 flex-col items-center gap-y-8">
               <h3 className={fancyHeading({ size: "md", className: "text-center" })}>Eat</h3>
               <Suggestion
                 name="North End Juice Co."
@@ -79,7 +79,7 @@ export function Stay() {
                 description="New American restaurant featuring seasonal cuisine and craft cocktails in a contemporary brick-walled space with innovative dishes."
               />
             </div>
-            <div className="flex min-w-[30ch] flex-1 flex-col items-center gap-y-8">
+            <div className="flex min-w-[min(30ch,100%)] flex-1 flex-col items-center gap-y-8">
               <h3 className={fancyHeading({ size: "md", className: "text-center" })}>Drink</h3>
               <Suggestion
                 name="Afterglow Coffee Cooperative"
@@ -112,7 +112,7 @@ export function Stay() {
                 description="Hip cocktail lounge with creative drinks, DJ sets, and a trendy atmosphere perfect for late-night socializing."
               />
             </div>
-            <div className="flex min-w-[30ch] flex-1 flex-col items-center gap-y-8">
+            <div className="flex min-w-[min(30ch,100%)] flex-1 flex-col items-center gap-y-8">
               <h3 className={fancyHeading({ size: "md", className: "text-center" })}>Play</h3>
               <Suggestion
                 name="Virginia Museum of Fine Arts"
