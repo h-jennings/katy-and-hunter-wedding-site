@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ANCHORS } from "~/app/constants/anchors.constants";
 import { chunky, copy, fancyHeading, label } from "~/app/styles/text.styles";
 
@@ -15,15 +16,15 @@ export function Stay() {
               <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-10">
                 <div className={label()}>Details</div>
                 <div className={copy()}>
-                  Featuring period hardwood floors, contemporary artwork and recycled furniture, the streamlined rooms
-                  have minibars, free Wi-Fi and flat-screen TVs, as well as coffeemakers. Upgraded rooms add
-                  floor-to-ceiling windows, while suites include living rooms; some are bi-level with loft bedrooms.
-                  Room service is available.
+                  Art-focused boutique hotel in downtown Richmond featuring original artwork by local artists in every
+                  room. Spacious accommodations with large windows and natural light. Amenities include Q Rooftop Bar
+                  with city views, The Lobby Bar, on-site art gallery, and elegant event spaces. Perfect for wedding
+                  guests seeking a unique, creative atmosphere in the heart of Richmond's Broad Street corridor.
                 </div>
                 <div className={label()}>Price</div>
-                <div className={copy()}>$255/Night</div>
+                <div className={copy()}>~$300 per night</div>
                 <div className={label()}>Book</div>
-                <div className={copy()}>Link to Book</div>
+                <Link href="https://www.quirkhotels.com/">Visit Website</Link>
               </div>
             </div>
             <div className="flex flex-1 flex-col items-center gap-y-8">
@@ -31,14 +32,16 @@ export function Stay() {
               <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-10">
                 <div className={label()}>Details</div>
                 <div className={copy()}>
-                  On a tree-lined street in the historic Monroe Ward, this trendy hotel with mid-century modern decor
-                  has accents inspired by local tennis great Arthur Ashe. It's 9 minutes on foot from Virginia
-                  Commonwealth University and 10 miles from Richmond International Airport.
+                  Part of Hilton's Graduate Hotels collection, this 205-room boutique hotel features creative interiors
+                  inspired by college nostalgia and local Richmond history. Located in downtown Richmond near VCU, it
+                  offers Byrdhouse rooftop bar with city views, Brookfield restaurant, fitness center, and event spaces.
+                  Pet-friendly with valet parking available. Perfect for wedding guests wanting modern amenities with
+                  local character.{" "}
                 </div>
                 <div className={label()}>Price</div>
-                <div className={copy()}>$255/Night</div>
+                <div className={copy()}>~$300 per night</div>
                 <div className={label()}>Book</div>
-                <div className={copy()}>Link to Book</div>
+                <Link href="https://www.hilton.com/en/hotels/ricgrgu-graduate-richmond/">Visit Website</Link>
               </div>
             </div>
           </div>
