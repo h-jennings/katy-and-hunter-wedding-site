@@ -1,11 +1,12 @@
 import Link from "next/link";
+import { Container } from "~/app/components/container";
 import { ANCHORS } from "~/app/constants/anchors.constants";
 import { chunky, copy, fancyHeading, label } from "~/app/styles/text.styles";
 
 export function Stay() {
   return (
-    <div className="px-16">
-      <section className="mx-auto flex max-w-[1920px] flex-col gap-24 pt-20 pb-40">
+    <Container>
+      <section className="flex flex-col gap-24 pt-20 pb-40">
         <h2 id={ANCHORS.STAY} className={fancyHeading({ size: "lg", className: "text-center" })}>
           Stay Awhile
         </h2>
@@ -156,7 +157,7 @@ export function Stay() {
           </div>
         </div>
       </section>
-    </div>
+    </Container>
   );
 }
 

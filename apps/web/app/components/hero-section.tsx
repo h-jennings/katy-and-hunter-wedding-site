@@ -11,7 +11,7 @@ export function Hero() {
               of
             </span>
           </div>
-          <div className="mx-auto w-full max-w-[1920px]">
+          <div className="mx-auto w-full max-w-site-container-w">
             {/* TODO: USE SVG INSTEAD */}
             <span className="grid text-center font-script text-8xl text-text-inverse [font-size:min(15vw,334px)]">
               <span className="self-end">Kathryn &amp; Hunter</span>

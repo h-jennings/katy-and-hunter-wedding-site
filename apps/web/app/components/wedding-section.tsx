@@ -1,11 +1,12 @@
 import type * as React from "react";
+import { Container } from "~/app/components/container";
 import { ANCHORS } from "~/app/constants/anchors.constants";
 import { chunky, copy, fancyHeading, label as labelStyles } from "~/app/styles/text.styles";
 
 export function Wedding() {
   return (
-    <div className="px-16">
-      <section className="mx-auto flex max-w-[1920px] flex-col gap-24 pb-40">
+    <Container>
+      <section className="flex flex-col gap-24 pb-40">
         <div className="mx-auto flex w-full max-w-[984px] flex-col gap-7 px-8 pt-20 text-center">
           <h2 id={ANCHORS.OUR_STORY} className={chunky()}>
             Join Us in Richmond, VA
@@ -86,7 +87,7 @@ export function Wedding() {
           </Day>
         </div>
       </section>
-    </div>
+    </Container>
   );
 }
 
