@@ -7,11 +7,13 @@ import { SiteLayout } from "~/app/components/primary-layout";
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-sans",
+  fallback: ["sans-serif"],
 });
 
 const kapakana = Kapakana({
   variable: "--font-script",
   subsets: ["latin"],
+  fallback: ["cursive"],
 });
 
 export const metadata: Metadata = {
