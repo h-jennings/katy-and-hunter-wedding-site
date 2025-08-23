@@ -61,7 +61,7 @@ export function SiteHeader() {
     <React.Fragment>
       {isMenuOpen && <meta name="theme-color" content="#ec4926" />}
 
-      <header ref={headerRef} className="sticky top-0 left-0 px-6 md:px-8">
+      <header ref={headerRef} className="sticky top-0 left-0 z-1 px-6 md:px-8">
         <div className="z-1 mx-auto h-site-header-h w-full max-w-site-container-w">
           <nav className="flex h-full items-center justify-between">
             <div className="block md:hidden">
