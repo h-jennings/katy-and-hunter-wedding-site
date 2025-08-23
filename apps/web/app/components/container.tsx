@@ -7,3 +7,11 @@ export function Container({ children, className, ...rest }: React.ComponentProps
     </div>
   );
 }
+
+export function ContainerInner({ children, className, ...rest }: React.ComponentProps<"div">) {
+  return (
+    <section {...rest} className={twMerge("pt-20 pb-20 xl:pb-40", className)}>
+      {children}
+    </section>
+  );
+}

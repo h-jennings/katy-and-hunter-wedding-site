@@ -15,6 +15,7 @@
   --font-sans: var(--font-sans);
   --spacing-site-header-h: 50px;
   --spacing-site-container-w: 1920px;
+  --spacing-site-container-w-inner: 984px;
 }
 
 html {

@@ -1,20 +1,20 @@
 import type * as React from "react";
-import { Container } from "~/app/components/container";
+import { Container, ContainerInner } from "~/app/components/container";
 import { ANCHORS } from "~/app/constants/anchors.constants";
 import { chunky, copy, fancyHeading, label as labelStyles } from "~/app/styles/text.styles";
 
 export function Wedding() {
   return (
     <Container>
-      <section className="flex flex-col gap-24 pb-40">
-        <div className="mx-auto flex w-full max-w-[984px] flex-col gap-7 px-6 pt-20 text-center md:px-8">
+      <ContainerInner className="flex flex-col gap-24">
+        <div className="flex flex-col gap-7 text-center">
           <h2 id={ANCHORS.EVENTS} className={chunky({ className: "scroll-mt-20" })}>
             Join Us in Richmond, VA
           </h2>
           <h3 className={fancyHeading({ size: "lg" })}>Our Wedding Weekend</h3>
         </div>
 
-        <div className="mx-auto grid grid-cols-[auto_auto_1fr] gap-x-8 gap-y-16">
+        <div className="mx-auto grid w-full max-w-site-container-w-inner grid-cols-[auto_auto_1fr] gap-x-8 gap-y-16">
           <Day date="5/15" dow="Friday">
             <Event name="Welcome Party">
               <EventDetail label="Time">
@@ -86,7 +86,7 @@ export function Wedding() {
             </Event>
           </Day>
         </div>
-      </section>
+      </ContainerInner>
     </Container>
   );
 }
