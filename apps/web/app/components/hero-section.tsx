@@ -1,17 +1,19 @@
+import { KathrynAndHunter } from "./k-and-h";
+
 export function Hero() {
   return (
-    <section className="h-[calc(50dvh-var(--spacing-site-header-h))] md:h-[calc(90dvh-var(--spacing-site-header-h))] lg:h-[calc(100dvh-var(--spacing-site-header-h))]">
+    <section className="h-[calc(60dvh-var(--spacing-site-header-h))] md:h-[calc(90dvh-var(--spacing-site-header-h))] lg:h-[calc(100dvh-var(--spacing-site-header-h))]">
       <div className="grid h-full px-6 pb-8 md:px-8">
         <div className="flex flex-col bg-bg-inverse">
-          <div className="grid flex-1 grid-cols-1 items-end gap-3 py-8 text-center text-sm sm:gap-5 sm:text-base md:gap-20 md:text-2xl">
+          <div className="grid flex-1 grid-cols-1 items-end gap-3 pt-[calc(--spacing(8)+--spacing(3))] pb-8 text-center text-sm sm:gap-5 sm:text-base md:gap-16 md:text-2xl">
             <span className="font-black text-text-inverse uppercase leading-none tracking-tighter">The Wedding</span>
             <span className="self-start font-black text-text-inverse uppercase leading-none tracking-tighter">of</span>
           </div>
           <div className="mx-auto w-full max-w-site-container-w">
-            {/* TODO: USE SVG INSTEAD */}
-            <span className="grid text-center font-script text-8xl text-text-inverse [font-size:min(15vw,334px)]">
-              <span className="self-end">Kathryn &amp; Hunter</span>
-            </span>
+            <span className="sr-only">Kathryn and Hunter</span>
+            <div className="w-full px-3 pb-3">
+              <KathrynAndHunter aria-hidden className="h-auto w-full text-text-inverse" />
+            </div>
           </div>
         </div>
       </div>
