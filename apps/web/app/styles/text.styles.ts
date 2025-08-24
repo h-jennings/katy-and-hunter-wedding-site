@@ -7,7 +7,7 @@ import { tv } from "tailwind-variants";
  * The minimum viewport width is set to 36rem and the maximum is set to 64rem.
  */
 export const callout = tv({
-  base: "text-left font-medium font-sans text-[clamp(1.25rem,2.232vw+0.446rem,1.875rem)] text-text-primary leading-snug tracking-tighter",
+  base: "text-left font-medium font-sans text-[clamp(1.25rem,2.232vw+0.446rem,1.875rem)] text-pretty text-text-primary leading-snug tracking-tighter",
 });
 
 export const chunky = tv({

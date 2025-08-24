@@ -10,7 +10,7 @@ export function Story() {
           Our Story
         </h2>
         <h3 className={fancyHeading({ size: "lg" })}>A Night in the District</h3>
-        <p className={callout({ className: "mx-auto w-full max-w-site-container-w-inner" })}>
+        <p className={callout({ className: "mx-auto w-full max-w-site-container-w-inner lg:text-center" })}>
           Their journey began, as many great love stories do, serendipitously on a night out in Washington, D.C. On the
           dance floor of Tropicalia, a basement bar and club, an undeniable gravity drew Hunter and Katy together. What
           started as a night in the District quickly blossomed into dinner dates, weekends spent at Katy's D.C.

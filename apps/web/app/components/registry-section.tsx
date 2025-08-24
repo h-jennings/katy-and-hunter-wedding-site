@@ -14,7 +14,11 @@ export function Registry() {
             Registry
           </h2>
           <div className={fancyHeading({ size: "lg" })}>Your Presence is our Present</div>
-          <div className={callout({ className: "mx-auto w-full max-w-site-container-w-inner" })}>
+          <div
+            className={callout({
+              className: "mx-auto w-full max-w-site-container-w-inner text-pretty lg:text-center",
+            })}
+          >
             Having loving friends and family is the greatest gift of all. If you wish to honor us with a wedding gift,
             we’ve compiled a list on Zola, link below.
           </div>
@@ -24,7 +28,7 @@ export function Registry() {
           <Image
             alt=""
             className="pointer-events-none z-1 col-span-full row-span-full mx-auto hidden select-none xl:block"
-            src="/picture-frame.png"
+            src="/picture-frame-v2-compressed.png"
             width={1536}
             height={1024}
           />
