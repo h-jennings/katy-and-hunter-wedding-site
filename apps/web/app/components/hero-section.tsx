@@ -18,7 +18,7 @@ export function Hero() {
           </div>
           <Image
             priority
-            alt=""
+            alt="Kathryn Pentz and Hunter Jennings embracing outdoors in an engagement photo, smiling at each other in Richmond, Virginia"
             fill
             src="/katy-and-hunter-hero-image.webp"
             className="z-0 object-cover brightness-75 contrast-125 grayscale saturate-0"
