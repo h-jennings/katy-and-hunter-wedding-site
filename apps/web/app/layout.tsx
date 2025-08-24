@@ -52,20 +52,11 @@ export const metadata: Metadata = {
     title: "Kathryn Pentz and Hunter Jennings Wedding - May 16, 2026",
     description:
       "Join us for our wedding celebration on May 16th, 2026 at The Virginia House in Richmond, Virginia. Wedding weekend events, accommodations, and registry information.",
-    images: [
-      {
-        url: "/katy-and-hunter-hero-image.webp",
-        width: 1200,
-        height: 630,
-        alt: "Kathryn Pentz and Hunter Jennings engagement photo",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Kathryn Pentz and Hunter Jennings Wedding - May 16, 2026",
     description: "Join us for our wedding celebration on May 16th, 2026 at The Virginia House in Richmond, Virginia.",
-    images: ["/katy-and-hunter-hero-image.webp"],
     creator: "@jennings_hunter",
   },
   robots: {
