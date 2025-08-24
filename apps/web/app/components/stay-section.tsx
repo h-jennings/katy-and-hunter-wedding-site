@@ -10,7 +10,7 @@ export function Stay() {
         <h2 id={ANCHORS.STAY} className={fancyHeading({ size: "lg", className: "scroll-mt-20 text-center" })}>
           Stay Awhile
         </h2>
-        <div className="flex flex-col gap-y-40">
+        <div className="flex flex-col gap-y-16 md:gap-y-40">
           <div className="flex flex-wrap gap-x-14 gap-y-16">
             <div className="flex min-w-[min(45ch,100%)] flex-1 flex-col items-center gap-y-8">
               <h3 className={fancyHeading({ size: "md", className: "text-center" })}>Quirk Hotel</h3>

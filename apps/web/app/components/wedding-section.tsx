@@ -93,7 +93,7 @@ export function Wedding() {
 
 function Day({ date, dow, children }: { date: string; dow: string; children: React.ReactNode }) {
   return (
-    <div className="col-span-full grid grid-cols-subgrid items-start gap-y-10">
+    <div className="col-span-full grid grid-cols-subgrid items-baseline gap-y-10">
       <div className={chunky()}>{date}</div>
       <div className={chunky()}>{dow}</div>
       <div className="col-span-full grid grid-cols-[auto_1fr] gap-x-10 gap-y-16 md:px-8 md:[grid-column:unset]">

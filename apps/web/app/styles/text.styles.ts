@@ -22,7 +22,7 @@ export const chunky = tv({
 
  */
 export const fancyHeading = tv({
-  base: "font-script text-text-primary leading-tight",
+  base: "font-script text-text-primary leading-none",
   variants: {
     size: {
       lg: "text-[clamp(3rem,1.0714285714285716rem+5.357142857142857vw,4.5rem)]",
@@ -39,5 +39,5 @@ export const label = tv({
 });
 
 export const copy = tv({
-  base: "max-w-prose font-normal text-sm text-text-primary text-pretty",
+  base: "max-w-prose font-normal leading-snug text-sm text-text-primary text-pretty",
 });
