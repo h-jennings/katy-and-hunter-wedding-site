@@ -17,10 +17,10 @@ export function Stay() {
               <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-10">
                 <div className={label()}>Details</div>
                 <div className={copy()}>
-                  Art-focused boutique hotel in downtown Richmond featuring original artwork by local artists in every
-                  room. Spacious accommodations with large windows and natural light. Amenities include Q Rooftop Bar
-                  with city views, The Lobby Bar, on-site art gallery, and elegant event spaces. Perfect for wedding
-                  guests seeking a unique, creative atmosphere in the heart of Richmond's Broad Street corridor.
+                  Art-focused boutique hotel in downtown Richmond featuring original artwork by local artists. Spacious
+                  accommodations with large windows and natural light. Amenities include Q Rooftop Bar with city views,
+                  The Lobby Bar, and on-site art gallery. Perfect for a unique, creative atmosphere in the heart of
+                  Richmond's Broad Street corridor.
                 </div>
                 <div className={label()}>Price</div>
                 <div className={copy()}>~$300 per night</div>
@@ -40,11 +40,10 @@ export function Stay() {
               <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-10">
                 <div className={label()}>Details</div>
                 <div className={copy()}>
-                  Part of Hilton's Graduate Hotels collection, this 205-room boutique hotel features creative interiors
-                  inspired by college nostalgia and local Richmond history. Located in downtown Richmond near VCU, it
-                  offers Byrdhouse rooftop bar with city views, Brookfield restaurant, fitness center, and event spaces.
-                  Pet-friendly with valet parking available. Perfect for wedding guests wanting modern amenities with
-                  local character.{" "}
+                  Part of Hilton's Graduate Hotels collection, this boutique hotel features creative interiors inspired
+                  by college nostalgia and local Richmond history. Located in downtown Richmond near VCU, it offers
+                  Byrdhouse rooftop bar with city views, Brookfield restaurant, and fitness center. Pet-friendly with
+                  valet parking available. Perfect for a unique stay modern amenities with local character.
                 </div>
                 <div className={label()}>Price</div>
                 <div className={copy()}>~$300 per night</div>
@@ -71,7 +70,7 @@ export function Stay() {
               <Suggestion
                 name="Stanleys"
                 price="moderate"
-                description="Popular Richmond restaurant known for its welcoming atmosphere and locally-sourced American cuisine."
+                description="Popular Richmond restaurant known for its welcoming atmosphere, locally-sourced American cuisine, and wonderful cheesteaks."
               />
               <Suggestion
                 name="Cochiloco"
@@ -81,7 +80,12 @@ export function Stay() {
               <Suggestion
                 name="The Roosevelt"
                 price="expensive"
-                description="Upscale Southern restaurant offering refined comfort food and an extensive bourbon selection in an elegant setting."
+                description="Upscale Southern restaurant offering refined comfort food and an extensive bourbon selection in an elegant setting. (Hunter's Favorite)"
+              />
+              <Suggestion
+                name="Grisette"
+                price="expensive"
+                description="Easygoing restaurant with vintage surrounds serving meat & cheese boards, plus steaks & desserts. (Katy's Favorite)"
               />
               <Suggestion
                 name="Alewife"
@@ -102,6 +106,11 @@ export function Stay() {
                 description="Richmond's first worker-owned coffee cooperative featuring specialty single-origin beans and community-focused atmosphere."
               />
               <Suggestion
+                name="Blanchard's Coffee Broad Street"
+                price="cheap"
+                description="Bustling coffee shop serving espresso drinks, pour overs and drip coffee, plus tea, and pastries. (Katy's Favorite)"
+              />
+              <Suggestion
                 name="Brambly Park"
                 price="moderate"
                 description="Unique multi-purpose venue combining a two-acre outdoor park, Southern Italian restaurant, and winery in Scott's Addition."
@@ -119,7 +128,7 @@ export function Stay() {
               <Suggestion
                 name="The Jasper"
                 price="moderate"
-                description="Intimate neighborhood bar and restaurant offering craft cocktails and elevated comfort food in a cozy setting."
+                description="Intimate neighborhood bar and restaurant offering craft cocktails and elevated comfort food in a cozy setting. (Hunter's Favorite)"
               />
               <Suggestion
                 name="Get Tight Lounge"
@@ -132,6 +141,10 @@ export function Stay() {
               <Suggestion
                 name="Virginia Museum of Fine Arts"
                 description="Major cultural institution featuring diverse art collections and exhibitions in Richmond's Museum District."
+              />
+              <Suggestion
+                name="Virginia Museum of History and Culture"
+                description="A 1913 neoclassical building houses a research library & expansive collection of Virginia artifacts."
               />
               <Suggestion
                 name="Lewis Ginter Botanical Garden"

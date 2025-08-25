@@ -18,15 +18,14 @@ export function Wedding() {
           <Day date="5/15" dow="Friday">
             <Event name="Welcome Party">
               <EventDetail label="Time">
-                <span className="font-medium">4PM to 8PM</span>
+                <span className="font-medium">5PM to 10PM</span>
               </EventDetail>
               <EventDetail label="Place">
                 Laura Lee’s <br /> 3410 Semmes Ave, <br />
                 Richmond, VA 23225
               </EventDetail>
               <EventDetail label="Attire">
-                Cocktail; dresses (knee-length, midi, or cocktail length), jumpsuits, or dressy separates, suit and tie,
-                or a blazer with dress pants.
+                Cocktail; knee-length, midi, or cocktail dresses, jumpsuits, suit and tie, or a blazer with dress pants.
               </EventDetail>
               <EventDetail label="Details">
                 Toast to the start of a wonderful wedding weekend with drinks, light bites, and good company as we
@@ -46,7 +45,7 @@ export function Wedding() {
 
               <EventDetail label="Attire">
                 Springtime Black Tie; Floor-length gowns in colorful or patterned fabrics, classic tuxedos, and colorful
-                expressions of black tie are encouraged.
+                expressions of black tie are all welcome.
               </EventDetail>
 
               <EventDetail label="Details">
@@ -63,7 +62,7 @@ export function Wedding() {
               </EventDetail>
 
               <EventDetail label="Details">
-                Keep the celebration going right after the reception with more food, drink, music, and dancing!
+                Keep the celebration going right after the reception with more food, drinks, and dancing!
               </EventDetail>
             </Event>
           </Day>

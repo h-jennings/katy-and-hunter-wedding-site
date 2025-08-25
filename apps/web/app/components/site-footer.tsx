@@ -69,10 +69,10 @@ export function SiteFooter() {
           </div>
           <div className="flex items-center justify-between gap-[1ch]">
             <span className="block font-medium font-sans text-sm md:text-lg">The Virginia House</span>
-            <span className="sm:-translate-x-1/2 left-1/2 z-1 font-medium font-sans text-sm text-text-secondary sm:absolute md:text-lg">
+            <span className="sm:-translate-x-1/2 left-1/2 z-1 hidden font-medium font-sans text-sm text-text-secondary sm:absolute sm:block md:text-lg">
               16 May 2026
             </span>
-            <span className="hidden font-medium font-sans text-sm sm:block md:text-lg">See you there</span>
+            <span className="block font-medium font-sans text-sm md:text-lg">See you there</span>
           </div>
         </div>
       </Container>
