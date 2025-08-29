@@ -25,8 +25,8 @@ export const fancyHeading = tv({
   base: "font-script text-text-primary leading-none",
   variants: {
     size: {
-      lg: "text-[clamp(3rem,1.0714285714285716rem+5.357142857142857vw,4.5rem)]",
-      md: "text-[clamp(2.25rem,1.2857142857142858rem+2.6785714285714284vw,3rem)]",
+      lg: "text-[clamp(3rem,1.0714285714285716rem+5.357142857142857vw,4.5rem)] leading-none",
+      md: "text-[clamp(2.25rem,1.2857142857142858rem+2.6785714285714284vw,3rem)] leading-none",
     },
   },
   defaultVariants: {
