@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Kapakana } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
 import { SiteLayout } from "~/app/components/primary-layout";
 
 const geistSans = localFont({
@@ -93,6 +94,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${kapakana.variable}`}>
         <SiteLayout>{children}</SiteLayout>
+        <Analytics />
       </body>
     </html>
   );
