@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import * as React from "react";
 import { useIsClient, useMediaQuery, useOnClickOutside, useScrollLock } from "usehooks-ts";
 import { PRIMARY_NAVIGATION } from "../constants/navigation.constants";
+import { Rsvp } from "./rsvp";
 
 export function SiteHeader() {
   const { isLocked: isMenuOpen, lock, unlock } = useScrollLock({ autoLock: false });
@@ -76,10 +77,8 @@ export function SiteHeader() {
             >
               16 May 2026
             </span>
-            <div className="relative z-1 flex gap-3">
-              <Link href="" className="flex px-2 font-medium font-sans text-sm text-text-primary md:text-lg">
-                RSVP
-              </Link>
+            <div className="relative z-1">
+              <Rsvp />
             </div>
           </nav>
         </div>
