@@ -21,7 +21,7 @@ export function Hero() {
             alt="Kathryn Pentz and Hunter Jennings embracing outdoors in an engagement photo, smiling at each other in Richmond, Virginia"
             fill
             src="/katy-and-hunter-hero-image.webp"
-            className="z-0 object-cover brightness-75 contrast-125 grayscale saturate-0"
+            className="z-0 object-cover object-[60%_center] brightness-75 contrast-125 grayscale saturate-0"
           />
         </div>
       </div>
