@@ -11,12 +11,14 @@ export function Story() {
         </h2>
         <h3 className={fancyHeading({ size: "lg" })}>A Night in the District</h3>
         <p className={callout({ className: "mx-auto w-full max-w-site-container-w-inner lg:text-center" })}>
-          Their journey began, as many great love stories do, serendipitously on a night out in Washington, D.C. On the
-          dance floor of Tropicalia, a basement bar and club, an undeniable gravity drew Hunter and Katy together. What
-          started as a night in the District quickly blossomed into dinner dates, weekends spent at Katy's D.C.
-          apartment, and the adventure of memorable firsts—like Katy's first trip to Richmond and Hunter's to Florida.
-          Step by step, their lives intertwined, from separate apartments to shared ones, then to a Richmond home and
-          the adoption of their beloved dog, Buoy.
+          Their journey began, as many great love stories do, at a bar. After meeting serendipitously on the dance floor
+          of Tropicalia, a basement bar and club, a night of dancing and late-night pizza turned into dates at Barcelona
+          Wine Bar and the Hirshhorn museum. Weekends spent exploring Washington, D.C. turned into weekend trips to
+          Richmond, where Katy met Hunter's family and friends, and to Florida, where Hunter met Katy's. Over the course
+          of the next six years, they would share in adventures, accomplishments, and eventually an apartment. In 2022,
+          the two moved their lives to Richmond, where they bought their first home and were adopted by their beloved
+          dog, Buoy. In July 2024, Hunter hid a ring box in a pair of socks to pop the question midway through a
+          six-mile hike in Lovingston, Virginia. Katy said, "yes".
         </p>
       </ContainerInner>
     </Container>
