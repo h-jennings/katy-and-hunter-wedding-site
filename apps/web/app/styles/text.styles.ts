@@ -11,7 +11,7 @@ export const callout = tv({
 });
 
 export const chunky = tv({
-  base: "font-black text-lg text-text-primary uppercase leading-none tracking-tighter",
+  base: "font-black text-lg text-text-primary uppercase leading-none tracking-tight",
 });
 
 /**
