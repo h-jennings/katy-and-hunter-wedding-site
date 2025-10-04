@@ -2,9 +2,9 @@
 
 @theme {
   --color-off-white: #fbfaf2;
-  --color-black: #171717;
+  --color-black: #222222;
   --color-neutral: #9f9f9f;
-  --color-orange: #ec4926;
+  --color-orange: #bf5d2e;
   --color-accent: var(--color-orange);
   --color-bg-foundation: var(--color-off-white);
   --color-bg-inverse: var(--color-black);
