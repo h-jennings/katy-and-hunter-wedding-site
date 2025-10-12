@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Container, ContainerInner } from "~/app/components/container";
 import { ANCHORS } from "~/app/constants/anchors.constants";
 import { chunky, copy, fancyHeading, label } from "~/app/styles/text.styles";
+import { AirBnbLogomark } from "./airbnb-logomark";
 
 export function Stay() {
   return (
@@ -59,6 +60,7 @@ export function Stay() {
               </div>
             </div>
           </div>
+          <AirbnbWishlistCallout />
           <div className="flex flex-wrap gap-x-14 gap-y-16">
             <div className="flex min-w-[min(30ch,100%)] flex-1 flex-col items-center gap-y-8">
               <h3 className={fancyHeading({ size: "md", className: "text-center" })}>Eat</h3>
@@ -183,6 +185,62 @@ function Suggestion({ name, price, description }: { name: string; price?: Price;
         </span>
       </div>
       <div className={copy()}>{description}</div>
+    </div>
+  );
+}
+
+const WISHLIST_URL = "https://www.airbnb.com/wishlists/v/1345405123";
+
+function AirbnbWishlistCallout() {
+  return (
+    <div className="flex flex-col items-center gap-7 py-7 text-center">
+      <h3 className={chunky({ className: "hidden scroll-mt-20 sm:block" })}>See Our Airbnb list</h3>
+      <div className="flex flex-col items-center justify-center gap-y-3">
+        <p className="flex items-baseline gap-x-[2ch]">
+          <span className={fancyHeading({ size: "md", className: "hidden sm:inline-block" })}>
+            Let's find <span className="sr-only">your stay</span>
+          </span>
+          <Link
+            href={WISHLIST_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="relative inline-block rounded-xl px-5.5 py-2.5 transition-all duration-200 hover:scale-[0.98] hover:opacity-80 active:scale-[0.95]"
+            style={{
+              boxShadow:
+                "rgba(255, 255, 255, 0.06) 0px -12px 16px 0px inset, rgba(255, 255, 255, 0.16) 0px 4px 16px 0px inset, rgba(255, 255, 255, 0.12) 0px 0.75px 0.25px 0px inset, rgba(255, 255, 255, 0.32) 0px 0.25px 0.25px 0px inset, rgba(0, 0, 0, 0.02) 0px 6px 12px 0px, rgba(0, 0, 0, 0.03) 0px 3px 6px 0px, rgba(0, 0, 0, 0.03) 0px 1px 2px 0px, rgba(0, 0, 0, 0.06) 0px 0.5px 0.5px 0px, rgba(0, 0, 0, 0.04) 0px 3px 6px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px",
+              background:
+                "linear-gradient(rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0.24) 100%), rgba(255, 90, 95, 0.06)",
+            }}
+          >
+            <span
+              className="pointer-events-none absolute inset-0 block h-full w-full rounded-[inherit] p-[1px]"
+              style={{
+                backgroundImage:
+                  "linear-gradient(to top, rgba(153, 153, 153, 0) 5%, rgba(255, 255, 255, 0.24) 20%, rgba(153, 153, 153, 0.24) 40%, rgba(255, 255, 255, 0) 100%)",
+                mask: "linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0)",
+                maskComposite: "exclude",
+              }}
+            />
+            <span className="flex items-center gap-x-[0.75ch]">
+              <AirBnbLogomark className="h-[0.75lh] w-auto" />
+              <span
+                className="bg-clip-text font-medium font-sans text-base text-gradient text-transparent transition-all"
+                style={{
+                  backgroundImage: "linear-gradient(0deg, rgb(153, 153, 153) 0%, rgb(61, 61, 61) 100%)",
+                }}
+              >
+                Airbnb Wishlist
+              </span>
+            </span>
+          </Link>
+          <span aria-hidden className={fancyHeading({ size: "md", className: "hidden sm:inline-block" })}>
+            your stay
+          </span>
+        </p>
+        <p className={copy({ className: "text-center text-text-secondary sm:hidden" })}>
+          See our curated list of rentals
+        </p>
+      </div>
     </div>
   );
 }
