@@ -13,7 +13,9 @@
     "db:migrate": "drizzle-kit migrate",
     "db:generate": "drizzle-kit generate",
     "db:push": "drizzle-kit push",
-    "db:pull": "drizzle-kit pull"
+    "db:pull": "drizzle-kit pull",
+    "db:seed": "tsx ./src/seed.ts",
+    "db:seed:reset": "tsx ./src/reset.ts"
   },
   "license": "ISC",
   "dependencies": {
@@ -28,6 +30,7 @@
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
     "drizzle-kit": "^0.31.5",
+    "drizzle-seed": "^0.3.1",
     "tsx": "^4.20.6",
     "typescript": "5.9.2"
   }
