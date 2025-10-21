@@ -1,19 +1,15 @@
-import { config } from "dotenv";
 import { seed } from "drizzle-seed";
 import { db } from ".";
 import * as schema from "./schema";
 
-config({ path: ".env.development.local" });
-
 async function main() {
-  // Seed parties, guests, and events (but not rsvps yet - we'll do those manually)
   await seed(db, schema).refine((f) => {
     return {
       parties: {
         count: 50,
         columns: {
           displayName: f.companyName(),
-          phoneNumber: f.phoneNumber({ template: "###-###-####" }), // Max 12 chars to fit in varchar(20)
+          phoneNumber: f.phoneNumber({ template: "###-###-####" }),
           address: f.streetAddress(),
           notes: f.loremIpsum(),
           email: f.email(),
@@ -34,12 +30,11 @@ async function main() {
         },
       },
       rsvps: {
-        count: 0, // Don't auto-generate RSVPs - we'll create them manually below
+        count: 0,
       },
     };
   });
 
-  // Manually create RSVPs to ensure each guest has exactly one RSVP per event
   console.log("Creating RSVPs for all guests and events...");
 
   const allGuests = await db.select({ id: schema.guests.id }).from(schema.guests);
