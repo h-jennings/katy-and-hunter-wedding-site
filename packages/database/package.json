@@ -10,24 +10,29 @@
     "./utils": "./src/utils/index.ts"
   },
   "scripts": {
-    "db:migrate": "drizzle-kit migrate",
-    "db:generate": "drizzle-kit generate",
-    "db:push": "drizzle-kit push",
-    "db:pull": "drizzle-kit pull",
-    "db:seed": "tsx ./src/seed.ts",
-    "db:seed:reset": "tsx ./src/reset.ts"
+    "db:migrate": "dotenvx run -f .env.development.local -- drizzle-kit migrate",
+    "db:migrate:prod": "dotenvx run -f .env.production.local -- drizzle-kit migrate",
+    "db:generate": "dotenvx run -f .env.development.local -- drizzle-kit generate",
+    "db:generate:prod": "dotenvx run -f .env.production.local -- drizzle-kit generate",
+    "db:push": "dotenvx run -f .env.development.local -- drizzle-kit push",
+    "db:push:prod": "dotenvx run -f .env.production.local -- drizzle-kit push",
+    "db:pull": "dotenvx run -f .env.development.local -- drizzle-kit pull",
+    "db:pull:prod": "dotenvx run -f .env.production.local -- drizzle-kit pull",
+    "db:seed": "dotenvx run -f .env.development.local -- tsx ./src/seed.ts",
+    "db:seed:prod": "dotenvx run -f .env.production.local -- tsx ./src/seed.ts",
+    "db:seed:reset": "dotenvx run -f .env.development.local -- tsx ./src/reset.ts",
+    "db:seed:reset:prod": "dotenvx run -f .env.production.local -- tsx ./src/reset.ts"
   },
   "license": "ISC",
   "dependencies": {
     "@neondatabase/serverless": "^1.0.2",
-    "dotenv": "^17.2.3",
-    "dotenv-expand": "^12.0.3",
     "drizzle-orm": "^0.44.6",
     "drizzle-zod": "^0.8.3",
     "nanoid": "^5.1.6",
     "zod": "^4.1.12"
   },
   "devDependencies": {
+    "@dotenvx/dotenvx": "^1.51.0",
     "@repo/typescript-config": "workspace:*",
     "drizzle-kit": "^0.31.5",
     "drizzle-seed": "^0.3.1",
