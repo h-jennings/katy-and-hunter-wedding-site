@@ -5,9 +5,8 @@ import { usePathname } from "next/navigation";
 import * as React from "react";
 import { useIsClient, useMediaQuery, useOnClickOutside, useScrollLock } from "usehooks-ts";
 import { PRIMARY_NAVIGATION } from "../constants/navigation.constants";
-import { Rsvp } from "./rsvp";
 
-export function SiteHeader() {
+export function SiteHeader({ children }: { children: React.ReactNode }) {
   const { isLocked: isMenuOpen, lock, unlock } = useScrollLock({ autoLock: false });
   const pathname = usePathname();
   const currentPath = React.useRef(pathname);
@@ -77,9 +76,7 @@ export function SiteHeader() {
             >
               16 May 2026
             </span>
-            <div className="relative z-1">
-              <Rsvp />
-            </div>
+            <div className="relative z-1">{children}</div>
           </nav>
         </div>
         {isMobileScreen && isClient && (
