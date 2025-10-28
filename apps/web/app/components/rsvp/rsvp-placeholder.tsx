@@ -1,8 +1,14 @@
-"use client";
-import { chunky } from "../styles/text.styles";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "./dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "~/app/components/dialog";
+import { chunky } from "~/app/styles/text.styles";
 
-export function Rsvp() {
+export function RsvpPlaceholder() {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -22,4 +28,3 @@ export function Rsvp() {
     </Dialog>
   );
 }
-export const RSVP_DIALOG_ID = "rsvp-dialog" as const;
