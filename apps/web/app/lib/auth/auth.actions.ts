@@ -1,0 +1,30 @@
+import "server-only";
+
+export async function verifyCode(code: string) {
+  "use server";
+  if (code !== process.env.INVITE_CODE) return { error: "Invalid code" };
+  // set cookie with {authorized: true}
+  // redirect("/rsvp");
+}
+
+export async function lookupParty(name: string) {
+  "use server";
+  // search guests by LOWER(TRIM(first_name)) and LOWER(TRIM(last_name))
+  // if 0 results: show error + email fallback option
+  // if 1 result: set cookie with {authorized: true, partyId}
+  // if multiple: show party picker UI
+}
+export async function submitRsvp(formData: FormData) {
+  "use server";
+  // const { partyId } = jwt.verify(token);
+  // verify all guest_ids belong to this party
+  // upsert rsvps with status='attending' or 'declined'
+  // set parties.responded_at = now()
+  // update parties.notes if provided
+}
+
+export async function clearPartySelection() {
+  "use server";
+  // set cookie with {authorized: true} only (remove partyId)
+  // redirect("/rsvp");
+}
