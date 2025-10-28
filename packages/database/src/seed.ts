@@ -13,6 +13,7 @@ async function main() {
           address: f.streetAddress(),
           notes: f.loremIpsum(),
           email: f.email(),
+          respondedAt: f.default({ defaultValue: null }),
         },
       },
       guests: {

@@ -1,20 +1,24 @@
-import { ANCHORS } from "./anchors.constants";
+import { ANCHORS } from "~/app/constants/anchors.constants";
 
 export const PRIMARY_NAVIGATION = [
   {
     label: "Story",
-    href: ANCHORS.OUR_STORY,
+    path: "/",
+    hash: ANCHORS.OUR_STORY,
   },
   {
     label: "Events",
-    href: ANCHORS.EVENTS,
+    path: "/",
+    hash: ANCHORS.EVENTS,
   },
   {
     label: "Stay",
-    href: ANCHORS.STAY,
+    path: "/",
+    hash: ANCHORS.STAY,
   },
   {
     label: "Registry",
-    href: ANCHORS.REGISTRY,
+    path: "/",
+    hash: ANCHORS.REGISTRY,
   },
-] satisfies Array<{ label: string; href: string }>;
+] satisfies Array<{ label: string; path: string; hash: string }>;
