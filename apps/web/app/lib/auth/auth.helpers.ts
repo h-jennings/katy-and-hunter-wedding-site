@@ -2,7 +2,7 @@ import "server-only";
 
 import { type JWTPayload, jwtVerify, SignJWT } from "jose";
 import { cookies } from "next/headers";
-import { AUTH_TOKEN, secretKey } from "./auth.constants";
+import { AUTH_TOKEN, authSecret } from "./auth.constants";
 
 export async function getAuthState() {
   const token = (await cookies()).get(AUTH_TOKEN)?.value;
@@ -11,7 +11,7 @@ export async function getAuthState() {
   return { authorized: payload?.authorized ?? false, partyId: payload?.partyId ?? null };
 }
 
-const encodedKey = new TextEncoder().encode(secretKey);
+const encodedKey = new TextEncoder().encode(authSecret);
 
 interface AuthPayload extends JWTPayload {
   authorized: boolean;

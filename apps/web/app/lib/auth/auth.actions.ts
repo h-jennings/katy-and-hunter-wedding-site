@@ -1,7 +1,11 @@
+"use server";
 import "server-only";
 import { createAuthJwt } from "./auth.helpers";
 
 type CodeVerificationResponse =
+  | {
+      status: "idle";
+    }
   | {
       status: "success";
     }
@@ -10,7 +14,6 @@ type CodeVerificationResponse =
       message: string;
     };
 export async function verifyCode(code: string): Promise<CodeVerificationResponse> {
-  "use server";
   if (code.toUpperCase().trim() !== process.env.INVITE_CODE) {
     return { status: "error", message: "Invalid code" };
   }
@@ -20,6 +23,7 @@ export async function verifyCode(code: string): Promise<CodeVerificationResponse
   return { status: "success" };
 }
 
+/*
 export async function lookupParty(name: string) {
   "use server";
   // search guests by LOWER(TRIM(first_name)) and LOWER(TRIM(last_name))
@@ -41,3 +45,5 @@ export async function clearPartySelection() {
   // set cookie with {authorized: true} only (remove partyId)
   // redirect("/rsvp");
 }
+
+*/
