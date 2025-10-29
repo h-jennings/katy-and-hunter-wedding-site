@@ -1,10 +1,11 @@
 import "server-only";
+import { createAuthJwt } from "./auth.helpers";
 
 export async function verifyCode(code: string) {
   "use server";
-  if (code !== process.env.INVITE_CODE) return { error: "Invalid code" };
-  // set cookie with {authorized: true}
-  // redirect("/rsvp");
+  if (code.toUpperCase().trim() !== process.env.INVITE_CODE) return { error: "Invalid code" };
+
+  await createAuthJwt({ authorized: true, partyId: null });
 }
 
 export async function lookupParty(name: string) {

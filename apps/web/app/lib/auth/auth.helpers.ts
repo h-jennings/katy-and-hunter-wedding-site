@@ -1,18 +1,24 @@
 import "server-only";
 
-import { jwtVerify, SignJWT } from "jose";
+import { type JWTPayload, jwtVerify, SignJWT } from "jose";
 import { cookies } from "next/headers";
-import { AUTH_TOKEN_KEY, secretKey } from "./auth.constants";
+import { AUTH_TOKEN, secretKey } from "./auth.constants";
 
 export async function getAuthState() {
-  const token = (await cookies()).get(AUTH_TOKEN_KEY)?.value;
+  const token = (await cookies()).get(AUTH_TOKEN)?.value;
+  const payload = await decrypt(token);
 
-  return token;
+  return { authorized: payload?.authorized ?? false, partyId: payload?.partyId ?? null };
 }
 
 const encodedKey = new TextEncoder().encode(secretKey);
 
-export async function encrypt(payload: { [x: string]: unknown }) {
+interface AuthPayload extends JWTPayload {
+  authorized: boolean;
+  partyId: string | null;
+}
+
+export async function encrypt(payload: AuthPayload) {
   return new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
@@ -20,13 +26,25 @@ export async function encrypt(payload: { [x: string]: unknown }) {
     .sign(encodedKey);
 }
 
-export async function decrypt(session: string | undefined = "") {
+export async function decrypt(jwt: string | undefined = "") {
   try {
-    const { payload } = await jwtVerify(session, encodedKey, {
+    const { payload } = await jwtVerify<AuthPayload>(jwt, encodedKey, {
       algorithms: ["HS256"],
     });
     return payload;
-  } catch (error) {
+  } catch (_error) {
     console.log("Failed to ");
   }
+}
+
+export async function createAuthJwt(payload: AuthPayload) {
+  const jwt = await encrypt(payload);
+  const cookieStore = await cookies();
+
+  cookieStore.set(AUTH_TOKEN, jwt, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    maxAge: 60 * 60 * 24 * 30, // 30 days
+  });
 }
