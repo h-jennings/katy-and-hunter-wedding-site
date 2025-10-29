@@ -1,11 +1,23 @@
 import "server-only";
 import { createAuthJwt } from "./auth.helpers";
 
-export async function verifyCode(code: string) {
+type CodeVerificationResponse =
+  | {
+      status: "success";
+    }
+  | {
+      status: "error";
+      message: string;
+    };
+export async function verifyCode(code: string): Promise<CodeVerificationResponse> {
   "use server";
-  if (code.toUpperCase().trim() !== process.env.INVITE_CODE) return { error: "Invalid code" };
+  if (code.toUpperCase().trim() !== process.env.INVITE_CODE) {
+    return { status: "error", message: "Invalid code" };
+  }
 
   await createAuthJwt({ authorized: true, partyId: null });
+
+  return { status: "success" };
 }
 
 export async function lookupParty(name: string) {
