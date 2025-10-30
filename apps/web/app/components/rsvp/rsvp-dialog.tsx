@@ -1,4 +1,3 @@
-import { chunky } from "../../styles/text.styles";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "../dialog";
 
 export async function RsvpDialog({ children }: { children: React.ReactNode }) {
@@ -10,10 +9,11 @@ export async function RsvpDialog({ children }: { children: React.ReactNode }) {
         </button>
       </DialogTrigger>
       <DialogContent className="grid aspect-[4/3] w-[min(24rem,100%)] max-w-[calc(100vw-3rem)] place-items-center">
-        <DialogHeader className="gap-4">
-          <DialogTitle className={chunky({ className: "text-center" })}>RSVP</DialogTitle>
-          <DialogDescription className="w-full max-w-prose text-pretty text-center text-text-primary">
-            Here's how you can RSVP:
+        <DialogHeader>
+          <DialogTitle>RSVP</DialogTitle>
+          <DialogDescription className="sr-only">
+            Please walk through the steps to RSVP. This is a multi-step process that will guide you through the process
+            of RSVPing to the wedding.
           </DialogDescription>
         </DialogHeader>
         <div>{children}</div>

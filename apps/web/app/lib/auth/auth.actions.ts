@@ -13,7 +13,11 @@ type CodeVerificationResponse =
       status: "error";
       message: string;
     };
-export async function verifyCode(code: string): Promise<CodeVerificationResponse> {
+export async function verifyCode(
+  _initialState: CodeVerificationResponse,
+  formData: FormData,
+): Promise<CodeVerificationResponse> {
+  const code = formData.get("code") as string;
   if (code.toUpperCase().trim() !== process.env.INVITE_CODE) {
     return { status: "error", message: "Invalid code" };
   }
