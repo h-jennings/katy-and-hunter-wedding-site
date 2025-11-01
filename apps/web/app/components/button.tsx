@@ -14,7 +14,7 @@ export function Button({ prefix, className, asChild, children, accentColor = "#0
     <Comp
       {...props}
       className={twMerge(
-        "relative inline-block rounded-xl px-5.5 py-2.5 transition-all duration-200 [--bg-accent:var(--bg-accent-color)]/[0.06] hover:scale-[0.98] hover:opacity-80 active:scale-[0.95]",
+        "relative inline-block rounded-xl px-5.5 py-2.5 transition-all duration-200 [--bg-accent:var(--bg-accent-color)]/[0.06] hover:scale-[0.98] hover:opacity-80 focus-visible:outline-2 focus-visible:outline-[#D2D2D3] active:scale-[0.95]",
         className,
       )}
       style={

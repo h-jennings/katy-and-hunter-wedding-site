@@ -8,9 +8,9 @@ export async function RsvpDialog({ children }: { children: React.ReactNode }) {
           RSVP
         </button>
       </DialogTrigger>
-      <DialogContent className="grid aspect-[4/3] w-[min(24rem,100%)] max-w-[calc(100vw-3rem)] place-items-center">
+      <DialogContent className="grid w-[min(24rem,100%)] max-w-[calc(100vw-3rem)] place-items-center outline-none">
         <DialogHeader>
-          <DialogTitle>RSVP</DialogTitle>
+          <DialogTitle className="sr-only">RSVP</DialogTitle>
           <DialogDescription className="sr-only">
             Please walk through the steps to RSVP. This is a multi-step process that will guide you through the process
             of RSVPing to the wedding.
