@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { verifyCode } from "~/app/lib/auth/auth.actions";
+import { verifyCode } from "~/app/lib/auth/verify-code.actions";
 import { chunky, copy } from "~/app/styles/text.styles";
 import { Button } from "../button";
 import { Input } from "../input";
