@@ -8,6 +8,8 @@ type PartyLookupResponse =
     };
 
 export async function lookupParty(_initialState: PartyLookupResponse, formData: FormData) {
+  const fullName = formData.get("full_name")?.toString().trim().toLowerCase();
+  console.log(fullName);
   // search guests by LOWER(TRIM(first_name)) and LOWER(TRIM(last_name))
   // if 0 results: show error + email fallback option
   // if 1 result: set cookie with {authorized: true, partyId}

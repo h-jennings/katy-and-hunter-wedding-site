@@ -18,7 +18,7 @@ export function RsvpVerifyCodeForm() {
           <label htmlFor="code" className="sr-only">
             Code:
           </label>
-          <Input type="text" autoComplete="" name="code" placeholder="Shhh..." />
+          <Input type="text" minLength={1} required name="code" placeholder="Shhh..." />
         </div>
       </div>
       <Button type="submit" onClick={() => setSubmitCount((count) => count + 1)} disabled={isPending}>
