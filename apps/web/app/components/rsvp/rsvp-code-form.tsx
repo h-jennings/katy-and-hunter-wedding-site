@@ -12,7 +12,7 @@ export function RsvpVerifyCodeForm() {
 
   return (
     <form action={submitAction} className="flex flex-col items-center gap-y-6 text-center">
-      <div className="flex flex-col items-center gap-y-4 pt-14 text-center">
+      <div className="flex flex-col items-center gap-y-4 px-4 pt-14 text-center">
         <h2 className={chunky()}>Enter your super secret code</h2>
         <div>
           <label htmlFor="code" className="sr-only">
