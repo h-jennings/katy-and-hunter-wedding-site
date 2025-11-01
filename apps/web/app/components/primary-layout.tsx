@@ -10,6 +10,7 @@ export function SiteLayout({ children }: { children: React.ReactNode }) {
     <div className="isolate">
       <Noise />
       <SiteHeader>
+        {/** The RSVP action should be a link to the RSVP page when the user has a valid partyId and is authenticated */}
         {process.env.NEXT_PUBLIC_RELEASE_RSVP === "true" ? (
           <RsvpDialog>
             <Rsvp />
