@@ -1,25 +1,45 @@
 "use client";
 
-import { useActionState } from "react";
+import * as React from "react";
 import { verifyCode } from "~/app/lib/auth/auth.actions";
-import { copy } from "~/app/styles/text.styles";
+import { chunky, copy } from "~/app/styles/text.styles";
 import { Button } from "../button";
+import { Input } from "../input";
 
 export function RsvpVerifyCodeForm() {
-  const [state, submitAction, isPending] = useActionState(verifyCode, { status: "idle" });
+  const [state, submitAction, isPending] = React.useActionState(verifyCode, { status: "idle" });
+  const [submitCount, setSubmitCount] = React.useState(0);
 
   return (
     <form action={submitAction} className="flex flex-col items-center gap-y-6 text-center">
-      <div className="flex flex-col items-center gap-y-4 text-center">
-        <h2 className={copy()}>Enter your super secret code</h2>
-        <input
-          type="text"
-          name="code"
-          placeholder="Enter the secret code"
-          className="h-10 w-full min-w-0 rounded-lg border border-black/10 bg-transparent px-3 py-1 text-base/none text-gray-700 outline-none transition-all duration-200 hover:border-gray-400 focus:border-gray-400 focus:shadow-[0px_0px_1px_2px_#D2D2D3]"
-        />
+      <div className="flex flex-col items-center gap-y-4 pt-14 text-center">
+        <h2 className={chunky()}>Enter your super secret code</h2>
+        <div>
+          <label htmlFor="code" className="sr-only">
+            Code:
+          </label>
+          <Input type="text" autoComplete="" name="code" placeholder="Shhh..." />
+        </div>
       </div>
-      <Button disabled={isPending}>Verify Code</Button>
+      <Button type="submit" onClick={() => setSubmitCount((count) => count + 1)} disabled={isPending}>
+        Verify Code
+      </Button>
+      <div className="mb-4 h-10">
+        {!isPending && state.status === "error" && (
+          <p className={copy({ className: "text-red-700" })}>
+            {ERROR_MESSAGE_COPY[(submitCount - 1) % ERROR_MESSAGE_COPY.length]}
+          </p>
+        )}
+      </div>
     </form>
   );
 }
+
+const ERROR_MESSAGE_COPY = [
+  "Sorry...no dice",
+  "Still not it...",
+  <span key="error-message">
+    Looks like you're having trouble.
+    <br /> Shoot Katy a text {process.env.NEXT_PUBLIC_KATY_PHONE}.
+  </span>,
+];

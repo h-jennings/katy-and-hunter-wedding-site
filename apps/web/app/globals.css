@@ -73,10 +73,6 @@ html {
   scroll-behavior: smooth;
 }
 
-html:has(dialog[open]:modal) {
-  overflow: hidden;
-}
-
 body {
   color: var(--color-text-primary);
   background: var(--color-bg-foundation);
