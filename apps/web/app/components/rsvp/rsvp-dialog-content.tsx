@@ -3,7 +3,7 @@ import { getAuthState } from "~/app/lib/auth/auth.helpers";
 import { RsvpVerifyCodeForm } from "./rsvp-code-form";
 import { RsvpPartyLookup } from "./rsvp-party-lookup";
 
-export async function Rsvp() {
+export async function RsvpDialogContent() {
   const state = await getAuthState();
 
   return (

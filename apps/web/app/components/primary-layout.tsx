@@ -1,7 +1,7 @@
 import { SiteHeader } from "~/app/components/site-header";
 import { Noise } from "./noise";
-import { Rsvp } from "./rsvp/rsvp";
 import { RsvpDialog } from "./rsvp/rsvp-dialog";
+import { RsvpDialogContent } from "./rsvp/rsvp-dialog-content";
 import { RsvpPlaceholder } from "./rsvp/rsvp-placeholder";
 import { SiteFooter } from "./site-footer";
 
@@ -13,7 +13,7 @@ export function SiteLayout({ children }: { children: React.ReactNode }) {
         {/** The RSVP action should be a link to the RSVP page when the user has a valid partyId and is authenticated */}
         {process.env.NEXT_PUBLIC_RELEASE_RSVP === "true" ? (
           <RsvpDialog>
-            <Rsvp />
+            <RsvpDialogContent />
           </RsvpDialog>
         ) : (
           <RsvpPlaceholder />
