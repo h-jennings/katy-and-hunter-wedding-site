@@ -6,13 +6,25 @@ type PartyLookupResponse =
   | { status: "idle" }
   | {
       status: "success";
+      data: Array<{
+        id: string;
+        displayName: string;
+        guests: Array<{
+          id: string;
+          firstName: string;
+          lastName: string;
+        }>;
+      }>;
     }
   | {
       status: "error";
       message: string;
     };
 
-export async function lookupParty(_initialState: PartyLookupResponse, formData: FormData) {
+export async function lookupParty(
+  _initialState: PartyLookupResponse,
+  formData: FormData,
+): Promise<PartyLookupResponse> {
   const fullName = formData.get("full_name")?.toString().trim().toLowerCase();
 
   if (!fullName) {
@@ -25,6 +37,24 @@ export async function lookupParty(_initialState: PartyLookupResponse, formData: 
   const [firstName, lastName] = splitFullNameIntoParts(fullName);
 
   try {
+    const matchingGuests = await db.query.guests.findMany({
+      columns: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        partyId: true,
+      },
+      where: (guest, { ilike, and }) => {
+        if (!lastName) {
+          return ilike(guest.firstName, `%${firstName}%`);
+        }
+
+        return and(ilike(guest.firstName, `%${firstName}%`), ilike(guest.lastName, `%${lastName}%`));
+      },
+    });
+
+    const partyIds = [...new Set(matchingGuests.map((g) => g.partyId))];
+
     const partiesByFullnameLookup = await db.query.parties.findMany({
       columns: {
         id: true,
@@ -37,13 +67,16 @@ export async function lookupParty(_initialState: PartyLookupResponse, formData: 
             firstName: true,
             lastName: true,
           },
-          where: (guest, { ilike }) => {
-            return ilike(guest.firstName, `%${firstName}%`) && ilike(guest.lastName, `%${lastName}%`);
-          },
         },
       },
+      where: (party, { inArray }) => inArray(party.id, partyIds),
       limit: 3,
     });
+
+    return {
+      status: "success",
+      data: partiesByFullnameLookup,
+    };
   } catch (error) {
     console.error(error);
     return {
@@ -51,13 +84,6 @@ export async function lookupParty(_initialState: PartyLookupResponse, formData: 
       message: "An error occurred",
     };
   }
-
-  // search guests by LOWER(TRIM(first_name)) and LOWER(TRIM(last_name))
-  // if 0 results: show error + email katy fallback option option
-  // if 1 or more results: show party picker UI
-  return {
-    status: "success" as const,
-  };
 }
 
 function splitFullNameIntoParts(fullName: string): [string, string | null] {
