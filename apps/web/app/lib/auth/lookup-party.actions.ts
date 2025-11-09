@@ -1,43 +1,78 @@
 "use server";
 import { db } from "@repo/database";
+import { err, ok, ResultAsync, safeTry } from "neverthrow";
 import "server-only";
 
-type PartyLookupResponse =
-  | { status: "idle" }
+type LookupError =
+  | { type: "NAME_REQUIRED"; message: string }
   | {
-      status: "success";
-      data: Array<{
-        id: string;
-        displayName: string;
-        guests: Array<{
-          id: string;
-          firstName: string;
-          lastName: string;
-        }>;
-      }>;
+      type: "DATABASE_ERROR";
+      message: string;
+      cause?: unknown;
     }
   | {
-      status: "error";
+      type: "NO_RESULTS";
       message: string;
     };
 
-export async function lookupParty(
-  _initialState: PartyLookupResponse,
-  formData: FormData,
-): Promise<PartyLookupResponse> {
-  const fullName = formData.get("full_name")?.toString().trim().toLowerCase();
+export type PartyData = Array<{
+  id: string;
+  displayName: string;
+  guests: Array<{
+    id: string;
+    firstName: string;
+    lastName: string;
+  }>;
+}>;
 
-  if (!fullName) {
-    return {
-      status: "error",
-      message: "Name is required",
-    };
-  }
+export type LookupPartyState = { status: "success"; data: PartyData } | { status: "error"; error: LookupError } | null;
 
-  const [firstName, lastName] = splitFullNameIntoParts(fullName);
+// TODO: You wanted to use typederror classes and make a better wrapper around the db calls
+/*
 
-  try {
-    const matchingGuests = await db.query.guests.findMany({
+// db-helpers.ts
+export function queryDb<T>(queryFn: () => Promise<T>) {
+  return ResultAsync.fromPromise(
+    queryFn(),
+    (error) => ({
+      type: "DATABASE_ERROR" as const,
+      message: "Failed to query database",
+      cause: error,
+    })
+  );
+}
+
+// then use it
+const matchingGuests = yield* queryDb(() =>
+  db.query.guests.findMany({ ... })
+);
+
+*/
+export async function lookupParty(_previousState: LookupPartyState, formData: FormData): Promise<LookupPartyState> {
+  const result = await safeTry(async function* () {
+    const [firstName, lastName] = yield* parseFullName(formData);
+    const matchingGuests = yield* getMatchingGuestsFromDb(firstName, lastName);
+
+    if (matchingGuests.length === 0) {
+      return err({ type: "NO_RESULTS" as const, message: "No matching guests found" });
+    }
+
+    const partyIds = [...new Set(matchingGuests.map((g) => g.partyId))];
+
+    const parties = yield* getPartiesByIds(partyIds);
+
+    return ok(parties);
+  });
+
+  return result.match(
+    (data) => ({ status: "success" as const, data }),
+    (error) => ({ status: "error" as const, error }),
+  );
+}
+
+function getMatchingGuestsFromDb(firstName: string, lastName: string | null) {
+  return ResultAsync.fromPromise(
+    db.query.guests.findMany({
       columns: {
         id: true,
         firstName: true,
@@ -51,11 +86,20 @@ export async function lookupParty(
 
         return and(ilike(guest.firstName, `%${firstName}%`), ilike(guest.lastName, `%${lastName}%`));
       },
-    });
+    }),
+    (error) => {
+      return {
+        type: "DATABASE_ERROR" as const,
+        message: "Failed to query database",
+        cause: error,
+      };
+    },
+  );
+}
 
-    const partyIds = [...new Set(matchingGuests.map((g) => g.partyId))];
-
-    const partiesByFullnameLookup = await db.query.parties.findMany({
+function getPartiesByIds(partyIds: Array<string>) {
+  return ResultAsync.fromPromise(
+    db.query.parties.findMany({
       columns: {
         id: true,
         displayName: true,
@@ -71,19 +115,28 @@ export async function lookupParty(
       },
       where: (party, { inArray }) => inArray(party.id, partyIds),
       limit: 3,
-    });
+    }),
+    (error) => {
+      return {
+        type: "DATABASE_ERROR" as const,
+        message: "Failed to query database",
+        cause: error,
+      };
+    },
+  );
+}
 
-    return {
-      status: "success",
-      data: partiesByFullnameLookup,
-    };
-  } catch (error) {
-    console.error(error);
-    return {
-      status: "error",
-      message: "An error occurred",
-    };
+function parseFullName(formData: FormData) {
+  const fullName = formData.get("full_name")?.toString().trim().toLowerCase();
+
+  if (!fullName) {
+    return err({
+      type: "NAME_REQUIRED" as const,
+      message: "Name is required",
+    });
   }
+
+  return ok(splitFullNameIntoParts(fullName));
 }
 
 function splitFullNameIntoParts(fullName: string): [string, string | null] {

@@ -1,13 +1,13 @@
 "use client";
 import * as React from "react";
-import { lookupParty } from "~/app/lib/auth/lookup-party.actions";
+import { type LookupPartyState, lookupParty, type PartyData } from "~/app/lib/auth/lookup-party.actions";
 import { selectPartyAction } from "~/app/lib/auth/select-party.actions";
 import { chunky, copy } from "~/app/styles/text.styles";
 import { Button } from "../button";
 import { Input } from "../input";
 
 export function RsvpPartyLookup() {
-  const [state, submitAction, isPending] = React.useActionState(lookupParty, { status: "idle" as const });
+  const [state, submitAction, isPending] = React.useActionState<LookupPartyState, FormData>(lookupParty, null);
 
   return (
     <div className="flex flex-col items-center gap-y-6 px-4 text-center">
@@ -36,24 +36,36 @@ export function RsvpPartyLookup() {
           </p>
         </div>
         <Button type="submit" disabled={isPending}>
-          Search Guests
+          {isPending ? "Searching..." : "Search Guests"}
         </Button>
       </form>
       <div className="min-h-10 w-full border-black/10 not-empty:border-t">
-        {state.status === "success" && <PartyLookupResult parties={state.data} />}
+        {state?.status === "success" && <PartyLookupResult parties={state.data} />}
+        {state?.status === "error" && (
+          <>
+            {state.error.type === "NAME_REQUIRED" && (
+              <div>
+                <p className={copy({ className: "text-pretty" })}>Please enter a full name.</p>
+              </div>
+            )}
+            {state.error.type === "NO_RESULTS" && (
+              <div>
+                <p className={copy({ className: "text-pretty" })}>No party found.</p>
+              </div>
+            )}
+            {state.error.type === "DATABASE_ERROR" && (
+              <div className="rounded-md bg-red-50 p-4">
+                <p className={copy({ className: "text-red-800 text-sm" })}>Something went wrong. Please try again.</p>
+              </div>
+            )}
+          </>
+        )}
       </div>
     </div>
   );
 }
 
-function PartyLookupResult({ parties }: { parties: Array<Party> }) {
-  if (parties.length === 0) {
-    return (
-      <div>
-        <p className={copy({ className: "text-pretty" })}>No party found.</p>
-      </div>
-    );
-  }
+function PartyLookupResult({ parties }: { parties: PartyData }) {
   return (
     <ul className="w-full">
       {parties.map((p) => {
@@ -74,16 +86,4 @@ function PartyLookupResult({ parties }: { parties: Array<Party> }) {
       })}
     </ul>
   );
-}
-
-interface Guest {
-  id: string;
-  firstName: string;
-  lastName: string;
-}
-
-interface Party {
-  id: string;
-  displayName: string;
-  guests: Array<Guest>;
 }
