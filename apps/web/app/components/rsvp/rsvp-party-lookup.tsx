@@ -41,7 +41,11 @@ export function RsvpPartyLookup() {
       </form>
       <div className="min-h-10 w-full border-black/10 not-empty:border-t">
         {state?.status === "success" && <PartyLookupResult parties={state.data} />}
-        {state?.status === "error" && <PartyLookupError error={state.error} />}
+        {state?.status === "error" && (
+          <div className="p-4">
+            <PartyLookupError error={state.error} />
+          </div>
+        )}
       </div>
     </div>
   );
@@ -51,24 +55,14 @@ function PartyLookupError({ error }: { error: LookupPartyError }) {
   switch (error._tag) {
     case "NOT_FOUND": {
       return (
-        <div>
-          <p className={copy({ className: "text-pretty" })}>No party found. Please check the spelling and try again.</p>
-        </div>
+        <p className={copy({ className: "text-pretty" })}>No party found. Please check the spelling and try again.</p>
       );
     }
     case "NAME_REQUIRED": {
-      return (
-        <div>
-          <p className={copy({ className: "text-pretty" })}>Please enter a full name.</p>
-        </div>
-      );
+      return <p className={copy({ className: "text-pretty" })}>Please enter a full name.</p>;
     }
     case "DATABASE_ERROR": {
-      return (
-        <div>
-          <p className={copy({ className: "text-red-800" })}>Something went wrong. Please try again.</p>
-        </div>
-      );
+      return <p className={copy({ className: "text-red-800" })}>Something went wrong. Please try again.</p>;
     }
     default: {
       const _exhaustive: never = error;
