@@ -6,7 +6,7 @@ import { queryDbArrayOrNotFound } from "../db/query-helpers";
 import { TaggedError } from "../errors/base";
 import type { DatabaseError, NotFoundError } from "../errors/infrastructure";
 
-export async function lookupParty(_previousState: LookupPartyState, formData: FormData) {
+export async function lookupParty(_previousState: LookupPartyState, formData: FormData): Promise<LookupPartyState> {
   const result = await safeTry(async function* () {
     const [firstName, lastName] = yield* parseFullName(formData);
     const matchingGuests = yield* getMatchingGuestsFromDb(firstName, lastName);
@@ -99,8 +99,6 @@ class NameRequiredError extends TaggedError<"NAME_REQUIRED"> {
   }
 }
 
-type LookupPartyError = NameRequiredError | NotFoundError | DatabaseError;
-
 export type PartyData = Array<{
   id: string;
   displayName: string;
@@ -110,6 +108,8 @@ export type PartyData = Array<{
     lastName: string;
   }>;
 }>;
+
+type LookupPartyError = NameRequiredError | DatabaseError | NotFoundError;
 
 export type LookupPartyState =
   | { status: "success"; data: PartyData }
