@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { lookupParty, type PartyData } from "~/app/lib/auth/lookup-party.actions";
+import { type LookupPartyError, lookupParty, type PartyData } from "~/app/lib/auth/lookup-party.actions";
 import { selectPartyAction } from "~/app/lib/auth/select-party.actions";
 import { chunky, copy } from "~/app/styles/text.styles";
 import { Button } from "../button";
@@ -41,30 +41,41 @@ export function RsvpPartyLookup() {
       </form>
       <div className="min-h-10 w-full border-black/10 not-empty:border-t">
         {state?.status === "success" && <PartyLookupResult parties={state.data} />}
-        {state?.status === "error" && (
-          <>
-            {state.error._tag === "NAME_REQUIRED" && (
-              <div>
-                <p className={copy({ className: "text-pretty" })}>Please enter a full name.</p>
-              </div>
-            )}
-            {state.error._tag === "NOT_FOUND" && (
-              <div>
-                <p className={copy({ className: "text-pretty" })}>
-                  No party found. Please check the spelling and try again.
-                </p>
-              </div>
-            )}
-            {state.error._tag === "DATABASE_ERROR" && (
-              <div className="rounded-md bg-red-50 p-4">
-                <p className={copy({ className: "text-red-800 text-sm" })}>Something went wrong. Please try again.</p>
-              </div>
-            )}
-          </>
-        )}
+        {state?.status === "error" && <PartyLookupError error={state.error} />}
       </div>
     </div>
   );
+}
+
+function PartyLookupError({ error }: { error: LookupPartyError }) {
+  switch (error._tag) {
+    case "NOT_FOUND": {
+      return (
+        <div>
+          <p className={copy({ className: "text-pretty" })}>No party found. Please check the spelling and try again.</p>
+        </div>
+      );
+    }
+    case "NAME_REQUIRED": {
+      return (
+        <div>
+          <p className={copy({ className: "text-pretty" })}>Please enter a full name.</p>
+        </div>
+      );
+    }
+    case "DATABASE_ERROR": {
+      return (
+        <div>
+          <p className={copy({ className: "text-red-800" })}>Something went wrong. Please try again.</p>
+        </div>
+      );
+    }
+    default: {
+      const _exhaustive: never = error;
+
+      return null;
+    }
+  }
 }
 
 function PartyLookupResult({ parties }: { parties: PartyData }) {
