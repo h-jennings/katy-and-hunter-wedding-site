@@ -6,8 +6,8 @@ import { TaggedError } from "./base";
 export class DatabaseError extends TaggedError<"DATABASE_ERROR"> {
   readonly _tag = "DATABASE_ERROR" as const;
 
-  constructor(message = "Failed to query database", cause?: unknown) {
-    super(message, cause);
+  constructor(message = "Failed to query database") {
+    super(message);
   }
 }
 
@@ -68,8 +68,4 @@ export class UnauthorizedError extends TaggedError<"UNAUTHORIZED"> {
  * Union of all infrastructure errors.
  * These are generic errors that can occur across any domain.
  */
-export type InfrastructureError =
-  | DatabaseError
-  | ValidationError
-  | NotFoundError
-  | UnauthorizedError;
+export type InfrastructureError = DatabaseError | ValidationError | NotFoundError | UnauthorizedError;
