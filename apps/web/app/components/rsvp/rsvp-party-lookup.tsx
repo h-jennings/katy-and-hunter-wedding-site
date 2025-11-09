@@ -5,6 +5,7 @@ import { selectPartyAction } from "~/app/lib/auth/select-party.actions";
 import { chunky, copy } from "~/app/styles/text.styles";
 import { Button } from "../button";
 import { Input } from "../input";
+import { Spinner } from "../spinner";
 
 export function RsvpPartyLookup() {
   const [state, submitAction, isPending] = React.useActionState(lookupParty, null);
@@ -81,29 +82,41 @@ function PartyLookupError({ error }: { error: LookupPartyError }) {
 function PartyLookupResult({ parties }: { parties: PartyData }) {
   return (
     <ul className="w-full pt-4 pb-4">
-      {parties.map((p) => {
-        const actionWithPartyId = selectPartyAction.bind(null, p.id);
+      {parties.map((party) => {
         return (
-          <li key={p.id} className="px-4">
-            <form action={actionWithPartyId} className="flex items-center gap-4">
-              <div className="flex min-w-0 flex-1 flex-col gap-2 rounded-lg text-left">
-                <p className={copy({ className: "text-pretty font-semibold text-off-white" })}>{p.displayName}</p>
-                <p className={copy({ className: "text-pretty text-text-secondary" })}>
-                  {p.guests.map((guest) => `${guest.firstName} ${guest.lastName}`.trim()).join(", ")}
-                </p>
-              </div>
-              <div className="shrink-0">
-                <button
-                  className="relative inline-block rounded-xl bg-off-white px-4.5 py-2.5 font-medium font-sans text-black text-sm transition-all duration-200 hover:scale-[0.98] hover:opacity-80 focus-visible:outline-2 focus-visible:outline-[#D2D2D3] active:scale-[0.95]"
-                  type="submit"
-                >
-                  Select
-                </button>
-              </div>
-            </form>
+          <li key={party.id} className="px-4">
+            <PartyResult party={party} />
           </li>
         );
       })}
     </ul>
+  );
+}
+
+function PartyResult({ party }: { party: PartyData[number] }) {
+  const actionWithPartyId = selectPartyAction.bind(null, party.id);
+  const [_state, submitAction, isPending] = React.useActionState(actionWithPartyId, null);
+
+  return (
+    <form action={submitAction} className="flex items-center gap-4">
+      <div className="flex min-w-0 flex-1 flex-col gap-2 rounded-lg text-left">
+        <p className={copy({ className: "text-pretty font-semibold text-off-white" })}>{party.displayName}</p>
+        <p className={copy({ className: "text-pretty text-text-secondary" })}>
+          {party.guests.map((guest) => `${guest.firstName} ${guest.lastName}`.trim()).join(", ")}
+        </p>
+      </div>
+      <div className="shrink-0">
+        <button
+          className="relative inline-block rounded-xl bg-off-white px-4.5 py-2.5 font-medium font-sans text-black text-sm transition-all duration-200 hover:scale-[0.98] hover:opacity-80 focus-visible:outline-2 focus-visible:outline-[#D2D2D3] active:scale-[0.95]"
+          type="submit"
+          disabled={isPending}
+        >
+          <span data-loading={isPending} className="group/btn grid grid-cols-1 grid-rows-1 place-items-center">
+            <Spinner className="col-span-full row-span-full hidden group-data-[loading=true]/btn:block" />
+            <span className="visible col-span-full row-span-full group-data-[loading=true]/btn:invisible">Select</span>
+          </span>
+        </button>
+      </div>
+    </form>
   );
 }
