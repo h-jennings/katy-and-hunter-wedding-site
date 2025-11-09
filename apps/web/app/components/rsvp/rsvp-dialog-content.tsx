@@ -10,7 +10,6 @@ export async function RsvpDialogContent() {
     <div>
       {(() => {
         switch (true) {
-          // TODO: This should be a route that gets redirected to on the server, not in the modal
           case state.authorized && state.partyId != null: {
             return (
               <p>
