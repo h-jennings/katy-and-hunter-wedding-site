@@ -7,7 +7,7 @@ import { Button } from "../button";
 import { Input } from "../input";
 
 export function RsvpVerifyCodeForm() {
-  const [state, submitAction, isPending] = React.useActionState(verifyCode, { status: "idle" });
+  const [state, submitAction, isPending] = React.useActionState(verifyCode, null);
   const [submitCount, setSubmitCount] = React.useState(0);
 
   return (

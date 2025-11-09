@@ -1,53 +1,55 @@
 "use server";
 import "server-only";
+import { err, ok, safeTry } from "neverthrow";
+import { TaggedError } from "../errors/base";
 import { createAuthJwt } from "./auth.helpers";
 
 type CodeVerificationResponse =
-  | {
-      status: "idle";
-    }
   | {
       status: "success";
     }
   | {
       status: "error";
       message: string;
-    };
+    }
+  | null;
 export async function verifyCode(
   _initialState: CodeVerificationResponse,
   formData: FormData,
 ): Promise<CodeVerificationResponse> {
-  const code = formData.get("code") as string;
-  if (code.toUpperCase().trim() !== process.env.INVITE_CODE) {
-    return { status: "error", message: "Invalid code" };
+  const result = safeTry(async function* () {
+    yield* parseCode(formData);
+
+    await createAuthJwt({ authorized: true, partyId: null });
+
+    return ok(null);
+  });
+
+  return result.match(
+    () => ({
+      status: "success" as const,
+    }),
+    (error) => ({
+      status: "error" as const,
+      message: error.message,
+    }),
+  );
+}
+
+function parseCode(formData: FormData) {
+  const code = formData.get("code")?.toString();
+
+  if (!code) {
+    return err(new CodeRequired());
   }
 
-  await createAuthJwt({ authorized: true, partyId: null });
-
-  return { status: "success" };
+  return ok(null);
 }
 
-/*
-export async function lookupParty(name: string) {
-  "use server";
-  // search guests by LOWER(TRIM(first_name)) and LOWER(TRIM(last_name))
-  // if 0 results: show error + email fallback option
-  // if 1 result: set cookie with {authorized: true, partyId}
-  // if multiple: show party picker UI
-}
-export async function submitRsvp(formData: FormData) {
-  "use server";
-  // const { partyId } = jwt.verify(token);
-  // verify all guest_ids belong to this party
-  // upsert rsvps with status='attending' or 'declined'
-  // set parties.responded_at = now()
-  // update parties.notes if provided
-}
+class CodeRequired extends TaggedError<"CODE_REQUIRED"> {
+  readonly _tag = "CODE_REQUIRED" as const;
 
-export async function clearPartySelection() {
-  "use server";
-  // set cookie with {authorized: true} only (remove partyId)
-  // redirect("/rsvp");
+  constructor(message = "Code is required") {
+    super(message);
+  }
 }
-
-*/
