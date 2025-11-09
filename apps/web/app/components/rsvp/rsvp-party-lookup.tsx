@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { type LookupPartyState, lookupParty, type PartyData } from "~/app/lib/auth/lookup-party.actions";
+import { lookupParty, type LookupPartyState, type PartyData } from "~/app/lib/auth/lookup-party.actions";
 import { selectPartyAction } from "~/app/lib/auth/select-party.actions";
 import { chunky, copy } from "~/app/styles/text.styles";
 import { Button } from "../button";
@@ -43,17 +43,17 @@ export function RsvpPartyLookup() {
         {state?.status === "success" && <PartyLookupResult parties={state.data} />}
         {state?.status === "error" && (
           <>
-            {state.error.type === "NAME_REQUIRED" && (
+            {state.error._tag === "NAME_REQUIRED" && (
               <div>
                 <p className={copy({ className: "text-pretty" })}>Please enter a full name.</p>
               </div>
             )}
-            {state.error.type === "NO_RESULTS" && (
+            {state.error._tag === "NO_RESULTS" && (
               <div>
-                <p className={copy({ className: "text-pretty" })}>No party found.</p>
+                <p className={copy({ className: "text-pretty" })}>No party found. Please check the spelling and try again.</p>
               </div>
             )}
-            {state.error.type === "DATABASE_ERROR" && (
+            {state.error._tag === "DATABASE_ERROR" && (
               <div className="rounded-md bg-red-50 p-4">
                 <p className={copy({ className: "text-red-800 text-sm" })}>Something went wrong. Please try again.</p>
               </div>
