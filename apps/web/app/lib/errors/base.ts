@@ -8,8 +8,8 @@
  * class DatabaseError extends TaggedError<"DATABASE_ERROR"> {
  *   readonly _tag = "DATABASE_ERROR" as const;
  *
- *   constructor(message = "Failed to query database", cause?: unknown) {
- *     super(message, cause);
+ *   constructor(message = "Failed to query database") {
+ *     super(message);
  *   }
  * }
  * ```
@@ -17,10 +17,7 @@
 export abstract class TaggedError<Tag extends string> extends Error {
   abstract readonly _tag: Tag;
 
-  constructor(
-    message: string,
-    readonly cause?: unknown,
-  ) {
+  constructor(message: string) {
     super(message);
     this.name = this.constructor.name;
 
@@ -31,40 +28,10 @@ export abstract class TaggedError<Tag extends string> extends Error {
   }
 
   toJSON() {
-    const baseObject = {
+    return {
       _tag: this._tag,
       message: this.message,
     };
-
-    // Only include cause in development for debugging
-    if (process.env.NODE_ENV === "development" && this.cause) {
-      return {
-        ...baseObject,
-        cause: this.serializeCause(this.cause),
-      };
-    }
-
-    return baseObject;
-  }
-
-  private serializeCause(cause: unknown): unknown {
-    if (cause instanceof Error) {
-      return {
-        name: cause.name,
-        message: cause.message,
-        stack: cause.stack,
-      };
-    }
-
-    if (typeof cause === "string" || typeof cause === "number" || typeof cause === "boolean") {
-      return cause;
-    }
-
-    try {
-      return JSON.stringify(cause);
-    } catch {
-      return String(cause);
-    }
   }
 }
 

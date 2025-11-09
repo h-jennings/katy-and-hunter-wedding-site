@@ -22,10 +22,10 @@ export function queryDb<T>(
   queryFn: () => Promise<T>,
   errorMessage = "Failed to query database",
 ): ResultAsync<T, DatabaseError> {
-  return ResultAsync.fromPromise(queryFn(), (cause) => {
+  return ResultAsync.fromPromise(queryFn(), () => {
     // Log database errors server-side for monitoring
-    console.error(`[DB Error] ${errorMessage}`, cause);
-    return new DatabaseError(errorMessage, cause);
+    console.error(`[DB Error] ${errorMessage}`);
+    return new DatabaseError(errorMessage);
   });
 }
 
