@@ -7,7 +7,7 @@ export async function RsvpDialogContent() {
   const state = await getAuthState();
 
   return (
-    <div>
+    <div className="w-full">
       {(() => {
         switch (true) {
           case state.authorized && state.partyId != null: {

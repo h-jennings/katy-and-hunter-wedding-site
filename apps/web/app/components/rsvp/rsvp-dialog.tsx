@@ -16,7 +16,7 @@ export async function RsvpDialog({ children }: { children: React.ReactNode }) {
             of RSVPing to the wedding.
           </DialogDescription>
         </DialogHeader>
-        <div>{children}</div>
+        <div className="w-full">{children}</div>
       </DialogContent>
     </Dialog>
   );

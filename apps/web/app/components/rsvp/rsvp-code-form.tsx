@@ -11,10 +11,10 @@ export function RsvpVerifyCodeForm() {
   const [submitCount, setSubmitCount] = React.useState(0);
 
   return (
-    <form action={submitAction} className="flex flex-col items-center gap-y-6 text-center">
-      <div className="flex flex-col items-center gap-y-4 px-4 pt-14 text-center">
+    <form action={submitAction} className="flex w-full flex-col items-center gap-y-6 text-center">
+      <div className="flex w-full flex-col items-center gap-y-6 px-4 pt-14 text-center">
         <h2 className={chunky()}>Enter your super secret code</h2>
-        <div>
+        <div className="w-full">
           <label htmlFor="code" className="sr-only">
             Code:
           </label>
