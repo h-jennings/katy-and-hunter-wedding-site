@@ -1,19 +1,15 @@
 "use server";
 import { db } from "@repo/database";
-import { err, ok, type Result, type ResultAsync, safeTry } from "neverthrow";
+import { err, ok, safeTry } from "neverthrow";
 import "server-only";
-import { queryDb } from "../db/query-helpers";
+import { queryDbArrayOrNotFound } from "../db/query-helpers";
 import { TaggedError } from "../errors/base";
-import type { DatabaseError } from "../errors/infrastructure";
+import type { DatabaseError, NotFoundError } from "../errors/infrastructure";
 
-export async function lookupParty(_previousState: LookupPartyState, formData: FormData): Promise<LookupPartyState> {
+export async function lookupParty(_previousState: LookupPartyState, formData: FormData) {
   const result = await safeTry(async function* () {
     const [firstName, lastName] = yield* parseFullName(formData);
     const matchingGuests = yield* getMatchingGuestsFromDb(firstName, lastName);
-
-    if (matchingGuests.length === 0) {
-      return err(new NoResultsError());
-    }
 
     const partyIds = [...new Set(matchingGuests.map((g) => g.partyId))];
 
@@ -31,11 +27,8 @@ export async function lookupParty(_previousState: LookupPartyState, formData: Fo
   );
 }
 
-function getMatchingGuestsFromDb(
-  firstName: string,
-  lastName: string | null,
-): ResultAsync<Array<{ id: string; firstName: string; lastName: string; partyId: string }>, DatabaseError> {
-  return queryDb(
+function getMatchingGuestsFromDb(firstName: string, lastName: string | null) {
+  return queryDbArrayOrNotFound(
     () =>
       db.query.guests.findMany({
         columns: {
@@ -56,8 +49,8 @@ function getMatchingGuestsFromDb(
   );
 }
 
-function getPartiesByIds(partyIds: Array<string>): ResultAsync<PartyData, DatabaseError> {
-  return queryDb(
+function getPartiesByIds(partyIds: Array<string>) {
+  return queryDbArrayOrNotFound(
     () =>
       db.query.parties.findMany({
         columns: {
@@ -80,7 +73,7 @@ function getPartiesByIds(partyIds: Array<string>): ResultAsync<PartyData, Databa
   );
 }
 
-function parseFullName(formData: FormData): Result<[string, string | null], NameRequiredError> {
+function parseFullName(formData: FormData) {
   const fullName = formData.get("full_name")?.toString().trim().toLowerCase();
 
   if (!fullName) {
@@ -90,15 +83,15 @@ function parseFullName(formData: FormData): Result<[string, string | null], Name
   return ok(splitFullNameIntoParts(fullName));
 }
 
-function splitFullNameIntoParts(fullName: string): [string, string | null] {
+function splitFullNameIntoParts(fullName: string) {
   const fullNameParts = fullName.trim().split(" ");
   const firstName = fullNameParts[0]!;
   const lastName = fullNameParts.length > 1 ? fullNameParts[1]! : null;
 
-  return [firstName, lastName];
+  return [firstName, lastName] as const;
 }
 
-export class NameRequiredError extends TaggedError<"NAME_REQUIRED"> {
+class NameRequiredError extends TaggedError<"NAME_REQUIRED"> {
   readonly _tag = "NAME_REQUIRED" as const;
 
   constructor(message = "Name is required") {
@@ -106,15 +99,7 @@ export class NameRequiredError extends TaggedError<"NAME_REQUIRED"> {
   }
 }
 
-export class NoResultsError extends TaggedError<"NO_RESULTS"> {
-  readonly _tag = "NO_RESULTS" as const;
-
-  constructor(message = "No matching guests found") {
-    super(message);
-  }
-}
-
-type LookupPartyError = NameRequiredError | NoResultsError | DatabaseError;
+type LookupPartyError = NameRequiredError | NotFoundError | DatabaseError;
 
 export type PartyData = Array<{
   id: string;

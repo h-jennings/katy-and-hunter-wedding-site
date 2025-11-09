@@ -1,13 +1,13 @@
 "use client";
 import * as React from "react";
-import { lookupParty, type LookupPartyState, type PartyData } from "~/app/lib/auth/lookup-party.actions";
+import { lookupParty, type PartyData } from "~/app/lib/auth/lookup-party.actions";
 import { selectPartyAction } from "~/app/lib/auth/select-party.actions";
 import { chunky, copy } from "~/app/styles/text.styles";
 import { Button } from "../button";
 import { Input } from "../input";
 
 export function RsvpPartyLookup() {
-  const [state, submitAction, isPending] = React.useActionState<LookupPartyState, FormData>(lookupParty, null);
+  const [state, submitAction, isPending] = React.useActionState(lookupParty, null);
 
   return (
     <div className="flex flex-col items-center gap-y-6 px-4 text-center">
@@ -48,9 +48,11 @@ export function RsvpPartyLookup() {
                 <p className={copy({ className: "text-pretty" })}>Please enter a full name.</p>
               </div>
             )}
-            {state.error._tag === "NO_RESULTS" && (
+            {state.error._tag === "NOT_FOUND" && (
               <div>
-                <p className={copy({ className: "text-pretty" })}>No party found. Please check the spelling and try again.</p>
+                <p className={copy({ className: "text-pretty" })}>
+                  No party found. Please check the spelling and try again.
+                </p>
               </div>
             )}
             {state.error._tag === "DATABASE_ERROR" && (
