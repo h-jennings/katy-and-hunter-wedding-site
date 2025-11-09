@@ -109,9 +109,11 @@ export type PartyData = Array<{
   }>;
 }>;
 
-type LookupPartyError = NameRequiredError["toJSON"] | DatabaseError["toJSON"] | NotFoundError["toJSON"];
+export type LookupPartyError = ReturnType<
+  NameRequiredError["toJSON"] | DatabaseError["toJSON"] | NotFoundError["toJSON"]
+>;
 
 export type LookupPartyState =
   | { status: "success"; data: PartyData }
-  | { status: "error"; error: ReturnType<LookupPartyError> }
+  | { status: "error"; error: LookupPartyError }
   | null;
