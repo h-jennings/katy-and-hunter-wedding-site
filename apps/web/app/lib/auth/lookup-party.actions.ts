@@ -1,61 +1,10 @@
 "use server";
 import { db } from "@repo/database";
-import { err, ok, Result, ResultAsync, safeTry } from "neverthrow";
+import { err, ok, type Result, type ResultAsync, safeTry } from "neverthrow";
 import "server-only";
 import { queryDb } from "../db/query-helpers";
-import { DatabaseError } from "../errors/infrastructure";
 import { TaggedError } from "../errors/base";
-
-// ============================================================================
-// DOMAIN-SPECIFIC ERRORS (Colocated with this action)
-// ============================================================================
-
-/**
- * Error thrown when user doesn't provide a name in the lookup form.
- */
-export class NameRequiredError extends TaggedError<"NAME_REQUIRED"> {
-  readonly _tag = "NAME_REQUIRED" as const;
-
-  constructor(message = "Name is required") {
-    super(message);
-  }
-}
-
-/**
- * Error thrown when no guests match the search criteria.
- */
-export class NoResultsError extends TaggedError<"NO_RESULTS"> {
-  readonly _tag = "NO_RESULTS" as const;
-
-  constructor(message = "No matching guests found") {
-    super(message);
-  }
-}
-
-// Union of all possible errors for this action
-type LookupPartyError = NameRequiredError | NoResultsError | DatabaseError;
-
-// ============================================================================
-// EXPORTED TYPES FOR UI
-// ============================================================================
-
-export type PartyData = Array<{
-  id: string;
-  displayName: string;
-  guests: Array<{
-    id: string;
-    firstName: string;
-    lastName: string;
-  }>;
-}>;
-
-export type LookupPartyState =
-  | { status: "success"; data: PartyData }
-  | { status: "error"; error: ReturnType<LookupPartyError["toJSON"]> } // Serialized for client
-  | null;
-// ============================================================================
-// SERVER ACTION
-// ============================================================================
+import type { DatabaseError } from "../errors/infrastructure";
 
 export async function lookupParty(_previousState: LookupPartyState, formData: FormData): Promise<LookupPartyState> {
   const result = await safeTry(async function* () {
@@ -77,14 +26,10 @@ export async function lookupParty(_previousState: LookupPartyState, formData: Fo
     (data) => ({ status: "success" as const, data }),
     (error) => ({
       status: "error" as const,
-      error: error.toJSON(), // Serialize for client components
+      error: error.toJSON(),
     }),
   );
 }
-
-// ============================================================================
-// HELPER FUNCTIONS
-// ============================================================================
 
 function getMatchingGuestsFromDb(
   firstName: string,
@@ -152,3 +97,36 @@ function splitFullNameIntoParts(fullName: string): [string, string | null] {
 
   return [firstName, lastName];
 }
+
+export class NameRequiredError extends TaggedError<"NAME_REQUIRED"> {
+  readonly _tag = "NAME_REQUIRED" as const;
+
+  constructor(message = "Name is required") {
+    super(message);
+  }
+}
+
+export class NoResultsError extends TaggedError<"NO_RESULTS"> {
+  readonly _tag = "NO_RESULTS" as const;
+
+  constructor(message = "No matching guests found") {
+    super(message);
+  }
+}
+
+type LookupPartyError = NameRequiredError | NoResultsError | DatabaseError;
+
+export type PartyData = Array<{
+  id: string;
+  displayName: string;
+  guests: Array<{
+    id: string;
+    firstName: string;
+    lastName: string;
+  }>;
+}>;
+
+export type LookupPartyState =
+  | { status: "success"; data: PartyData }
+  | { status: "error"; error: ReturnType<LookupPartyError["toJSON"]> }
+  | null;
