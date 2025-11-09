@@ -30,7 +30,7 @@ export abstract class TaggedError<Tag extends string> extends Error {
     }
   }
 
-  toJSON(): Record<string, unknown> {
+  toJSON() {
     const baseObject = {
       _tag: this._tag,
       message: this.message,
