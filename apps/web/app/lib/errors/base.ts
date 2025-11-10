@@ -1,3 +1,15 @@
+/*
+  Consider using this pattern instead:
+
+  type TaggedError<Tag extends string, Extra = {}> = {
+    readonly _tag: Tag
+    readonly message: string
+  } & Extra
+
+  export type DatabaseError = TaggedError<'DATABASE_ERROR', { query?: string }>
+
+*/
+
 /**
  * Base class for all application errors using tagged union pattern.
  *

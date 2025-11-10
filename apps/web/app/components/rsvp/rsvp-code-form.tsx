@@ -25,7 +25,7 @@ export function RsvpVerifyCodeForm() {
         Verify Code
       </Button>
       <div className="mb-4 h-10">
-        {!isPending && state.status === "error" && (
+        {!isPending && state?.status === "error" && (
           <p className={copy({ className: "text-red-700" })}>
             {ERROR_MESSAGE_COPY[(submitCount - 1) % ERROR_MESSAGE_COPY.length]}
           </p>

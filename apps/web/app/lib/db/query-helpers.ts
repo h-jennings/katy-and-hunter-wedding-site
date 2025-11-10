@@ -1,4 +1,4 @@
-import { err, ok, ResultAsync } from "neverthrow";
+import { err, fromPromise, ok, type ResultAsync } from "neverthrow";
 import { DatabaseError, NotFoundError } from "../errors/infrastructure";
 
 /**
@@ -22,7 +22,7 @@ export function queryDb<T>(
   queryFn: () => Promise<T>,
   errorMessage = "Failed to query database",
 ): ResultAsync<T, DatabaseError> {
-  return ResultAsync.fromPromise(queryFn(), () => {
+  return fromPromise(queryFn(), () => {
     // Log database errors server-side for monitoring
     console.error(`[DB Error] ${errorMessage}`);
     return new DatabaseError(errorMessage);
