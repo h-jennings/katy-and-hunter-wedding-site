@@ -3,13 +3,15 @@ import "server-only";
 import { err, fromPromise, ok, safeTry } from "neverthrow";
 import { createAuthJwt } from "~/app/lib/auth/auth.helpers";
 import {
+  type CodeIncorrectError,
   type CodeRequiredError,
+  codeIncorrectError,
   codeRequiredError,
   type UnauthorizedError,
   unauthorizedError,
 } from "~/app/lib/errors/auth.errors";
 
-type CodeVerificationError = UnauthorizedError | CodeRequiredError;
+type CodeVerificationError = UnauthorizedError | CodeRequiredError | CodeIncorrectError;
 
 type CodeVerificationResponse =
   | {
@@ -50,6 +52,10 @@ function parseCode(formData: FormData) {
 
   if (!code) {
     return err(codeRequiredError("Code is required"));
+  }
+
+  if (code.toLowerCase() !== process.env.INVITE_CODE?.toLowerCase()) {
+    return err(codeIncorrectError("Code provided is incorrect"));
   }
 
   return ok(undefined);

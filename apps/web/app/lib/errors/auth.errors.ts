@@ -10,6 +10,9 @@ import { createErrorTypeGuard, createTaggedError } from "~/app/lib/errors/tagged
 export const codeRequiredError = createTaggedError("CODE_REQUIRED");
 export type CodeRequiredError = ReturnType<typeof codeRequiredError>;
 
+export const codeIncorrectError = createTaggedError("CODE_INCORRECT");
+export type CodeIncorrectError = ReturnType<typeof codeIncorrectError>;
+
 /**
  * Error when name is required but not provided.
  */
@@ -25,12 +28,12 @@ export type UnauthorizedError = ReturnType<typeof unauthorizedError>;
 /**
  * Union of all authentication errors.
  */
-export type AuthError = CodeRequiredError | NameRequiredError | UnauthorizedError;
+export type AuthError = CodeRequiredError | CodeIncorrectError | NameRequiredError | UnauthorizedError;
 
 /**
  * Array of all authentication error tags.
  */
-export const AUTH_ERROR_TAGS = ["CODE_REQUIRED", "NAME_REQUIRED", "UNAUTHORIZED"] as const;
+export const AUTH_ERROR_TAGS = ["CODE_REQUIRED", "CODE_INCORRECT", "NAME_REQUIRED", "UNAUTHORIZED"] as const;
 
 /**
  * Type guard for authentication errors.
