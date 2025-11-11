@@ -8,7 +8,7 @@ import { type LookupPartyError, lookupParty, type PartyData } from "~/app/lib/au
 import { selectPartyAction } from "~/app/lib/auth/select-party.actions";
 import { chunky, copy } from "~/app/styles/text.styles";
 
-export function RsvpPartyLookup() {
+export function RsvpPartyLookupForm() {
   const [state, submitAction, isPending] = React.useActionState(lookupParty, null);
 
   return (

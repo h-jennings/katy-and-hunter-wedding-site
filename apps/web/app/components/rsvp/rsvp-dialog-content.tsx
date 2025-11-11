@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { RsvpVerifyCodeForm } from "~/app/components/rsvp/rsvp-code-form";
-import { RsvpPartyLookup } from "~/app/components/rsvp/rsvp-party-lookup";
+import { RsvpPartyLookupForm } from "~/app/components/rsvp/rsvp-party-lookup-form";
+import { RsvpVerifyCodeForm } from "~/app/components/rsvp/rsvp-verify-code-form";
 import { getAuthState } from "~/app/lib/auth/auth.helpers";
 
 export async function RsvpDialogContent() {
@@ -18,7 +18,7 @@ export async function RsvpDialogContent() {
             );
           }
           case state.authorized && state.partyId == null: {
-            return <RsvpPartyLookup />;
+            return <RsvpPartyLookupForm />;
           }
           default: {
             return <RsvpVerifyCodeForm />;
