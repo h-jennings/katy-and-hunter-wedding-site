@@ -81,12 +81,11 @@ export function queryDbOrNotFound<T>(
  */
 export function queryDbArrayOrNotFound<T>(
   queryFn: () => Promise<Array<T>>,
-  resource: string,
   errorMessage?: string,
 ): ResultAsync<Array<T>, DatabaseError | NotFoundError> {
   return queryDb(queryFn, errorMessage).andThen((result) => {
     if (result.length === 0) {
-      return err(new NotFoundError(resource, errorMessage ?? `No ${resource} found`));
+      return err(notFoundError(errorMessage ?? "Resource not found"));
     }
     return ok(result);
   });

@@ -3,11 +3,11 @@ import { db } from "@repo/database";
 import { err, ok, safeTry } from "neverthrow";
 import "server-only";
 import { queryDbArrayOrNotFound } from "../db/query-helpers";
-import { nameRequiredError } from "../errors/auth.errors";
+import { type NameRequiredError, nameRequiredError } from "../errors/auth.errors";
 import type { DatabaseError, NotFoundError } from "../errors/db.errors";
 
 export async function lookupParty(_previousState: LookupPartyState, formData: FormData): Promise<LookupPartyState> {
-  const result = await safeTry(async function* () {
+  const result = safeTry(async function* () {
     const [firstName, lastName] = yield* parseFullName(formData);
     const matchingGuests = yield* getMatchingGuestsFromDb(firstName, lastName);
 
@@ -101,7 +101,7 @@ export type PartyData = Array<{
   }>;
 }>;
 
-export type LookupPartyError = DatabaseError | NotFoundError | ReturnType<typeof nameRequiredError>;
+export type LookupPartyError = DatabaseError | NotFoundError | NameRequiredError;
 
 export type LookupPartyState =
   | { status: "success"; data: PartyData }

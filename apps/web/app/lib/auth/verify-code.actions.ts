@@ -1,8 +1,15 @@
 "use server";
 import "server-only";
-import { err, ok, safeTry } from "neverthrow";
-import { codeRequiredError } from "../errors/auth.errors";
+import { err, fromPromise, ok, safeTry } from "neverthrow";
+import {
+  type CodeRequiredError,
+  codeRequiredError,
+  type UnauthorizedError,
+  unauthorizedError,
+} from "../errors/auth.errors";
 import { createAuthJwt } from "./auth.helpers";
+
+type CodeVerificationError = UnauthorizedError | CodeRequiredError;
 
 type CodeVerificationResponse =
   | {
@@ -10,7 +17,7 @@ type CodeVerificationResponse =
     }
   | {
       status: "error";
-      message: string;
+      reason: CodeVerificationError["_tag"];
     }
   | null;
 export async function verifyCode(
@@ -20,9 +27,11 @@ export async function verifyCode(
   const result = safeTry(async function* () {
     yield* parseCode(formData);
 
-    await createAuthJwt({ authorized: true, partyId: null });
+    yield* fromPromise(createAuthJwt({ authorized: true, partyId: null }), () => {
+      return unauthorizedError("Failed to create auth token");
+    });
 
-    return ok(null);
+    return ok(undefined);
   });
 
   return result.match(
@@ -31,7 +40,7 @@ export async function verifyCode(
     }),
     (error) => ({
       status: "error" as const,
-      message: error.message,
+      reason: error._tag,
     }),
   );
 }

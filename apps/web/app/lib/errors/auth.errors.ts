@@ -2,11 +2,7 @@
  * Authentication-related tagged errors.
  */
 
-import {
-  createErrorTypeGuard,
-  createTaggedError,
-  type TaggedError,
-} from "./tagged-error.types";
+import { createErrorTypeGuard, createTaggedError } from "./tagged-error.types";
 
 /**
  * Error when authentication code is required but not provided.

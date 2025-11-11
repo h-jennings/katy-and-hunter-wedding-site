@@ -25,13 +25,21 @@ export function RsvpVerifyCodeForm() {
         Verify Code
       </Button>
       <div className="mb-4 h-10">
-        {!isPending && state?.status === "error" && (
-          <p className={copy({ className: "text-red-700" })}>
-            {ERROR_MESSAGE_COPY[(submitCount - 1) % ERROR_MESSAGE_COPY.length]}
-          </p>
+        {!isPending && state?.status === "error" && state.reason === "CODE_REQUIRED" ? (
+          <VerificationError submitCount={submitCount} />
+        ) : (
+          <p className={copy({ className: "text-red-700" })}>Something went wrong. Please try again.</p>
         )}
       </div>
     </form>
+  );
+}
+
+function VerificationError({ submitCount }: { submitCount: number }) {
+  return (
+    <p className={copy({ className: "text-red-700" })}>
+      {ERROR_MESSAGE_COPY[(submitCount - 1) % ERROR_MESSAGE_COPY.length]}
+    </p>
   );
 }
 
