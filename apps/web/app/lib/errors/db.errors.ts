@@ -2,11 +2,7 @@
  * Database-related tagged errors.
  */
 
-import {
-  createErrorTypeGuard,
-  createTaggedError,
-  type TaggedError,
-} from "./tagged-error.types";
+import { createErrorTypeGuard, createTaggedError } from "~/app/lib/errors/tagged-error.types";
 
 /**
  * Generic database error.

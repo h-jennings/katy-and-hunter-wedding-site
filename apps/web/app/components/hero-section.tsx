@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { KathrynAndHunter } from "./k-and-h";
+import { KathrynAndHunter } from "~/app/components/k-and-h";
 
 export function Hero() {
   return (

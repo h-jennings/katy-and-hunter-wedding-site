@@ -2,7 +2,7 @@
  * Authentication-related tagged errors.
  */
 
-import { createErrorTypeGuard, createTaggedError } from "./tagged-error.types";
+import { createErrorTypeGuard, createTaggedError } from "~/app/lib/errors/tagged-error.types";
 
 /**
  * Error when authentication code is required but not provided.

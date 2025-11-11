@@ -2,9 +2,9 @@
 import { db } from "@repo/database";
 import { err, ok, safeTry } from "neverthrow";
 import "server-only";
-import { queryDbArrayOrNotFound } from "../db/query-helpers";
-import { type NameRequiredError, nameRequiredError } from "../errors/auth.errors";
-import type { DatabaseError, NotFoundError } from "../errors/db.errors";
+import { queryDbArrayOrNotFound } from "~/app/lib/db/query-helpers";
+import { type NameRequiredError, nameRequiredError } from "~/app/lib/errors/auth.errors";
+import type { DatabaseError, NotFoundError } from "~/app/lib/errors/db.errors";
 
 export async function lookupParty(_previousState: LookupPartyState, formData: FormData): Promise<LookupPartyState> {
   const result = safeTry(async function* () {

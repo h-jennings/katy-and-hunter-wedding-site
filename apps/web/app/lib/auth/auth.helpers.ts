@@ -2,7 +2,7 @@ import "server-only";
 
 import { type JWTPayload, jwtVerify, SignJWT } from "jose";
 import { cookies } from "next/headers";
-import { AUTH_TOKEN, authSecret } from "./auth.constants";
+import { AUTH_TOKEN, authSecret } from "~/app/lib/auth/auth.constants";
 
 export async function getAuthState() {
   const token = (await cookies()).get(AUTH_TOKEN)?.value;

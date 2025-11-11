@@ -1,11 +1,11 @@
 "use client";
 import * as React from "react";
+import { Button } from "~/app/components/button";
+import { Input } from "~/app/components/input";
+import { Spinner } from "~/app/components/spinner";
 import { type LookupPartyError, lookupParty, type PartyData } from "~/app/lib/auth/lookup-party.actions";
 import { selectPartyAction } from "~/app/lib/auth/select-party.actions";
 import { chunky, copy } from "~/app/styles/text.styles";
-import { Button } from "../button";
-import { Input } from "../input";
-import { Spinner } from "../spinner";
 
 export function RsvpPartyLookup() {
   const [state, submitAction, isPending] = React.useActionState(lookupParty, null);

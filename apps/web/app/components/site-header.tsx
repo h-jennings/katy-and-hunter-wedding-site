@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import * as React from "react";
 import { useIsClient, useMediaQuery, useOnClickOutside, useScrollLock } from "usehooks-ts";
-import { PRIMARY_NAVIGATION } from "../constants/navigation.constants";
+import { PRIMARY_NAVIGATION } from "~/app/constants/navigation.constants";
 
 export function SiteHeader({ children }: { children: React.ReactNode }) {
   const { isLocked: isMenuOpen, lock, unlock } = useScrollLock({ autoLock: false });

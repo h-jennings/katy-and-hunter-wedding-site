@@ -1,5 +1,5 @@
 import { err, fromPromise, ok, type ResultAsync } from "neverthrow";
-import { type DatabaseError, databaseError, type NotFoundError, notFoundError } from "../errors/db.errors";
+import { type DatabaseError, databaseError, type NotFoundError, notFoundError } from "~/app/lib/errors/db.errors";
 
 /**
  * Wraps database queries with consistent error handling.

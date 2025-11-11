@@ -1,6 +1,6 @@
+import { Container, ContainerInner } from "~/app/components/container";
 import { ANCHORS } from "~/app/constants/anchors.constants";
 import { callout, chunky, fancyHeading } from "~/app/styles/text.styles";
-import { Container, ContainerInner } from "./container";
 
 export function Story() {
   return (

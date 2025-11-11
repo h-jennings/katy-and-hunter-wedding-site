@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { PRIMARY_NAVIGATION } from "../constants/navigation.constants";
-import { copy, label } from "../styles/text.styles";
-import { Container } from "./container";
-import { KathrynAndHunter } from "./k-and-h";
+import { Container } from "~/app/components/container";
+import { KathrynAndHunter } from "~/app/components/k-and-h";
+import { PRIMARY_NAVIGATION } from "~/app/constants/navigation.constants";
+import { copy, label } from "~/app/styles/text.styles";
 
 export function SiteFooter() {
   return (

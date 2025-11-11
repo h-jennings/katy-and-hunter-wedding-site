@@ -1,7 +1,7 @@
 import Link from "next/link";
+import { RsvpVerifyCodeForm } from "~/app/components/rsvp/rsvp-code-form";
+import { RsvpPartyLookup } from "~/app/components/rsvp/rsvp-party-lookup";
 import { getAuthState } from "~/app/lib/auth/auth.helpers";
-import { RsvpVerifyCodeForm } from "./rsvp-code-form";
-import { RsvpPartyLookup } from "./rsvp-party-lookup";
 
 export async function RsvpDialogContent() {
   const state = await getAuthState();

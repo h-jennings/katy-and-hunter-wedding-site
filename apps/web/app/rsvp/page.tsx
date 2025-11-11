@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { getAuthState } from "../lib/auth/auth.helpers";
+import { getAuthState } from "~/app/lib/auth/auth.helpers";
 
 export default async function RsvpPage() {
   const state = await getAuthState();

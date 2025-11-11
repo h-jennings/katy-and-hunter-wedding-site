@@ -1,13 +1,13 @@
 "use server";
 import "server-only";
 import { err, fromPromise, ok, safeTry } from "neverthrow";
+import { createAuthJwt } from "~/app/lib/auth/auth.helpers";
 import {
   type CodeRequiredError,
   codeRequiredError,
   type UnauthorizedError,
   unauthorizedError,
-} from "../errors/auth.errors";
-import { createAuthJwt } from "./auth.helpers";
+} from "~/app/lib/errors/auth.errors";
 
 type CodeVerificationError = UnauthorizedError | CodeRequiredError;
 

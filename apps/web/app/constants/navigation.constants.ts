@@ -1,4 +1,4 @@
-import { ANCHORS } from "./anchors.constants";
+import { ANCHORS } from "~/app/constants/anchors.constants";
 
 export const PRIMARY_NAVIGATION = [
   {

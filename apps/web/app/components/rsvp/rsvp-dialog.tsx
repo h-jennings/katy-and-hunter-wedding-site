@@ -1,4 +1,11 @@
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "../dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "~/app/components/dialog";
 
 export async function RsvpDialog({ children }: { children: React.ReactNode }) {
   return (

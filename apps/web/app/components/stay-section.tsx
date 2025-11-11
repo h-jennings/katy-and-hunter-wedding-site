@@ -1,8 +1,8 @@
 import Link from "next/link";
+import { AirBnbLogomark } from "~/app/components/airbnb-logomark";
 import { Container, ContainerInner } from "~/app/components/container";
 import { ANCHORS } from "~/app/constants/anchors.constants";
 import { chunky, copy, fancyHeading, label } from "~/app/styles/text.styles";
-import { AirBnbLogomark } from "./airbnb-logomark";
 
 export function Stay() {
   return (

@@ -1,11 +1,11 @@
 import Link from "next/link";
+import { Noise } from "~/app/components/noise";
+import { RsvpDialog } from "~/app/components/rsvp/rsvp-dialog";
+import { RsvpDialogContent } from "~/app/components/rsvp/rsvp-dialog-content";
+import { RsvpPlaceholder } from "~/app/components/rsvp/rsvp-placeholder";
+import { SiteFooter } from "~/app/components/site-footer";
 import { SiteHeader } from "~/app/components/site-header";
-import { getAuthState } from "../lib/auth/auth.helpers";
-import { Noise } from "./noise";
-import { RsvpDialog } from "./rsvp/rsvp-dialog";
-import { RsvpDialogContent } from "./rsvp/rsvp-dialog-content";
-import { RsvpPlaceholder } from "./rsvp/rsvp-placeholder";
-import { SiteFooter } from "./site-footer";
+import { getAuthState } from "~/app/lib/auth/auth.helpers";
 
 export async function SiteLayout({ children }: { children: React.ReactNode }) {
   const state = await getAuthState();

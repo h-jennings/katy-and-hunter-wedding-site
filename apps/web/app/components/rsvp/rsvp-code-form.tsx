@@ -1,10 +1,10 @@
 "use client";
 
 import * as React from "react";
+import { Button } from "~/app/components/button";
+import { Input } from "~/app/components/input";
 import { verifyCode } from "~/app/lib/auth/verify-code.actions";
 import { chunky, copy } from "~/app/styles/text.styles";
-import { Button } from "../button";
-import { Input } from "../input";
 
 export function RsvpVerifyCodeForm() {
   const [state, submitAction, isPending] = React.useActionState(verifyCode, null);
