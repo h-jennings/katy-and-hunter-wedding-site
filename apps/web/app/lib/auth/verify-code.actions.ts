@@ -52,5 +52,5 @@ function parseCode(formData: FormData) {
     return err(codeRequiredError("Code is required"));
   }
 
-  return ok(null);
+  return ok(undefined);
 }

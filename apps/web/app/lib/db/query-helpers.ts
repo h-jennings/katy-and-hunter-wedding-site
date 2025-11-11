@@ -35,7 +35,6 @@ export function queryDb<T>(
  *
  * @template T - The expected return type of the query (excluding null/undefined)
  * @param queryFn - A function that performs the database query
- * @param resource - The name of the resource being queried (e.g., "user", "party")
  * @param errorMessage - Custom error message for not found case
  * @returns A ResultAsync that resolves to the query result, DatabaseError, or NotFoundError
  *
