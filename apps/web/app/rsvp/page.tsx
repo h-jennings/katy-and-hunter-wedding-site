@@ -2,7 +2,6 @@ import { db } from "@repo/database";
 import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { RsvpConfirmation } from "~/app/components/rsvp/rsvp-confirmation";
-import { RsvpForm } from "~/app/components/rsvp/rsvp-form";
 import { getAuthState } from "~/app/lib/auth/auth.helpers";
 
 export default async function RsvpPage() {
@@ -17,7 +16,8 @@ export default async function RsvpPage() {
   return (
     <div>
       <h1>RSVP Page</h1>
-      {party?.respondedAt != null ? <RsvpConfirmation partyId={state.partyId} /> : <RsvpForm />}
+      {/*{party?.respondedAt != null ? <RsvpConfirmation partyId={state.partyId} /> : <RsvpForm />}*/}
+      <RsvpConfirmation partyId={state.partyId} />
     </div>
   );
 }
