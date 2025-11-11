@@ -41,10 +41,11 @@ export function SiteFooter() {
                     </li>
                     {PRIMARY_NAVIGATION.map((item) => {
                       return (
-                        <li key={item.href}>
+                        <li key={item.hash}>
                           <Link
                             href={{
-                              hash: item.href,
+                              pathname: item.path,
+                              hash: item.hash,
                             }}
                             className="font-medium font-sans text-base text-text-primary leading-none md:text-lg"
                           >

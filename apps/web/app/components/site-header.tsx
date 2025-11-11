@@ -122,10 +122,11 @@ function MobileMenu({ onLinkClick, ...rest }: MobileMenuProps) {
       <ul className="w-screen overflow-clip rounded-b-3xl bg-accent px-10 pt-[calc(var(--spacing-site-header-h)*2))] pb-site-header-h">
         {PRIMARY_NAVIGATION.map((item) => {
           return (
-            <li key={item.href}>
+            <li key={item.hash}>
               <Link
                 href={{
-                  hash: item.href,
+                  pathname: item.path,
+                  hash: item.hash,
                 }}
                 className="font-medium font-sans text-lg text-text-primary"
                 onClick={onLinkClick}
@@ -145,10 +146,11 @@ function DesktopMenu() {
     <ul className="flex gap-3">
       {PRIMARY_NAVIGATION.map((item) => {
         return (
-          <li key={item.href}>
+          <li key={item.hash}>
             <Link
               href={{
-                hash: item.href,
+                pathname: item.path,
+                hash: item.hash,
               }}
               className="font-medium font-sans text-lg text-text-primary"
             >
