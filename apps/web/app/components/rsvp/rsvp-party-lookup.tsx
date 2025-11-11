@@ -1,6 +1,7 @@
 "use client";
 import * as React from "react";
 import { Button } from "~/app/components/button";
+import { IconRestart } from "~/app/components/icon-restart";
 import { Input } from "~/app/components/input";
 import { Spinner } from "~/app/components/spinner";
 import { type LookupPartyError, lookupParty, type PartyData } from "~/app/lib/auth/lookup-party.actions";
@@ -95,7 +96,7 @@ function PartyLookupResult({ parties }: { parties: PartyData }) {
 
 function PartyResult({ party }: { party: PartyData[number] }) {
   const actionWithPartyId = selectPartyAction.bind(null, party.id);
-  const [_state, submitAction, isPending] = React.useActionState(actionWithPartyId, null);
+  const [state, submitAction, isPending] = React.useActionState(actionWithPartyId, null);
 
   return (
     <form action={submitAction} className="flex items-center gap-4">
@@ -106,17 +107,41 @@ function PartyResult({ party }: { party: PartyData[number] }) {
         </p>
       </div>
       <div className="shrink-0">
-        <button
-          className="relative inline-block rounded-xl bg-off-white px-4.5 py-2.5 font-medium font-sans text-black text-sm transition-all duration-200 hover:scale-[0.98] hover:opacity-80 focus-visible:outline-2 focus-visible:outline-[#D2D2D3] active:scale-[0.95]"
-          type="submit"
-          disabled={isPending}
-        >
-          <span data-loading={isPending} className="group/btn grid grid-cols-1 grid-rows-1 place-items-center">
-            <Spinner className="col-span-full row-span-full hidden group-data-[loading=true]/btn:block" />
-            <span className="visible col-span-full row-span-full group-data-[loading=true]/btn:invisible">Select</span>
-          </span>
-        </button>
+        {state?.status !== "error" ? <ButtonIdle isPending={isPending} /> : <ButtonRetry isPending={isPending} />}
       </div>
     </form>
+  );
+}
+
+function ButtonIdle({ isPending }: { isPending: boolean }) {
+  return (
+    <button
+      className="relative inline-block rounded-xl bg-off-white px-4.5 py-2.5 font-medium font-sans text-black text-sm transition-all duration-200 hover:scale-[0.98] hover:opacity-80 focus-visible:outline-2 focus-visible:outline-[#D2D2D3] active:scale-[0.95]"
+      type="submit"
+      disabled={isPending}
+    >
+      <span data-loading={isPending} className="group/btn grid grid-cols-1 grid-rows-1 place-items-center">
+        <Spinner className="col-span-full row-span-full hidden group-data-[loading=true]/btn:block" />
+        <span className="visible col-span-full row-span-full group-data-[loading=true]/btn:invisible">Select</span>
+      </span>
+    </button>
+  );
+}
+
+function ButtonRetry({ isPending }: { isPending: boolean }) {
+  return (
+    <button
+      className="relative inline-block rounded-xl bg-red-50 px-4.5 py-2.5 font-medium font-sans text-red-800 text-sm transition-all duration-200 hover:scale-[0.98] hover:opacity-80 focus-visible:outline-2 focus-visible:outline-[#D2D2D3] active:scale-[0.95]"
+      type="submit"
+      disabled={isPending}
+    >
+      <span data-loading={isPending} className="group/btn grid grid-cols-1 grid-rows-1 place-items-center">
+        <Spinner className="col-span-full row-span-full hidden group-data-[loading=true]/btn:block" />
+        <span className="visible col-span-full row-span-full flex items-center gap-x-1 group-data-[loading=true]/btn:invisible">
+          <IconRestart />
+          <span>Retry</span>
+        </span>
+      </span>
+    </button>
   );
 }
