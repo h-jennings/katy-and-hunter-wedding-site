@@ -1,5 +1,5 @@
 import { err, fromPromise, ok, type ResultAsync } from "neverthrow";
-import { DatabaseError, NotFoundError } from "../errors/infrastructure";
+import { type DatabaseError, databaseError, type NotFoundError, notFoundError } from "../errors/db.errors";
 
 /**
  * Wraps database queries with consistent error handling.
@@ -25,7 +25,7 @@ export function queryDb<T>(
   return fromPromise(queryFn(), () => {
     // Log database errors server-side for monitoring
     console.error(`[DB Error] ${errorMessage}`);
-    return new DatabaseError(errorMessage);
+    return databaseError(errorMessage);
   });
 }
 
@@ -50,12 +50,11 @@ export function queryDb<T>(
  */
 export function queryDbOrNotFound<T>(
   queryFn: () => Promise<T | null | undefined>,
-  resource: string,
   errorMessage?: string,
 ): ResultAsync<T, DatabaseError | NotFoundError> {
   return queryDb(queryFn, errorMessage).andThen((result) => {
     if (result == null) {
-      return err(new NotFoundError(resource, errorMessage));
+      return err(notFoundError(errorMessage ?? "Resource not found"));
     }
     return ok(result);
   });

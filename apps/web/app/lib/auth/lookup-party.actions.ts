@@ -3,8 +3,8 @@ import { db } from "@repo/database";
 import { err, ok, safeTry } from "neverthrow";
 import "server-only";
 import { queryDbArrayOrNotFound } from "../db/query-helpers";
-import { TaggedError } from "../errors/base";
-import type { DatabaseError, NotFoundError } from "../errors/infrastructure";
+import { nameRequiredError } from "../errors/auth.errors";
+import type { DatabaseError, NotFoundError } from "../errors/db.errors";
 
 export async function lookupParty(_previousState: LookupPartyState, formData: FormData): Promise<LookupPartyState> {
   const result = await safeTry(async function* () {
@@ -22,7 +22,7 @@ export async function lookupParty(_previousState: LookupPartyState, formData: Fo
     (data) => ({ status: "success" as const, data }),
     (error) => ({
       status: "error" as const,
-      error: error.toJSON(),
+      error,
     }),
   );
 }
@@ -77,7 +77,7 @@ function parseFullName(formData: FormData) {
   const fullName = formData.get("full_name")?.toString().trim().toLowerCase();
 
   if (!fullName) {
-    return err(new NameRequiredError());
+    return err(nameRequiredError("Name is required"));
   }
 
   return ok(splitFullNameIntoParts(fullName));
@@ -91,14 +91,6 @@ function splitFullNameIntoParts(fullName: string) {
   return [firstName, lastName] as const;
 }
 
-class NameRequiredError extends TaggedError<"NAME_REQUIRED"> {
-  readonly _tag = "NAME_REQUIRED" as const;
-
-  constructor(message = "Name is required") {
-    super(message);
-  }
-}
-
 export type PartyData = Array<{
   id: string;
   displayName: string;
@@ -109,9 +101,7 @@ export type PartyData = Array<{
   }>;
 }>;
 
-export type LookupPartyError = ReturnType<
-  NameRequiredError["toJSON"] | DatabaseError["toJSON"] | NotFoundError["toJSON"]
->;
+export type LookupPartyError = DatabaseError | NotFoundError | ReturnType<typeof nameRequiredError>;
 
 export type LookupPartyState =
   | { status: "success"; data: PartyData }

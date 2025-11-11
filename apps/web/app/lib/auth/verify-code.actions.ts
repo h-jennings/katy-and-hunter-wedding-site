@@ -1,7 +1,7 @@
 "use server";
 import "server-only";
 import { err, ok, safeTry } from "neverthrow";
-import { TaggedError } from "../errors/base";
+import { codeRequiredError } from "../errors/auth.errors";
 import { createAuthJwt } from "./auth.helpers";
 
 type CodeVerificationResponse =
@@ -40,16 +40,8 @@ function parseCode(formData: FormData) {
   const code = formData.get("code")?.toString();
 
   if (!code) {
-    return err(new CodeRequired());
+    return err(codeRequiredError("Code is required"));
   }
 
   return ok(null);
-}
-
-class CodeRequired extends TaggedError<"CODE_REQUIRED"> {
-  readonly _tag = "CODE_REQUIRED" as const;
-
-  constructor(message = "Code is required") {
-    super(message);
-  }
 }
