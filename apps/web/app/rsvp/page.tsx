@@ -34,6 +34,12 @@ export default async function RsvpPage({
               lastName: "Jennings",
               status: "pending",
             },
+            {
+              id: "2",
+              firstName: "Katy",
+              lastName: "Jennings",
+              status: "pending",
+            },
           ],
         },
         {
@@ -44,6 +50,12 @@ export default async function RsvpPage({
             {
               id: "1",
               firstName: "Hunter",
+              lastName: "Jennings",
+              status: "pending",
+            },
+            {
+              id: "2",
+              firstName: "Katy",
               lastName: "Jennings",
               status: "pending",
             },

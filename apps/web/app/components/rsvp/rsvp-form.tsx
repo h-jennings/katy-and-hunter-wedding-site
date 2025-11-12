@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "~/app/components/button";
 import { Container, ContainerInner } from "~/app/components/container";
 import { copy, fancyHeading, label } from "~/app/styles/text.styles";
 
@@ -25,7 +26,7 @@ export function RsvpForm({
           <div className="flex flex-col gap-7 text-center">
             <h1 className={fancyHeading({ size: "lg" })}>Let's celebrate together!</h1>
           </div>
-          <form className="mx-auto flex w-full max-w-site-container-w-inner flex-col gap-y-16">
+          <form id="rsvp-form" className="mx-auto flex w-full max-w-site-container-w-inner flex-col gap-y-16">
             {formInformation.map((event) => (
               <div key={event.id} className="grid grid-cols-[auto_1fr] gap-x-10 gap-y-4 md:px-8 md:[grid-column:unset]">
                 <h2 className={fancyHeading({ size: "md", className: "col-span-full" })}>{event.name}</h2>
@@ -43,25 +44,29 @@ export function RsvpForm({
                             <span className={copy({ className: "block" })}>
                               {rsvp.firstName} {rsvp.lastName}
                             </span>
-                            <div className="grid grid-flow-col grid-cols-[auto_1fr] items-center gap-2 justify-self-end">
-                              <input
-                                type="radio"
-                                id={`rsvpStatus_${event.id}_${rsvp.id}_attend`}
-                                name={`rsvpStatus_${event.id}_${rsvp.id}`}
-                                value="attending"
-                              />
-                              <label htmlFor={`rsvpStatus_${event.id}_${rsvp.id}_attend`} className="ml-2">
-                                Attending
-                              </label>
-                              <input
-                                type="radio"
-                                id={`rsvpStatus_${event.id}_${rsvp.id}_decline`}
-                                name={`rsvpStatus_${event.id}_${rsvp.id}`}
-                                value="declined"
-                              />
-                              <label htmlFor={`rsvpStatus_${event.id}_${rsvp.id}_decline`} className="ml-2">
-                                Declined
-                              </label>
+                            <div className="flex items-center gap-x-4 justify-self-end">
+                              <div className="flex items-center gap-x-2">
+                                <input
+                                  type="radio"
+                                  id={`rsvpStatus_${event.id}_${rsvp.id}_attend`}
+                                  name={`rsvpStatus_${event.id}_${rsvp.id}`}
+                                  value="attending"
+                                />
+                                <label className={copy()} htmlFor={`rsvpStatus_${event.id}_${rsvp.id}_attend`}>
+                                  Will Attend
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-x-2">
+                                <input
+                                  type="radio"
+                                  id={`rsvpStatus_${event.id}_${rsvp.id}_decline`}
+                                  name={`rsvpStatus_${event.id}_${rsvp.id}`}
+                                  value="declined"
+                                />
+                                <label className={copy()} htmlFor={`rsvpStatus_${event.id}_${rsvp.id}_decline`}>
+                                  Will Not Attend
+                                </label>
+                              </div>{" "}
                             </div>
                           </div>
                         </li>
@@ -72,6 +77,11 @@ export function RsvpForm({
               </div>
             ))}
           </form>
+          <div className="mx-auto">
+            <Button form="rsvp-form" type="submit">
+              Submit
+            </Button>
+          </div>
         </ContainerInner>
       </Container>
     </main>
