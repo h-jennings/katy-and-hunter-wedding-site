@@ -1,6 +1,7 @@
 import { db } from "@repo/database";
 import { guests } from "@repo/database/schema";
 import { eq } from "drizzle-orm";
+import { Circle, CircleCheckIcon, CircleXIcon } from "lucide-react";
 import { Container, ContainerInner } from "~/app/components/container";
 import { chunky, copy, fancyHeading, label } from "~/app/styles/text.styles";
 
@@ -28,17 +29,20 @@ export async function RsvpConfirmation({ partyId, partyName }: { partyId: string
                     <span className={copy()}>{event.date.toISOString()}</span>
                   </div>
                   <div className="col-span-full grid grid-cols-subgrid items-baseline">
-                    <span className={label()}>Guest Responses</span>
+                    <span className={label()}>RSVP Responses</span>
                     <ul className="flex w-full flex-col border-black/10 *:border-b *:first:pt-0">
                       {event.rsvps.map((rsvp) => {
                         return (
                           <li key={rsvp.guest.id} className="py-4">
-                            <span className="flex items-baseline justify-between gap-2">
-                              <span className={copy()}>
+                            <div className="flex items-baseline justify-between gap-2">
+                              <span className={copy({ className: "block" })}>
                                 {rsvp.guest.firstName} {rsvp.guest.lastName}
                               </span>
-                              <span className={copy()}>{rsvp.status}</span>
-                            </span>
+                              <div className="grid grid-flow-col grid-cols-[auto_1fr] items-center gap-2 justify-self-end">
+                                <span className={copy({ className: "font-medium capitalize" })}>{rsvp.status}</span>
+                                {STATUS_ICON[rsvp.status]}
+                              </div>
+                            </div>
                           </li>
                         );
                       })}
@@ -53,6 +57,12 @@ export async function RsvpConfirmation({ partyId, partyName }: { partyId: string
     </main>
   );
 }
+
+const STATUS_ICON = {
+  pending: <Circle className="size-4" />,
+  attending: <CircleCheckIcon className="size-4" />,
+  declined: <CircleXIcon className="size-4" />,
+} as const;
 
 async function getRsvpDetailsByPartyId(partyId: string) {
   const eventsWithRsvps = await db.query.events.findMany({
