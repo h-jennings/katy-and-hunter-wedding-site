@@ -1,4 +1,5 @@
 import { db } from "@repo/database";
+import { guests } from "@repo/database/schema";
 import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { RsvpConfirmation } from "~/app/components/rsvp/rsvp-confirmation";
@@ -24,7 +25,7 @@ export default async function RsvpPage({
   }
 
   if (editParam != null) {
-    return <EditForm />;
+    return <EditForm partyId={state.partyId} />;
   }
 
   return (
@@ -35,10 +36,27 @@ export default async function RsvpPage({
   );
 }
 
-function EditForm() {
+async function EditForm({ partyId }: { partyId: string }) {
+  const rsvpDetails = await getRsvpDetailsByPartyId(partyId);
+  const rsvpFormInformation = rsvpDetails.map((event) => {
+    return {
+      id: event.id,
+      name: event.name,
+      date: event.date.toISOString(),
+      rsvps: event.rsvps.map(({ guest, status }) => {
+        return {
+          id: guest.id,
+          firstName: guest.firstName,
+          lastName: guest.lastName,
+          status,
+        };
+      }),
+    };
+  });
+
   return (
     <div>
-      <RsvpForm />
+      <RsvpForm formInformation={rsvpFormInformation} />
     </div>
   );
 }
@@ -48,4 +66,20 @@ async function getPartyById(partyId: string) {
     where: ({ id }) => eq(id, partyId),
   });
   return party;
+}
+
+async function getRsvpDetailsByPartyId(partyId: string) {
+  const eventsWithRsvps = await db.query.events.findMany({
+    with: {
+      rsvps: {
+        where: (rsvps, { inArray }) =>
+          inArray(rsvps.guestId, db.select({ id: guests.id }).from(guests).where(eq(guests.partyId, partyId))),
+        with: {
+          guest: true,
+        },
+      },
+    },
+  });
+
+  return eventsWithRsvps;
 }
