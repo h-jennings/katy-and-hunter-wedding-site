@@ -38,6 +38,8 @@ export function RsvpForm({
                   <span className={label()}>RSVP</span>
                   <ul className="flex w-full flex-col border-black/10 *:border-b *:first:pt-0">
                     {event.rsvps.map((rsvp) => {
+                      const fieldId = `${event.id}_${rsvp.id}_rsvpStatus` as const;
+
                       return (
                         <li key={rsvp.id} className="py-4">
                           <div className="flex items-baseline justify-between gap-2">
@@ -48,25 +50,27 @@ export function RsvpForm({
                               <div className="flex items-center gap-x-2">
                                 <input
                                   type="radio"
-                                  id={`rsvpStatus_${event.id}_${rsvp.id}_attend`}
-                                  name={`rsvpStatus_${event.id}_${rsvp.id}`}
+                                  id={`${fieldId}_attend`}
+                                  name={fieldId}
                                   value="attending"
+                                  required
                                 />
-                                <label className={copy()} htmlFor={`rsvpStatus_${event.id}_${rsvp.id}_attend`}>
+                                <label className={copy()} htmlFor={`${fieldId}_attend`}>
                                   Will Attend
                                 </label>
                               </div>
                               <div className="flex items-center gap-x-2">
                                 <input
                                   type="radio"
-                                  id={`rsvpStatus_${event.id}_${rsvp.id}_decline`}
-                                  name={`rsvpStatus_${event.id}_${rsvp.id}`}
+                                  id={`${fieldId}_decline`}
+                                  name={fieldId}
                                   value="declined"
+                                  required
                                 />
-                                <label className={copy()} htmlFor={`rsvpStatus_${event.id}_${rsvp.id}_decline`}>
+                                <label className={copy()} htmlFor={`${fieldId}_decline`}>
                                   Will Not Attend
                                 </label>
-                              </div>{" "}
+                              </div>
                             </div>
                           </div>
                         </li>
