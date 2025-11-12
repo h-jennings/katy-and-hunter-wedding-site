@@ -44,7 +44,24 @@ export function RsvpForm({
                               {rsvp.firstName} {rsvp.lastName}
                             </span>
                             <div className="grid grid-flow-col grid-cols-[auto_1fr] items-center gap-2 justify-self-end">
-                              radio
+                              <input
+                                type="radio"
+                                id={`rsvpStatus_${event.id}_${rsvp.id}_attend`}
+                                name={`rsvpStatus_${event.id}_${rsvp.id}`}
+                                value="attending"
+                              />
+                              <label htmlFor={`rsvpStatus_${event.id}_${rsvp.id}_attend`} className="ml-2">
+                                Attending
+                              </label>
+                              <input
+                                type="radio"
+                                id={`rsvpStatus_${event.id}_${rsvp.id}_decline`}
+                                name={`rsvpStatus_${event.id}_${rsvp.id}`}
+                                value="declined"
+                              />
+                              <label htmlFor={`rsvpStatus_${event.id}_${rsvp.id}_decline`} className="ml-2">
+                                Declined
+                              </label>
                             </div>
                           </div>
                         </li>
