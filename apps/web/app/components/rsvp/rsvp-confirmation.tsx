@@ -2,6 +2,7 @@ import { db } from "@repo/database";
 import { guests } from "@repo/database/schema";
 import { eq } from "drizzle-orm";
 import { Circle, CircleCheckIcon, CircleXIcon } from "lucide-react";
+import { ButtonLink } from "~/app/components/button";
 import { Container, ContainerInner } from "~/app/components/container";
 import { chunky, copy, fancyHeading, label } from "~/app/styles/text.styles";
 
@@ -51,6 +52,15 @@ export async function RsvpConfirmation({ partyId, partyName }: { partyId: string
                 </div>
               );
             })}
+          </div>
+          <div className="mx-auto">
+            <ButtonLink
+              href={{
+                search: "edit",
+              }}
+            >
+              Edit RSVP
+            </ButtonLink>
           </div>
         </ContainerInner>
       </Container>
