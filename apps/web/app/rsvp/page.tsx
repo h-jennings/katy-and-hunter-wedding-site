@@ -13,11 +13,14 @@ export default async function RsvpPage() {
 
   const party = await getPartyById(state.partyId);
 
+  if (!party) {
+    return redirect("/");
+  }
+
   return (
     <div>
-      <h1>RSVP Page</h1>
       {/*{party?.respondedAt != null ? <RsvpConfirmation partyId={state.partyId} /> : <RsvpForm />}*/}
-      <RsvpConfirmation partyId={state.partyId} />
+      <RsvpConfirmation partyId={state.partyId} partyName={party.displayName} />
     </div>
   );
 }
