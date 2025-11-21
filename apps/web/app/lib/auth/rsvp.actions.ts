@@ -2,6 +2,7 @@
 import { db } from "@repo/database";
 import { and, eq, isNull } from "drizzle-orm";
 import { err, fromPromise, ok, safeTry } from "neverthrow";
+import { redirect } from "next/navigation";
 import { z } from "zod";
 import "server-only";
 import { parties, rsvps } from "@repo/database/schema";
@@ -43,7 +44,7 @@ export async function submitRsvp(_previousState: RsvpState, formData: FormData):
   return result.match(
     () => {
       revalidatePath("/rsvp");
-      return { status: "success" as const };
+      redirect("/rsvp");
     },
     (error) => ({
       status: "error" as const,

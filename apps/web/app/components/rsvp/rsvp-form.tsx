@@ -46,13 +46,27 @@ export function RsvpForm({
                         </span>
                         <div className="flex items-center gap-x-4 justify-self-end">
                           <div className="flex items-center gap-x-2">
-                            <input type="radio" id={`${fieldId}_attend`} name={fieldId} value="attending" required />
+                            <input
+                              type="radio"
+                              id={`${fieldId}_attend`}
+                              name={fieldId}
+                              value="attending"
+                              defaultChecked={guest.status === "attending"}
+                              required
+                            />
                             <label className={copy()} htmlFor={`${fieldId}_attend`}>
                               Will Attend
                             </label>
                           </div>
                           <div className="flex items-center gap-x-2">
-                            <input type="radio" id={`${fieldId}_decline`} name={fieldId} value="declined" required />
+                            <input
+                              type="radio"
+                              id={`${fieldId}_decline`}
+                              name={fieldId}
+                              value="declined"
+                              defaultChecked={guest.status === "declined"}
+                              required
+                            />
                             <label className={copy()} htmlFor={`${fieldId}_decline`}>
                               Will Not Attend
                             </label>
