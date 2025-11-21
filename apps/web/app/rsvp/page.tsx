@@ -1,11 +1,9 @@
-import { db } from "@repo/database";
-import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { RsvpConfirmation } from "~/app/components/rsvp/rsvp-confirmation";
 import { RsvpForm } from "~/app/components/rsvp/rsvp-form";
 import { RsvpLayout } from "~/app/components/rsvp/rsvp-layout";
 import { getAuthState } from "~/app/lib/auth/auth.helpers";
-import { getRsvpDetailsByPartyId } from "~/app/lib/queries/rsvp.queries";
+import { getPartyById, getRsvpDetailsByPartyId } from "~/app/lib/queries/rsvp.queries";
 
 export default async function RsvpPage({
   searchParams,
@@ -63,11 +61,4 @@ async function PartyFormView({ eyebrow, title, partyId }: { eyebrow?: string; ti
       <RsvpForm formInformation={rsvpFormInformation} />
     </RsvpLayout>
   );
-}
-
-async function getPartyById(partyId: string) {
-  const party = db.query.parties.findFirst({
-    where: ({ id }) => eq(id, partyId),
-  });
-  return party;
 }

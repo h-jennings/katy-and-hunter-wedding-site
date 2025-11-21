@@ -25,3 +25,10 @@ export async function getRsvpDetailsByPartyId(partyId: string) {
     }),
   }));
 }
+
+export async function getPartyById(partyId: string) {
+  const party = db.query.parties.findFirst({
+    where: ({ id }) => eq(id, partyId),
+  });
+  return party;
+}
