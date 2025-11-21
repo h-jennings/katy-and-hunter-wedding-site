@@ -38,7 +38,9 @@ export async function RsvpConfirmation({ partyId, partyName }: { partyId: string
                                 {rsvp.guest.firstName} {rsvp.guest.lastName}
                               </span>
                               <div className="grid grid-flow-col grid-cols-[auto_1fr] items-center gap-2 justify-self-end">
-                                <span className={copy({ className: "font-medium capitalize" })}>{rsvp.status}</span>
+                                <span className={copy({ className: "font-medium capitalize" })}>
+                                  {STATUS_COPY[rsvp.status]}
+                                </span>
                                 {STATUS_ICON[rsvp.status]}
                               </div>
                             </div>
@@ -70,4 +72,10 @@ const STATUS_ICON = {
   pending: <Circle className="size-4" />,
   attending: <CircleCheckIcon className="size-4" />,
   declined: <CircleXIcon className="size-4" />,
+} as const;
+
+const STATUS_COPY = {
+  pending: "Pending",
+  attending: "Will Attend",
+  declined: "Will Not Attend",
 } as const;
