@@ -35,14 +35,14 @@ export function RsvpForm({
             <div className="col-span-full grid grid-cols-subgrid items-baseline">
               <span className={label()}>RSVP</span>
               <ul className="flex w-full flex-col border-black/10 *:border-b *:first:pt-0">
-                {event.rsvps.map((rsvp) => {
-                  const fieldId = `${event.id}_${rsvp.id}_rsvpStatus` as const;
+                {event.rsvps.map((guest) => {
+                  const fieldId = `${event.id}_${guest.id}_rsvpStatus` as const;
 
                   return (
-                    <li key={rsvp.id} className="py-4">
+                    <li key={guest.id} className="py-4">
                       <div className="flex items-baseline justify-between gap-2">
                         <span className={copy({ className: "block" })}>
-                          {rsvp.firstName} {rsvp.lastName}
+                          {guest.firstName} {guest.lastName}
                         </span>
                         <div className="flex items-center gap-x-4 justify-self-end">
                           <div className="flex items-center gap-x-2">

@@ -52,25 +52,19 @@ function parseRsvpFormData(formData: FormData) {
 
   // Parse entries using named capture groups
   const rsvpUpdates = entries
+    .filter(([key]) => key.endsWith("_rsvpStatus"))
     .map(([key, value]) => {
       // Match pattern: eventId_guestId_rsvpStatus
-      // Note: The form field is named with rsvpId but it's actually the guestId
-      const match = key.match(/^(?<eventId>.+)_(?<guestId>.+)_rsvpStatus$/);
+      const match = key.match(/^(?<eventId>[^_]+)_(?<guestId>[^_]+)_rsvpStatus$/);
 
       if (!match?.groups) return null;
 
       const { eventId, guestId } = match.groups;
-      const status = value as string;
-
-      // Validate status is valid enum value
-      if (status !== "attending" && status !== "declined") {
-        return null;
-      }
 
       return {
         eventId,
         guestId,
-        status,
+        status: value,
       };
     })
     .filter((item): item is NonNullable<typeof item> => item !== null);
