@@ -1,33 +1,9 @@
 "use client";
 
-import type * as React from "react";
+import * as React from "react";
 import { Button } from "~/app/components/button";
-import { Container, ContainerInner } from "~/app/components/container";
-import { chunky, copy, fancyHeading, label } from "~/app/styles/text.styles";
-
-export function RsvpLayout({
-  eyebrow = "RSVP",
-  title,
-  children,
-}: {
-  eyebrow?: string;
-  title: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <main>
-      <Container>
-        <ContainerInner className="flex flex-col gap-24">
-          <div className="flex flex-col gap-7 text-center">
-            <h2 className={chunky()}>{eyebrow}</h2>
-            <h1 className={fancyHeading({ size: "lg" })}>{title}</h1>
-          </div>
-          {children}
-        </ContainerInner>
-      </Container>
-    </main>
-  );
-}
+import { submitRsvp } from "~/app/lib/auth/rsvp.actions";
+import { copy, fancyHeading, label } from "~/app/styles/text.styles";
 
 export function RsvpForm({
   formInformation,
@@ -44,8 +20,10 @@ export function RsvpForm({
     }>;
   }>;
 }) {
+  const [state, submitAction, isPending] = React.useActionState(submitRsvp, null);
+
   return (
-    <form className="flex flex-col gap-y-24">
+    <form action={submitAction} className="flex flex-col gap-y-24">
       <div className="mx-auto flex w-full max-w-site-container-w-inner flex-col gap-y-16">
         {formInformation.map((event) => (
           <div key={event.id} className="grid grid-cols-[auto_1fr] gap-x-10 gap-y-4 md:px-8 md:[grid-column:unset]">
@@ -90,7 +68,9 @@ export function RsvpForm({
         ))}
       </div>
       <div className="mx-auto">
-        <Button type="submit">Submit</Button>
+        <Button type="submit" disabled={isPending}>
+          {isPending ? "Submitting..." : "Submit"}
+        </Button>
       </div>
     </form>
   );
