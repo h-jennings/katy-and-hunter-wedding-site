@@ -53,7 +53,7 @@ export function RsvpForm({
                               value="attending"
                               defaultChecked={guest.status === "attending"}
                               required
-                              className="outine-none size-4 appearance-none rounded-full border border-transparent bg-bg-foundation ring-2 ring-black/10 transition-all checked:border-2 checked:border-bg-foundation checked:bg-black checked:ring-black/50 not-checked:hover:ring-black/25"
+                              className="outine-none size-4 appearance-none rounded-full border border-transparent bg-bg-foundation opacity-90 ring-2 ring-black/10 transition-all checked:border-2 checked:border-bg-foundation checked:bg-black checked:opacity-100 checked:ring-black/50 focus-within:opacity-100 focus-within:ring-black/25 hover:opacity-100 hover:ring-3 not-checked:hover:ring-black/25"
                             />
                             <label className={copy()} htmlFor={`${fieldId}_attend`}>
                               Will Attend
@@ -67,7 +67,7 @@ export function RsvpForm({
                               value="declined"
                               defaultChecked={guest.status === "declined"}
                               required
-                              className="outine-none size-4 appearance-none rounded-full border border-transparent bg-bg-foundation ring-2 ring-black/10 transition-all checked:border-2 checked:border-bg-foundation checked:bg-black checked:ring-black/50 not-checked:hover:ring-black/25"
+                              className="outine-none size-4 appearance-none rounded-full border border-transparent bg-bg-foundation opacity-90 ring-2 ring-black/10 transition-all checked:border-2 checked:border-bg-foundation checked:bg-black checked:opacity-100 checked:ring-black/50 focus-within:opacity-100 focus-within:ring-black/25 hover:opacity-100 hover:ring-3 not-checked:hover:ring-black/25"
                             />
                             <label className={copy()} htmlFor={`${fieldId}_decline`}>
                               Will Not Attend

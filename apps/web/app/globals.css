@@ -78,3 +78,10 @@ body {
   background: var(--color-bg-foundation);
   font-family: var(--font-sans);
 }
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+*[role="button"]:focus-visible {
+  outline-color: var(--color-orange);
+}
