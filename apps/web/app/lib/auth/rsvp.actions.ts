@@ -17,7 +17,6 @@ import {
 
 export async function submitRsvp(_previousState: RsvpState, formData: FormData): Promise<RsvpState> {
   const result = safeTry(async function* () {
-    // Get party ID from auth state
     const { partyId } = yield* fromPromise(getAuthState(), () => {
       return unauthorizedError("You must be authorized to submit RSVPs");
     });
@@ -26,8 +25,10 @@ export async function submitRsvp(_previousState: RsvpState, formData: FormData):
       return err(unauthorizedError("You must have a party association to submit RSVPs"));
     }
 
-    // Parse and validate RSVP form data
     const rsvpUpdates = yield* parseRsvpFormData(formData);
+    const guestIds = rsvpUpdates.map((rsvp) => rsvp.guestId);
+
+    yield* validateGuestOwnership(partyId, guestIds);
 
     yield* submitRsvpDataToDb({ partyId, rsvpUpdates });
 
@@ -95,6 +96,27 @@ const RsvpUpdatePayloadSchema = z.array(
     status: z.literal(["attending", "declined"]),
   }),
 );
+
+function validateGuestOwnership(partyId: string, guestIds: Array<string>) {
+  return fromPromise(
+    db.query.guests.findMany({
+      where: (guests, { inArray, eq, and }) => {
+        return and(inArray(guests.id, guestIds), eq(guests.partyId, partyId));
+      },
+      columns: {
+        id: true,
+      },
+    }),
+    () => {
+      return databaseError("Failed to validate guest ownership");
+    },
+  ).andThen((validGuests) => {
+    if (validGuests.length !== guestIds.length) {
+      return err(unauthorizedError("You can only RSVP for guests in your party"));
+    }
+    return ok(undefined);
+  });
+}
 
 function submitRsvpDataToDb({
   partyId,
