@@ -6,9 +6,8 @@ import { z } from "zod";
 import "server-only";
 import { parties, rsvps } from "@repo/database/schema";
 import { getAuthState } from "~/app/lib/auth/auth.helpers";
-import { queryDb } from "~/app/lib/db/query-helpers";
 import { type UnauthorizedError, unauthorizedError } from "~/app/lib/errors/auth.errors";
-import type { DatabaseError } from "~/app/lib/errors/db.errors";
+import { type DatabaseError, databaseError } from "~/app/lib/errors/db.errors";
 import {
   type InvalidRsvpDataError,
   invalidRsvpDataError,
@@ -30,12 +29,7 @@ export async function submitRsvp(_previousState: RsvpState, formData: FormData):
     // Parse and validate RSVP form data
     const rsvpUpdates = yield* parseRsvpFormData(formData);
 
-    // TODO: these two things should be in a transaction
-    // Update party's respondedAt if this is their first response
-    yield* updatePartyRespondedAt(partyId);
-
-    // Update RSVPs in database
-    yield* updateRsvpsInDb(rsvpUpdates);
+    yield* submitRsvpDataToDb({ partyId, rsvpUpdates });
 
     return ok(undefined);
   });
@@ -108,55 +102,47 @@ const RsvpUpdatePayloadSchema = z.array(
   }),
 );
 
-/**
- * Update the party's respondedAt timestamp if they haven't responded before.
- * Only sets respondedAt on the first submission (when it's null).
- */
-function updatePartyRespondedAt(partyId: string) {
-  return queryDb(async () => {
-    await db
-      .update(parties)
-      .set({
-        respondedAt: new Date(),
-        updatedAt: new Date(),
-      })
-      .where(and(eq(parties.id, partyId), isNull(parties.respondedAt)));
-  }, "Failed to update party response timestamp");
-}
+function submitRsvpDataToDb({
+  partyId,
+  rsvpUpdates,
+}: {
+  partyId: string;
+  rsvpUpdates: Array<{ eventId: string; guestId: string; status: "attending" | "declined" }>;
+}) {
+  return fromPromise(
+    db.transaction(async (tx) => {
+      await tx
+        .update(parties)
+        .set({
+          respondedAt: new Date(),
+          updatedAt: new Date(),
+        })
+        .where(and(eq(parties.id, partyId), isNull(parties.respondedAt)));
 
-/**
- * Update RSVP statuses in the database.
- * Uses upsert pattern to update existing records or insert new ones.
- */
-function updateRsvpsInDb(
-  rsvpUpdates: Array<{
-    eventId: string;
-    guestId: string;
-    status: "attending" | "declined";
-  }>,
-) {
-  return queryDb(async () => {
-    // Use Promise.all to update all RSVPs concurrently
-    await Promise.all(
-      rsvpUpdates.map((rsvp) =>
-        db
-          .insert(rsvps)
-          .values({
-            eventId: rsvp.eventId,
-            guestId: rsvp.guestId,
-            status: rsvp.status,
-            updatedAt: new Date(),
-          })
-          .onConflictDoUpdate({
-            target: [rsvps.eventId, rsvps.guestId],
-            set: {
+      await Promise.all(
+        rsvpUpdates.map((rsvp) =>
+          tx
+            .insert(rsvps)
+            .values({
+              eventId: rsvp.eventId,
+              guestId: rsvp.guestId,
               status: rsvp.status,
               updatedAt: new Date(),
-            },
-          }),
-      ),
-    );
-  }, "Failed to update RSVP responses");
+            })
+            .onConflictDoUpdate({
+              target: [rsvps.eventId, rsvps.guestId],
+              set: {
+                status: rsvp.status,
+                updatedAt: new Date(),
+              },
+            }),
+        ),
+      );
+    }),
+    () => {
+      return databaseError("Failed to update RSVP responses");
+    },
+  );
 }
 
 export type RsvpError = DatabaseError | UnauthorizedError | InvalidRsvpDataError | NoRsvpResponsesError;
