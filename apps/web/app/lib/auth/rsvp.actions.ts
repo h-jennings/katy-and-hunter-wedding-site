@@ -5,6 +5,7 @@ import { err, fromPromise, ok, safeTry } from "neverthrow";
 import { z } from "zod";
 import "server-only";
 import { parties, rsvps } from "@repo/database/schema";
+import { revalidatePath } from "next/cache";
 import { getAuthState } from "~/app/lib/auth/auth.helpers";
 import { type UnauthorizedError, unauthorizedError } from "~/app/lib/errors/auth.errors";
 import { type DatabaseError, databaseError } from "~/app/lib/errors/db.errors";
@@ -40,7 +41,10 @@ export async function submitRsvp(_previousState: RsvpState, formData: FormData):
   });
 
   return result.match(
-    () => ({ status: "success" as const }),
+    () => {
+      revalidatePath("/rsvp");
+      return { status: "success" as const };
+    },
     (error) => ({
       status: "error" as const,
       error,
