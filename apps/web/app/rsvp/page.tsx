@@ -3,7 +3,7 @@ import { guests } from "@repo/database/schema";
 import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { RsvpConfirmation } from "~/app/components/rsvp/rsvp-confirmation";
-import { RsvpForm } from "~/app/components/rsvp/rsvp-form";
+import { RsvpForm, RsvpLayout } from "~/app/components/rsvp/rsvp-form";
 import { getAuthState } from "~/app/lib/auth/auth.helpers";
 
 export default async function RsvpPage({
@@ -25,7 +25,7 @@ export default async function RsvpPage({
   }
 
   if (editParam != null) {
-    return <PartyForm partyId={party.id} />;
+    return <PartyForm eyebrow="Edit RSVP" title="Adjust your response below" partyId={party.id} />;
   }
 
   return (
@@ -33,13 +33,13 @@ export default async function RsvpPage({
       {party?.respondedAt != null ? (
         <RsvpConfirmation partyId={state.partyId} partyName={party.displayName} />
       ) : (
-        <PartyForm partyId={party.id} />
+        <PartyForm title="Let's celebrate together!" partyId={party.id} />
       )}
     </div>
   );
 }
 
-async function PartyForm({ partyId }: { partyId: string }) {
+async function PartyForm({ eyebrow, title, partyId }: { eyebrow?: string; title: string; partyId: string }) {
   const rsvpDetails = await getRsvpDetailsByPartyId(partyId);
   const rsvpFormInformation = rsvpDetails.map((event) => {
     return {
@@ -58,9 +58,9 @@ async function PartyForm({ partyId }: { partyId: string }) {
   });
 
   return (
-    <div>
+    <RsvpLayout eyebrow={eyebrow} title={title}>
       <RsvpForm formInformation={rsvpFormInformation} />
-    </div>
+    </RsvpLayout>
   );
 }
 
