@@ -1,11 +1,11 @@
 import { db } from "@repo/database";
-import { guests } from "@repo/database/schema";
 import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { RsvpConfirmation } from "~/app/components/rsvp/rsvp-confirmation";
 import { RsvpForm } from "~/app/components/rsvp/rsvp-form";
 import { RsvpLayout } from "~/app/components/rsvp/rsvp-layout";
 import { getAuthState } from "~/app/lib/auth/auth.helpers";
+import { getRsvpDetailsByPartyId } from "~/app/lib/queries/rsvp.queries";
 
 export default async function RsvpPage({
   searchParams,
@@ -70,20 +70,4 @@ async function getPartyById(partyId: string) {
     where: ({ id }) => eq(id, partyId),
   });
   return party;
-}
-
-async function getRsvpDetailsByPartyId(partyId: string) {
-  const eventsWithRsvps = await db.query.events.findMany({
-    with: {
-      rsvps: {
-        where: (rsvps, { inArray }) =>
-          inArray(rsvps.guestId, db.select({ id: guests.id }).from(guests).where(eq(guests.partyId, partyId))),
-        with: {
-          guest: true,
-        },
-      },
-    },
-  });
-
-  return eventsWithRsvps;
 }

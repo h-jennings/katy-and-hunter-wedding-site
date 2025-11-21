@@ -1,9 +1,7 @@
-import { db } from "@repo/database";
-import { guests } from "@repo/database/schema";
-import { eq } from "drizzle-orm";
 import { Circle, CircleCheckIcon, CircleXIcon } from "lucide-react";
 import { ButtonLink } from "~/app/components/button";
 import { Container, ContainerInner } from "~/app/components/container";
+import { getRsvpDetailsByPartyId } from "~/app/lib/queries/rsvp.queries";
 import { chunky, copy, fancyHeading, label } from "~/app/styles/text.styles";
 
 export async function RsvpConfirmation({ partyId, partyName }: { partyId: string; partyName: string }) {
@@ -73,19 +71,3 @@ const STATUS_ICON = {
   attending: <CircleCheckIcon className="size-4" />,
   declined: <CircleXIcon className="size-4" />,
 } as const;
-
-async function getRsvpDetailsByPartyId(partyId: string) {
-  const eventsWithRsvps = await db.query.events.findMany({
-    with: {
-      rsvps: {
-        where: (rsvps, { inArray }) =>
-          inArray(rsvps.guestId, db.select({ id: guests.id }).from(guests).where(eq(guests.partyId, partyId))),
-        with: {
-          guest: true,
-        },
-      },
-    },
-  });
-
-  return eventsWithRsvps;
-}

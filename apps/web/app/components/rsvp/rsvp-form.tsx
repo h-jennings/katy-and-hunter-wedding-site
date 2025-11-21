@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Button } from "~/app/components/button";
-import { submitRsvp } from "~/app/lib/auth/rsvp.actions";
+import { submitRsvp } from "~/app/lib/actions/rsvp.actions";
 import { copy, fancyHeading, label } from "~/app/styles/text.styles";
 
 export function RsvpForm({

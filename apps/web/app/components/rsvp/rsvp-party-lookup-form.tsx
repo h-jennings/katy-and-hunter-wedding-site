@@ -4,8 +4,8 @@ import { Button } from "~/app/components/button";
 import { IconRestart } from "~/app/components/icon-restart";
 import { Input } from "~/app/components/input";
 import { Spinner } from "~/app/components/spinner";
-import { type LookupPartyError, lookupParty, type PartyData } from "~/app/lib/auth/lookup-party.actions";
-import { selectPartyAction } from "~/app/lib/auth/select-party.actions";
+import { type LookupPartyError, lookupParty, type PartyData } from "~/app/lib/actions/lookup-party.actions";
+import { selectPartyAction } from "~/app/lib/actions/select-party.actions";
 import { chunky, copy } from "~/app/styles/text.styles";
 
 export function RsvpPartyLookupForm() {

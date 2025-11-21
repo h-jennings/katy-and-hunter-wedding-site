@@ -3,7 +3,7 @@
 import * as React from "react";
 import { Button } from "~/app/components/button";
 import { Input } from "~/app/components/input";
-import { verifyCode } from "~/app/lib/auth/verify-code.actions";
+import { verifyCode } from "~/app/lib/actions/verify-code.actions";
 import { chunky, copy } from "~/app/styles/text.styles";
 
 export function RsvpVerifyCodeForm() {
