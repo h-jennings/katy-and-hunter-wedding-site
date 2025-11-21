@@ -50,9 +50,9 @@ export async function submitRsvp(_previousState: RsvpState, formData: FormData):
 function parseRsvpFormData(formData: FormData) {
   const entries = Array.from(formData.entries());
 
+  const rsvpEntries = entries.filter(([key]) => key.endsWith("_rsvpStatus"));
   // Parse entries using named capture groups
-  const rsvpUpdates = entries
-    .filter(([key]) => key.endsWith("_rsvpStatus"))
+  const rsvpUpdates = rsvpEntries
     .map(([key, value]) => {
       // Match pattern: eventId_guestId_rsvpStatus
       const match = key.match(/^(?<eventId>[^_]+)_(?<guestId>[^_]+)_rsvpStatus$/);
@@ -75,7 +75,7 @@ function parseRsvpFormData(formData: FormData) {
   }
 
   // Validate all entries were successfully parsed
-  if (rsvpUpdates.length !== entries.length) {
+  if (rsvpUpdates.length !== rsvpEntries.length) {
     return err(invalidRsvpDataError("Some RSVP responses were invalid or malformed"));
   }
 
