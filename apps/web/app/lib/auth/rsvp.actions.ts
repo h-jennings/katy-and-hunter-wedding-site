@@ -26,11 +26,15 @@ export async function submitRsvp(_previousState: RsvpState, formData: FormData):
     }
 
     const rsvpUpdates = yield* parseRsvpFormData(formData);
-    const guestIds = rsvpUpdates.map((rsvp) => rsvp.guestId);
+    const guestIds = new Set([...rsvpUpdates.map((rsvp) => rsvp.guestId)]);
 
-    yield* validateGuestOwnership(partyId, guestIds);
+    yield* validateGuestOwnership(partyId, Array.from(guestIds));
 
-    yield* submitRsvpDataToDb({ partyId, rsvpUpdates });
+    // Update RSVPs first (critical operation)
+    yield* updateRsvpsInDb(rsvpUpdates);
+
+    // Then update party timestamp (less critical)
+    yield* updatePartyRespondedAt(partyId);
 
     return ok(undefined);
   });
@@ -118,46 +122,49 @@ function validateGuestOwnership(partyId: string, guestIds: Array<string>) {
   });
 }
 
-function submitRsvpDataToDb({
-  partyId,
-  rsvpUpdates,
-}: {
-  partyId: string;
-  rsvpUpdates: Array<{ eventId: string; guestId: string; status: "attending" | "declined" }>;
-}) {
+/**
+ * Update RSVP statuses in the database.
+ * Uses upsert pattern to update existing records or insert new ones.
+ */
+function updateRsvpsInDb(rsvpUpdates: Array<{ eventId: string; guestId: string; status: "attending" | "declined" }>) {
   return fromPromise(
-    db.transaction(async (tx) => {
-      await tx
-        .update(parties)
-        .set({
-          respondedAt: new Date(),
-          updatedAt: new Date(),
-        })
-        .where(and(eq(parties.id, partyId), isNull(parties.respondedAt)));
-
-      await Promise.all(
-        rsvpUpdates.map((rsvp) =>
-          tx
-            .insert(rsvps)
-            .values({
-              eventId: rsvp.eventId,
-              guestId: rsvp.guestId,
+    Promise.all(
+      rsvpUpdates.map((rsvp) =>
+        db
+          .insert(rsvps)
+          .values({
+            eventId: rsvp.eventId,
+            guestId: rsvp.guestId,
+            status: rsvp.status,
+            updatedAt: new Date(),
+          })
+          .onConflictDoUpdate({
+            target: [rsvps.eventId, rsvps.guestId],
+            set: {
               status: rsvp.status,
               updatedAt: new Date(),
-            })
-            .onConflictDoUpdate({
-              target: [rsvps.eventId, rsvps.guestId],
-              set: {
-                status: rsvp.status,
-                updatedAt: new Date(),
-              },
-            }),
-        ),
-      );
-    }),
-    () => {
-      return databaseError("Failed to update RSVP responses");
-    },
+            },
+          }),
+      ),
+    ),
+    () => databaseError("Failed to update RSVP responses"),
+  );
+}
+
+/**
+ * Update the party's respondedAt timestamp if they haven't responded before.
+ * Only sets respondedAt on the first submission (when it's null).
+ */
+function updatePartyRespondedAt(partyId: string) {
+  return fromPromise(
+    db
+      .update(parties)
+      .set({
+        respondedAt: new Date(),
+        updatedAt: new Date(),
+      })
+      .where(and(eq(parties.id, partyId), isNull(parties.respondedAt))),
+    () => databaseError("Failed to update party response timestamp"),
   );
 }
 
