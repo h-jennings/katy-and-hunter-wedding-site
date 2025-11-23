@@ -1,9 +1,9 @@
 import "server-only";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
-import { err, fromPromise, ok } from "neverthrow";
+import { err, fromPromise, ok, type ResultAsync } from "neverthrow";
 import { headers } from "next/headers";
-import { rateLimitError } from "~/app/lib/errors/rate-limit.errors";
+import { type RateLimitError, rateLimitError } from "~/app/lib/errors/rate-limit.errors";
 
 const redis = new Redis({
   url: process.env.UPSTASH_REDIS_REST_URL!,
@@ -36,15 +36,26 @@ export async function getRateLimitIdentifier(): Promise<string> {
   return ip ?? "anonymous";
 }
 
-export async function checkRateLimit(limiter: Ratelimit, identifier?: string) {
-  const id = identifier ?? (await getRateLimitIdentifier());
-  const { success, reset } = await limiter.limit(id);
+export function checkRateLimit(limiter: Ratelimit, identifier?: string): ResultAsync<void, RateLimitError> {
+  return fromPromise(
+    (async () => {
+      const id = identifier ?? (await getRateLimitIdentifier());
+      return await limiter.limit(id);
+    })(),
+    () => rateLimitError("Failed to check rate limit"),
+  ).andThen(({ success, reset }) => {
+    if (!success) {
+      const resetDate = new Date(reset);
+      const minutesUntilReset = Math.ceil((reset - Date.now()) / 1000 / 60);
+      console.warn(`[Rate Limit]: Exceeded, resets at ${resetDate.toISOString()}`);
 
-  if (!success) {
-    const resetDate = new Date(reset);
-    const minutesUntilReset = Math.ceil((reset - Date.now()) / 1000 / 60);
-    console.warn(`[Rate Limit]: Exceeded for ${id}, resets at ${resetDate.toISOString()}`);
+      return err(
+        rateLimitError(
+          `Too many requests. Please try again in ${minutesUntilReset} minute${minutesUntilReset !== 1 ? "s" : ""}.`,
+        ),
+      );
+    }
 
-    throw minutesUntilReset;
-  }
+    return ok(undefined);
+  });
 }
