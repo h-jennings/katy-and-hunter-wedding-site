@@ -2,6 +2,7 @@ import "server-only";
 
 import { type JWTPayload, jwtVerify, SignJWT } from "jose";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import { AUTH_TOKEN, authSecret } from "~/app/lib/auth/auth.constants";
 
 export async function getAuthState() {
@@ -47,4 +48,11 @@ export async function createAuthJwt(payload: AuthPayload) {
     sameSite: "strict",
     maxAge: 60 * 60 * 24 * 1, // 1 day
   });
+}
+
+export async function clearAuthJwt() {
+  "use server";
+  const cookieStore = await cookies();
+  cookieStore.delete(AUTH_TOKEN);
+  redirect("/");
 }

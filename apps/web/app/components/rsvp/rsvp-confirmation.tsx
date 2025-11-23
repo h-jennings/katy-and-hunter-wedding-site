@@ -1,6 +1,7 @@
 import { Circle, CircleCheckIcon, CircleXIcon } from "lucide-react";
 import { ButtonLink } from "~/app/components/button";
 import { Container, ContainerInner } from "~/app/components/container";
+import { ClearParty } from "~/app/components/rsvp/rsvp-clear-party-action";
 import { getRsvpDetailsByPartyId } from "~/app/lib/queries/rsvp.queries";
 import { chunky, copy, fancyHeading, label } from "~/app/styles/text.styles";
 
@@ -12,6 +13,7 @@ export async function RsvpConfirmation({ partyId, partyName }: { partyId: string
       <Container>
         <ContainerInner className="flex flex-col gap-24">
           <div className="flex flex-col gap-7 text-center">
+            <ClearParty />
             <h1 className={chunky({ className: "scroll-mt-20" })}>{partyName} RSVP</h1>
             <h2 className={fancyHeading({ size: "lg" })}>Thank You for Joining Us!</h2>
           </div>
