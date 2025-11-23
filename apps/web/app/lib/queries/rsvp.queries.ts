@@ -1,6 +1,5 @@
-import { db } from "@repo/database";
+import { db, eq } from "@repo/database";
 import { guests } from "@repo/database/schema";
-import { eq } from "drizzle-orm";
 
 export async function getRsvpDetailsByPartyId(partyId: string) {
   const eventsWithRsvps = await db.query.events.findMany({
