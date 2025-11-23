@@ -1,8 +1,9 @@
 "use client";
 
+import { AlertCircleIcon } from "lucide-react";
 import * as React from "react";
 import { Button } from "~/app/components/button";
-import { submitRsvp } from "~/app/lib/actions/rsvp.actions";
+import { type RsvpError, submitRsvp } from "~/app/lib/actions/rsvp.actions";
 import { copy, fancyHeading, label } from "~/app/styles/text.styles";
 
 export function RsvpForm({
@@ -83,11 +84,39 @@ export function RsvpForm({
           </div>
         ))}
       </div>
-      <div className="mx-auto">
+      <div className="mx-auto flex flex-col items-center gap-y-8">
         <Button type="submit" disabled={isPending}>
           {isPending ? "Submitting..." : "Submit"}
         </Button>
+        {state?.status === "error" && (
+          <div className="flex items-center gap-x-2 rounded-md border border-red-800 px-4 py-3 text-red-800">
+            <div className="grid h-[1lh] place-items-center">
+              <AlertCircleIcon className="size-4 shrink-0" />
+            </div>
+            <p className={copy({ className: "text-red-800" })}>{getErrorMessage(state.error._tag)}</p>
+          </div>
+        )}
       </div>
     </form>
   );
+}
+
+function getErrorMessage(tag: RsvpError["_tag"]) {
+  switch (tag) {
+    case "UNAUTHORIZED": {
+      return "You are not authorized to submit this RSVP.";
+    }
+    case "INVALID_RSVP_DATA": {
+      return "The RSVP data provided is invalid. Please check your responses and try again.";
+    }
+    case "NO_RSVP_RESPONSES": {
+      return "No RSVP responses were provided. Please select your attendance status.";
+    }
+    case "DATABASE_ERROR": {
+      return "There was a problem submitting your RSVP. Please try again later.";
+    }
+    default: {
+      return "An unknown error occurred. Please try again later.";
+    }
+  }
 }
