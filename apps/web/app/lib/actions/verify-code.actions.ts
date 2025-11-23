@@ -10,8 +10,10 @@ import {
   type UnauthorizedError,
   unauthorizedError,
 } from "~/app/lib/errors/auth.errors";
+import { type RateLimitError, rateLimitError } from "~/app/lib/errors/rate-limit.errors";
+import { checkRateLimit, verifyCodeRateLimit } from "~/app/lib/rate-limit/rate-limit.helpers";
 
-type CodeVerificationError = UnauthorizedError | CodeRequiredError | CodeIncorrectError;
+type CodeVerificationError = UnauthorizedError | CodeRequiredError | CodeIncorrectError | RateLimitError;
 
 type CodeVerificationResponse =
   | {
@@ -27,6 +29,13 @@ export async function verifyCode(
   formData: FormData,
 ): Promise<CodeVerificationResponse> {
   const result = safeTry(async function* () {
+    yield* fromPromise(checkRateLimit(verifyCodeRateLimit), (err) => {
+      if (typeof err === "number") {
+        return rateLimitError(`Too many requests. Please try again in ${err} minute${err !== 1 ? "s" : ""}.`);
+      } else {
+        return rateLimitError(`Too many requests. Please try again later`);
+      }
+    });
     yield* parseCode(formData);
 
     yield* fromPromise(createAuthJwt({ authorized: true, partyId: null }), () => {

@@ -1,13 +1,22 @@
 "use server";
 import { db } from "@repo/database";
-import { err, ok, safeTry } from "neverthrow";
+import { err, fromPromise, ok, safeTry } from "neverthrow";
 import "server-only";
 import { queryDbArrayOrNotFound } from "~/app/lib/db/query-helpers";
 import { type NameRequiredError, nameRequiredError } from "~/app/lib/errors/auth.errors";
 import type { DatabaseError, NotFoundError } from "~/app/lib/errors/db.errors";
+import { type RateLimitError, rateLimitError } from "~/app/lib/errors/rate-limit.errors";
+import { checkRateLimit, lookupRateLimit } from "~/app/lib/rate-limit/rate-limit.helpers";
 
 export async function lookupParty(_previousState: LookupPartyState, formData: FormData): Promise<LookupPartyState> {
   const result = safeTry(async function* () {
+    yield* fromPromise(checkRateLimit(lookupRateLimit), (err) => {
+      if (typeof err === "number") {
+        return rateLimitError(`Too many requests. Please try again in ${err} minute${err !== 1 ? "s" : ""}.`);
+      } else {
+        return rateLimitError(`Too many requests. Please try again later`);
+      }
+    });
     const [firstName, lastName] = yield* parseFullName(formData);
     const matchingGuests = yield* getMatchingGuestsFromDb(firstName, lastName);
 
@@ -101,7 +110,7 @@ export type PartyData = Array<{
   }>;
 }>;
 
-export type LookupPartyError = DatabaseError | NotFoundError | NameRequiredError;
+export type LookupPartyError = DatabaseError | NotFoundError | NameRequiredError | RateLimitError;
 
 export type LookupPartyState =
   | { status: "success"; data: PartyData }

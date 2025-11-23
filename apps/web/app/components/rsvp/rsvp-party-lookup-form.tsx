@@ -69,6 +69,9 @@ function PartyLookupError({ error }: { error: LookupPartyError }) {
           case "DATABASE_ERROR": {
             return <p className={copy({ className: "text-red-800" })}>Something went wrong. Please try again.</p>;
           }
+          case "RATE_LIMIT_EXCEEDED": {
+            return <p className={copy({ className: "text-red-800" })}>{error.message}</p>;
+          }
           default: {
             const _exhaustive: never = error;
 
