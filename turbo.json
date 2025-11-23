@@ -3,6 +3,15 @@
   "ui": "tui",
   "tasks": {
     "build": {
+      "env": [
+        "DATABASE_URL",
+        "AUTH_SECRET",
+        "NEXT_PUBLIC_RELEASE_RSVP",
+        "INVITE_CODE",
+        "NEXT_PUBLIC_KATY_PHONE",
+        "UPSTASH_REDIS_REST_URL",
+        "UPSTASH_REDIS_REST_TOKEN"
+      ],
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": [".next/**", "!.next/cache/**"]
