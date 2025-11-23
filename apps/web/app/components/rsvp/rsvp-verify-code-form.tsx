@@ -29,8 +29,12 @@ export function RsvpVerifyCodeForm() {
           state?.status === "error" &&
           (state.reason === "CODE_REQUIRED" || state.reason === "CODE_INCORRECT" ? (
             <VerificationError submitCount={submitCount} />
+          ) : state.reason === "RATE_LIMIT_EXCEEDED" ? (
+            <p className={copy({ className: "text-red-800" })}>
+              Too many attempts. Please wait a few minutes before trying again.
+            </p>
           ) : (
-            <p className={copy({ className: "text-red-700" })}>Something went wrong. Please try again.</p>
+            <p className={copy({ className: "text-red-800" })}>Something went wrong. Please try again.</p>
           ))}
       </div>
     </form>
@@ -39,7 +43,7 @@ export function RsvpVerifyCodeForm() {
 
 function VerificationError({ submitCount }: { submitCount: number }) {
   return (
-    <p className={copy({ className: "text-red-700" })}>
+    <p className={copy({ className: "text-red-800" })}>
       {ERROR_MESSAGE_COPY[(submitCount - 1) % ERROR_MESSAGE_COPY.length]}
     </p>
   );
