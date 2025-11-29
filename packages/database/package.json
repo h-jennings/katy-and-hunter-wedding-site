@@ -14,8 +14,6 @@
     "db:migrate:prod": "dotenvx run -f .env.production.local -- drizzle-kit migrate",
     "db:generate": "dotenvx run -f .env.development.local -- drizzle-kit generate",
     "db:generate:prod": "dotenvx run -f .env.production.local -- drizzle-kit generate",
-    "db:push": "dotenvx run -f .env.development.local -- drizzle-kit push",
-    "db:push:prod": "dotenvx run -f .env.production.local -- drizzle-kit push",
     "db:pull": "dotenvx run -f .env.development.local -- drizzle-kit pull",
     "db:pull:prod": "dotenvx run -f .env.production.local -- drizzle-kit pull",
     "db:seed": "dotenvx run -f .env.development.local -- tsx ./src/seed.ts",
