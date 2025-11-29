@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { pgTable, timestamp, varchar } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core";
 import { generateId, NANOID_LENGTH } from "../utils/generate-id";
 import { rsvps } from "./rsvps";
 
@@ -24,7 +24,12 @@ export const events = pgTable("events", {
     withTimezone: true,
     mode: "date",
   }).notNull(),
+  startTime: varchar("start_time", { length: 50 }),
+  endTime: varchar("end_time", { length: 50 }),
   detailsUrl: varchar("details_url", { length: 250 }),
+  location: text("location"),
+  attire: text("attire"),
+  description: text("description"),
 });
 
 export const eventsRelations = relations(events, ({ many }) => {
