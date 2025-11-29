@@ -8,6 +8,13 @@
       "when": 1760929261749,
       "tag": "0000_init",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1764454819192,
+      "tag": "0001_adding-event-fields",
+      "breakpoints": true
     }
   ]
 }

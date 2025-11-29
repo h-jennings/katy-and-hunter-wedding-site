@@ -28,6 +28,9 @@ async function main() {
         columns: {
           name: f.companyName(),
           date: f.date(),
+          location: f.streetAddress(),
+          attire: f.loremIpsum({ sentencesCount: 1 }),
+          description: f.loremIpsum({ sentencesCount: 3 }),
         },
       },
       rsvps: {
