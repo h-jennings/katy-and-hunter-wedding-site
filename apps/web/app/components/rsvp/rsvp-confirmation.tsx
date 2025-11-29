@@ -29,6 +29,24 @@ export async function RsvpConfirmation({ partyId, partyName }: { partyId: string
                     <span className={label()}>Date</span>
                     <span className={copy()}>{event.date.toISOString()}</span>
                   </div>
+                  <div className="col-span-full grid grid-cols-subgrid">
+                    <span className={label()}>Time</span>
+                    <span className={copy({ className: "font-medium" })}>
+                      {event.startTime} {event.endTime ? `to ${event.endTime}` : null}
+                    </span>
+                  </div>
+                  <div className="col-span-full grid grid-cols-subgrid">
+                    <span className={label()}>Place</span>
+                    <span className={copy({ className: "whitespace-pre-wrap" })}>{event.location}</span>
+                  </div>
+                  <div className="col-span-full grid grid-cols-subgrid">
+                    <span className={label()}>Attire</span>
+                    <span className={copy({ className: "whitespace-pre-wrap" })}>{event.attire}</span>
+                  </div>
+                  <div className="col-span-full grid grid-cols-subgrid">
+                    <span className={label()}>Details</span>
+                    <span className={copy({ className: "whitespace-pre-wrap" })}>{event.description}</span>
+                  </div>
                   <div className="col-span-full grid grid-cols-subgrid items-baseline">
                     <span className={label()}>RSVP Responses</span>
                     <ul className="flex w-full flex-col border-black/10 *:border-b *:first:pt-0">

@@ -45,6 +45,11 @@ async function PartyFormView({ eyebrow, title, partyId }: { eyebrow?: string; ti
       id: event.id,
       name: event.name,
       date: event.date.toISOString(),
+      startTime: event.startTime,
+      endTime: event.endTime,
+      location: event.location,
+      attire: event.attire,
+      description: event.description,
       rsvps: event.rsvps.map(({ guest, status }) => {
         return {
           id: guest.id,
