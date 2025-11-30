@@ -9,7 +9,7 @@ import { getAuthState } from "~/app/lib/auth/auth.helpers";
 
 export async function SiteLayout({ children }: { children: React.ReactNode }) {
   const state = await getAuthState();
-  const canAccessRsvpPage = state.authorized && state.partyId != null;
+  const canAccessRsvpPage = state.partyId != null;
 
   return (
     <div className="isolate">

@@ -13,7 +13,7 @@ export default async function RsvpPage({
   const editParam = (await searchParams).edit;
   const state = await getAuthState();
 
-  if (!state.authorized || state.partyId == null) {
+  if (state.partyId == null) {
     return redirect("/");
   }
 
