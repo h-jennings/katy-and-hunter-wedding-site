@@ -48,10 +48,12 @@ export function RsvpForm({
               <span className={label()}>Place</span>
               <span className={copy({ className: "whitespace-pre-wrap" })}>{event.location}</span>
             </div>
-            <div className="col-span-full grid grid-cols-subgrid">
-              <span className={label()}>Attire</span>
-              <span className={copy({ className: "whitespace-pre-wrap" })}>{event.attire}</span>
-            </div>
+            {event.attire && event.attire.trim().length !== 0 && (
+              <div className="col-span-full grid grid-cols-subgrid">
+                <span className={label()}>Attire</span>
+                <span className={copy({ className: "whitespace-pre-wrap" })}>{event.attire}</span>
+              </div>
+            )}
             <div className="col-span-full grid grid-cols-subgrid">
               <span className={label()}>Details</span>
               <span className={copy({ className: "whitespace-pre-wrap" })}>{event.description}</span>
