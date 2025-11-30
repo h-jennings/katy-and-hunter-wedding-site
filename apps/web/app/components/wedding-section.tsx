@@ -66,24 +66,24 @@ export function Wedding() {
               </EventDetail>
             </Event>
           </Day>
-          <Day date="5/17" dow="Sunday">
-            <Event name="Fairwell Cookout">
-              <EventDetail label="Time">
-                <span className="font-medium">1PM</span>
-              </EventDetail>
-              <EventDetail label="Place">
-                The Jennings' Home <br /> 604 N 33rd St, <br />
-                Richmond, VA 23223
-              </EventDetail>
-
-              <EventDetail label="Attire">Casual</EventDetail>
-
-              <EventDetail label="Details">
-                Join us for a relaxed cookout before you head home, a perfect way to say goodbye and reminisce about the
-                weekend.
-              </EventDetail>
-            </Event>
-          </Day>
+          {/* <Day date="5/17" dow="Sunday"> */}
+          {/*   <Event name="Fairwell Cookout"> */}
+          {/*     <EventDetail label="Time"> */}
+          {/*       <span className="font-medium">1PM</span> */}
+          {/*     </EventDetail> */}
+          {/*     <EventDetail label="Place"> */}
+          {/*       The Jennings' Home <br /> 604 N 33rd St, <br /> */}
+          {/*       Richmond, VA 23223 */}
+          {/*     </EventDetail> */}
+          {/**/}
+          {/*     <EventDetail label="Attire">Casual</EventDetail> */}
+          {/**/}
+          {/*     <EventDetail label="Details"> */}
+          {/*       Join us for a relaxed cookout before you head home, a perfect way to say goodbye and reminisce about the */}
+          {/*       weekend. */}
+          {/*     </EventDetail> */}
+          {/*   </Event> */}
+          {/* </Day> */}
         </div>
       </ContainerInner>
     </Container>
