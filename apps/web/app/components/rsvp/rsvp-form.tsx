@@ -45,7 +45,7 @@ export function RsvpForm({
               </div>
               <div className="col-span-full grid grid-cols-subgrid">
                 <span className={label()}>Time</span>
-                <span className={copy({ className: "font-medium" })}>
+                <span className={copy()}>
                   {event.startTime} {event.endTime ? `to ${event.endTime}` : null}
                 </span>
               </div>
