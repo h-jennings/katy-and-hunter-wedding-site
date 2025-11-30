@@ -24,6 +24,7 @@
   "license": "ISC",
   "dependencies": {
     "@neondatabase/serverless": "^1.0.2",
+    "csv-parser": "^3.2.0",
     "drizzle-orm": "^0.44.6",
     "drizzle-zod": "^0.8.3",
     "nanoid": "^5.1.6",
