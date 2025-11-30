@@ -80,7 +80,7 @@ export function RsvpForm({
                               className="outine-none size-4 appearance-none rounded-full border border-transparent bg-bg-foundation opacity-90 ring-2 ring-black/10 transition-all checked:border-2 checked:border-bg-foundation checked:bg-black checked:opacity-100 checked:ring-black/50 focus-within:opacity-100 focus-within:ring-black/25 hover:opacity-100 hover:ring-3 not-checked:hover:ring-black/25"
                             />
                             <label className={copy()} htmlFor={`${fieldId}_attend`}>
-                              Will Attend
+                              Accepts
                             </label>
                           </div>
                           <div className="flex items-center gap-x-2">
@@ -94,7 +94,7 @@ export function RsvpForm({
                               className="outine-none size-4 appearance-none rounded-full border border-transparent bg-bg-foundation opacity-90 ring-2 ring-black/10 transition-all checked:border-2 checked:border-bg-foundation checked:bg-black checked:opacity-100 checked:ring-black/50 focus-within:opacity-100 focus-within:ring-black/25 hover:opacity-100 hover:ring-3 not-checked:hover:ring-black/25"
                             />
                             <label className={copy()} htmlFor={`${fieldId}_decline`}>
-                              Will Not Attend
+                              Declines
                             </label>
                           </div>
                         </div>

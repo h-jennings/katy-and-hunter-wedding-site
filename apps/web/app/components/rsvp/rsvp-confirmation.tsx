@@ -48,7 +48,7 @@ export async function RsvpConfirmation({ partyId, partyName }: { partyId: string
                     <span className={copy({ className: "whitespace-pre-wrap" })}>{event.description}</span>
                   </div>
                   <div className="col-span-full grid grid-cols-subgrid items-baseline">
-                    <span className={label()}>RSVP Responses</span>
+                    <span className={label()}>RSVP</span>
                     <ul className="flex w-full flex-col border-black/10 *:border-b *:first:pt-0">
                       {event.rsvps.map((rsvp) => {
                         return (
@@ -96,6 +96,6 @@ const STATUS_ICON = {
 
 const STATUS_COPY = {
   pending: "Pending",
-  attending: "Will Attend",
-  declined: "Will Not Attend",
+  attending: "Accepted",
+  declined: "Declined",
 } as const;
