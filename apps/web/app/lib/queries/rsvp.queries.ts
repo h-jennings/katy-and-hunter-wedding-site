@@ -12,6 +12,7 @@ export async function getRsvpDetailsByPartyId(partyId: string) {
         },
       },
     },
+    orderBy: (events, { asc }) => [asc(events.date)],
   });
 
   // Sort RSVPs by guest name to ensure consistent ordering across events

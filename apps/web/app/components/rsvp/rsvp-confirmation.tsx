@@ -19,6 +19,9 @@ export async function RsvpConfirmation({ partyId, partyName }: { partyId: string
           </div>
           <div className="mx-auto flex w-full max-w-site-container-w-inner flex-col gap-y-16">
             {result.map((event) => {
+              const prettyDate = new Intl.DateTimeFormat("en-US", {
+                dateStyle: "long",
+              }).format(event.date);
               return (
                 <div
                   key={event.id}
@@ -27,7 +30,7 @@ export async function RsvpConfirmation({ partyId, partyName }: { partyId: string
                   <h3 className={fancyHeading({ size: "md", className: "col-span-full" })}>{event.name}</h3>
                   <div className="col-span-full grid grid-cols-subgrid">
                     <span className={label()}>Date</span>
-                    <span className={copy()}>{event.date.toISOString()}</span>
+                    <span className={copy()}>{prettyDate}</span>
                   </div>
                   <div className="col-span-full grid grid-cols-subgrid">
                     <span className={label()}>Time</span>
