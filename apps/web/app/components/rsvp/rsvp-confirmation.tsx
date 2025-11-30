@@ -15,7 +15,7 @@ export async function RsvpConfirmation({ partyId, partyName }: { partyId: string
           <div className="flex flex-col gap-7 text-center">
             <ClearParty />
             <h1 className={chunky({ className: "scroll-mt-20" })}>{partyName} RSVP</h1>
-            <h2 className={fancyHeading({ size: "lg" })}>Thank You for Joining Us!</h2>
+            <h2 className={fancyHeading({ size: "lg" })}>Thank you for your response!</h2>
           </div>
           <div className="mx-auto flex w-full max-w-site-container-w-inner flex-col gap-y-16">
             {result.map((event) => {
