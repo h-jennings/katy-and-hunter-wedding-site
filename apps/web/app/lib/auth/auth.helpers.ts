@@ -31,8 +31,8 @@ export async function decrypt(jwt: string | undefined = "") {
       algorithms: ["HS256"],
     });
     return payload;
-  } catch (_error) {
-    console.log("Failed to ");
+  } catch (error) {
+    console.log("Failed to verify JWT:", error);
   }
 }
 
