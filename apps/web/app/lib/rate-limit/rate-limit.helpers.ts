@@ -17,13 +17,6 @@ export const lookupRateLimit = new Ratelimit({
   prefix: "ratelimit:lookup",
 });
 
-export const verifyCodeRateLimit = new Ratelimit({
-  redis,
-  limiter: Ratelimit.slidingWindow(5, "1 m"), // 5 requests per minute
-  analytics: true,
-  prefix: "ratelimit:verifyCode",
-});
-
 export async function getRateLimitIdentifier(): Promise<string> {
   const headersList = await headers();
 

@@ -8,13 +8,12 @@ export async function getAuthState() {
   const token = (await cookies()).get(AUTH_TOKEN)?.value;
   const payload = await decrypt(token);
 
-  return { authorized: payload?.authorized ?? false, partyId: payload?.partyId ?? null };
+  return { partyId: payload?.partyId ?? null };
 }
 
 const encodedKey = new TextEncoder().encode(authSecret);
 
 interface AuthPayload extends JWTPayload {
-  authorized: boolean;
   partyId: string | null;
 }
 
