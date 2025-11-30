@@ -85,7 +85,7 @@ function PartyLookupError({ error }: { error: LookupPartyError }) {
 
 function PartyLookupResult({ parties }: { parties: PartyData }) {
   return (
-    <ul className="w-full pt-4 pb-4">
+    <ul className="w-full divide-y divide-bg-foundation pt-4 pb-4 *:not-first:pt-4 *:not-last:pb-4">
       {parties.map((party) => {
         return (
           <li key={party.id} className="px-4">
@@ -102,8 +102,8 @@ function PartyResult({ party }: { party: PartyData[number] }) {
   const [state, submitAction, isPending] = React.useActionState(actionWithPartyId, null);
 
   return (
-    <form action={submitAction} className="flex items-center gap-4">
-      <div className="flex min-w-0 flex-1 flex-col gap-2 rounded-lg text-left">
+    <form action={submitAction} className="flex flex-wrap items-center gap-4">
+      <div className="flex min-w-[min(20ch,100%)] flex-1 flex-col gap-2 rounded-lg text-left">
         <p className={copy({ className: "text-pretty font-semibold text-off-white" })}>{party.displayName}</p>
         <p className={copy({ className: "text-pretty text-text-secondary" })}>
           {party.guests.map((guest) => `${guest.firstName} ${guest.lastName}`.trim()).join(", ")}

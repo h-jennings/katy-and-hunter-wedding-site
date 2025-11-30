@@ -66,7 +66,7 @@ export function RsvpForm({
 
                   return (
                     <li key={guest.id} className="py-4">
-                      <div className="flex items-baseline justify-between gap-2">
+                      <div className="flex flex-col flex-wrap items-baseline justify-between gap-x-2 gap-y-4 sm:flex-row">
                         <span className={copy({ className: "block" })}>
                           {guest.firstName} {guest.lastName}
                         </span>
