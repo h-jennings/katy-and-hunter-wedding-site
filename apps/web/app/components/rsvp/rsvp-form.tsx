@@ -31,83 +31,89 @@ export function RsvpForm({
   return (
     <form action={submitAction} className="flex flex-col gap-y-24">
       <div className="mx-auto flex w-full max-w-site-container-w-inner flex-col gap-y-16">
-        {formInformation.map((event) => (
-          <div key={event.id} className="grid grid-cols-[auto_1fr] gap-x-10 gap-y-4 md:px-8 md:[grid-column:unset]">
-            <h2 className={fancyHeading({ size: "md", className: "col-span-full" })}>{event.name}</h2>
-            <div className="col-span-full grid grid-cols-subgrid">
-              <span className={label()}>Date</span>
-              <span className={copy()}>{event.date}</span>
-            </div>
-            <div className="col-span-full grid grid-cols-subgrid">
-              <span className={label()}>Time</span>
-              <span className={copy({ className: "font-medium" })}>
-                {event.startTime} {event.endTime ? `to ${event.endTime}` : null}
-              </span>
-            </div>
-            <div className="col-span-full grid grid-cols-subgrid">
-              <span className={label()}>Place</span>
-              <span className={copy({ className: "whitespace-pre-wrap" })}>{event.location}</span>
-            </div>
-            {event.attire && event.attire.trim().length !== 0 && (
-              <div className="col-span-full grid grid-cols-subgrid">
-                <span className={label()}>Attire</span>
-                <span className={copy({ className: "whitespace-pre-wrap" })}>{event.attire}</span>
-              </div>
-            )}
-            <div className="col-span-full grid grid-cols-subgrid">
-              <span className={label()}>Details</span>
-              <span className={copy({ className: "whitespace-pre-wrap" })}>{event.description}</span>
-            </div>
-            <div className="col-span-full grid grid-cols-subgrid items-baseline">
-              <span className={label()}>RSVP</span>
-              <ul className="flex w-full flex-col border-black/10 *:border-b *:first:pt-0">
-                {event.rsvps.map((guest) => {
-                  const fieldId = `${event.id}_${guest.id}_rsvpStatus` as const;
+        {formInformation.map((event) => {
+          const prettyDate = new Intl.DateTimeFormat("en-US", {
+            dateStyle: "long",
+          }).format(new Date(event.date));
 
-                  return (
-                    <li key={guest.id} className="py-4">
-                      <div className="flex flex-col flex-wrap items-baseline justify-between gap-x-2 gap-y-4 sm:flex-row">
-                        <span className={copy({ className: "block" })}>
-                          {guest.firstName} {guest.lastName}
-                        </span>
-                        <div className="flex items-center gap-x-4 justify-self-end">
-                          <div className="flex items-center gap-x-2">
-                            <input
-                              type="radio"
-                              id={`${fieldId}_attend`}
-                              name={fieldId}
-                              value="attending"
-                              defaultChecked={guest.status === "attending"}
-                              required
-                              className="outine-none size-4 appearance-none rounded-full border border-transparent bg-bg-foundation opacity-90 ring-2 ring-black/10 transition-all checked:border-2 checked:border-bg-foundation checked:bg-black checked:opacity-100 checked:ring-black/50 focus-within:opacity-100 focus-within:ring-black/25 hover:opacity-100 hover:ring-3 not-checked:hover:ring-black/25"
-                            />
-                            <label className={copy()} htmlFor={`${fieldId}_attend`}>
-                              Accepts
-                            </label>
-                          </div>
-                          <div className="flex items-center gap-x-2">
-                            <input
-                              type="radio"
-                              id={`${fieldId}_decline`}
-                              name={fieldId}
-                              value="declined"
-                              defaultChecked={guest.status === "declined"}
-                              required
-                              className="outine-none size-4 appearance-none rounded-full border border-transparent bg-bg-foundation opacity-90 ring-2 ring-black/10 transition-all checked:border-2 checked:border-bg-foundation checked:bg-black checked:opacity-100 checked:ring-black/50 focus-within:opacity-100 focus-within:ring-black/25 hover:opacity-100 hover:ring-3 not-checked:hover:ring-black/25"
-                            />
-                            <label className={copy()} htmlFor={`${fieldId}_decline`}>
-                              Declines
-                            </label>
+          return (
+            <div key={event.id} className="grid grid-cols-[auto_1fr] gap-x-10 gap-y-4 md:px-8 md:[grid-column:unset]">
+              <h2 className={fancyHeading({ size: "md", className: "col-span-full" })}>{event.name}</h2>
+              <div className="col-span-full grid grid-cols-subgrid">
+                <span className={label()}>Date</span>
+                <span className={copy()}>{prettyDate}</span>
+              </div>
+              <div className="col-span-full grid grid-cols-subgrid">
+                <span className={label()}>Time</span>
+                <span className={copy({ className: "font-medium" })}>
+                  {event.startTime} {event.endTime ? `to ${event.endTime}` : null}
+                </span>
+              </div>
+              <div className="col-span-full grid grid-cols-subgrid">
+                <span className={label()}>Place</span>
+                <span className={copy({ className: "whitespace-pre-wrap" })}>{event.location}</span>
+              </div>
+              {event.attire && event.attire.trim().length !== 0 && (
+                <div className="col-span-full grid grid-cols-subgrid">
+                  <span className={label()}>Attire</span>
+                  <span className={copy({ className: "whitespace-pre-wrap" })}>{event.attire}</span>
+                </div>
+              )}
+              <div className="col-span-full grid grid-cols-subgrid">
+                <span className={label()}>Details</span>
+                <span className={copy({ className: "whitespace-pre-wrap" })}>{event.description}</span>
+              </div>
+              <div className="col-span-full grid grid-cols-subgrid items-baseline">
+                <span className={label()}>RSVP</span>
+                <ul className="flex w-full flex-col border-black/10 *:border-b *:first:pt-0">
+                  {event.rsvps.map((guest) => {
+                    const fieldId = `${event.id}_${guest.id}_rsvpStatus` as const;
+
+                    return (
+                      <li key={guest.id} className="py-4">
+                        <div className="flex flex-col flex-wrap items-baseline justify-between gap-x-2 gap-y-4 sm:flex-row">
+                          <span className={copy({ className: "block" })}>
+                            {guest.firstName} {guest.lastName}
+                          </span>
+                          <div className="flex items-center gap-x-4 justify-self-end">
+                            <div className="flex items-center gap-x-2">
+                              <input
+                                type="radio"
+                                id={`${fieldId}_attend`}
+                                name={fieldId}
+                                value="attending"
+                                defaultChecked={guest.status === "attending"}
+                                required
+                                className="outine-none size-4 appearance-none rounded-full border border-transparent bg-bg-foundation opacity-90 ring-2 ring-black/10 transition-all checked:border-2 checked:border-bg-foundation checked:bg-black checked:opacity-100 checked:ring-black/50 focus-within:opacity-100 focus-within:ring-black/25 hover:opacity-100 hover:ring-3 not-checked:hover:ring-black/25"
+                              />
+                              <label className={copy()} htmlFor={`${fieldId}_attend`}>
+                                Accepts
+                              </label>
+                            </div>
+                            <div className="flex items-center gap-x-2">
+                              <input
+                                type="radio"
+                                id={`${fieldId}_decline`}
+                                name={fieldId}
+                                value="declined"
+                                defaultChecked={guest.status === "declined"}
+                                required
+                                className="outine-none size-4 appearance-none rounded-full border border-transparent bg-bg-foundation opacity-90 ring-2 ring-black/10 transition-all checked:border-2 checked:border-bg-foundation checked:bg-black checked:opacity-100 checked:ring-black/50 focus-within:opacity-100 focus-within:ring-black/25 hover:opacity-100 hover:ring-3 not-checked:hover:ring-black/25"
+                              />
+                              <label className={copy()} htmlFor={`${fieldId}_decline`}>
+                                Declines
+                              </label>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </li>
-                  );
-                })}
-              </ul>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
       <div className="mx-auto flex flex-col items-center gap-y-8">
         <Button type="submit" disabled={isPending}>

@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
+import * as React from "react";
 
 export function ScrollToTop({ children }: { children: React.ReactNode }) {
-  useEffect(() => {
+  React.useLayoutEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
   }, []);
 

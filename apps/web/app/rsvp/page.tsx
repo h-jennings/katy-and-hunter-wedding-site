@@ -29,13 +29,13 @@ export default async function RsvpPage({
   }
 
   return (
-    <ScrollToTop>
+    <div>
       {party?.respondedAt != null ? (
         <RsvpConfirmation partyId={state.partyId} partyName={party.displayName} />
       ) : (
         <PartyFormView title="Let's celebrate together!" partyId={party.id} />
       )}
-    </ScrollToTop>
+    </div>
   );
 }
 
@@ -63,8 +63,10 @@ async function PartyFormView({ eyebrow, title, partyId }: { eyebrow?: string; ti
   });
 
   return (
-    <RsvpLayout eyebrow={eyebrow} title={title}>
-      <RsvpForm formInformation={rsvpFormInformation} />
-    </RsvpLayout>
+    <ScrollToTop key={title}>
+      <RsvpLayout eyebrow={eyebrow} title={title}>
+        <RsvpForm formInformation={rsvpFormInformation} />
+      </RsvpLayout>
+    </ScrollToTop>
   );
 }
