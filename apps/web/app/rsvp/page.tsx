@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { RsvpConfirmation } from "~/app/components/rsvp/rsvp-confirmation";
 import { RsvpForm } from "~/app/components/rsvp/rsvp-form";
 import { RsvpLayout } from "~/app/components/rsvp/rsvp-layout";
+import { ScrollToTop } from "~/app/components/scroll-to-top";
 import { getAuthState } from "~/app/lib/auth/auth.helpers";
 import { getPartyById, getRsvpDetailsByPartyId } from "~/app/lib/queries/rsvp.queries";
 
@@ -28,13 +29,13 @@ export default async function RsvpPage({
   }
 
   return (
-    <div>
+    <ScrollToTop>
       {party?.respondedAt != null ? (
         <RsvpConfirmation partyId={state.partyId} partyName={party.displayName} />
       ) : (
         <PartyFormView title="Let's celebrate together!" partyId={party.id} />
       )}
-    </div>
+    </ScrollToTop>
   );
 }
 
