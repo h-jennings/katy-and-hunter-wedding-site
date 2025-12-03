@@ -54,7 +54,13 @@ export async function RsvpConfirmation({ partyId, partyName }: { partyId: string
                     )}
                     <div className="col-span-full grid grid-cols-subgrid">
                       <span className={label()}>Details</span>
-                      <span className={copy({ className: "whitespace-pre-wrap" })}>{event.description}</span>
+                      <span
+                        className={copy({ className: "whitespace-pre-wrap [&>strong]:font-medium" })}
+                        // biome-ignore lint/security/noDangerouslySetInnerHtml: static content from DB
+                        dangerouslySetInnerHTML={{
+                          __html: event.description ?? "",
+                        }}
+                      />
                     </div>
                     <div className="col-span-full grid grid-cols-subgrid items-baseline">
                       <span className={label()}>RSVP</span>

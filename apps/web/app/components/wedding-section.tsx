@@ -62,7 +62,8 @@ export function Wedding() {
               </EventDetail>
 
               <EventDetail label="Details">
-                Keep the celebration going right after the reception with more food, drinks, and dancing!
+                <span className="font-medium">This event is 21+</span> &mdash; Keep the celebration going right after
+                the reception with more food, drinks, and dancing!
               </EventDetail>
             </Event>
           </Day>
