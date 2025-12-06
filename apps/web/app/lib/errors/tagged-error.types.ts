@@ -6,7 +6,7 @@
 /**
  * A tagged error type with a discriminant tag and optional extra data.
  */
-export type TaggedError<Tag extends string, Extra = {}> = {
+export type TaggedError<Tag extends string, Extra = Record<string, unknown>> = {
   readonly _tag: Tag;
   readonly message: string;
 } & Extra;
@@ -24,7 +24,7 @@ export type TaggedError<Tag extends string, Extra = {}> = {
  * const validationError = createTaggedError<"VALIDATION_ERROR", { field: string }>("VALIDATION_ERROR");
  * return err(validationError("Invalid email", { field: "email" }));
  */
-export function createTaggedError<const Tag extends string, Extra = {}>(
+export function createTaggedError<const Tag extends string, Extra = Record<string, unknown>>(
   tag: Tag,
 ): (message: string, extra?: Extra) => TaggedError<Tag, Extra> {
   return (message: string, extra?: Extra): TaggedError<Tag, Extra> => ({
