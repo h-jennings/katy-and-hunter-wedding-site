@@ -6,6 +6,9 @@ import { AUTH_TOKEN, authSecret } from "~/app/lib/auth/auth.constants";
 
 export async function getAuthState() {
   const token = (await cookies()).get(AUTH_TOKEN)?.value;
+
+  if (!token) return { partyId: null };
+
   const payload = await decrypt(token);
 
   return { partyId: payload?.partyId ?? null };
@@ -25,7 +28,7 @@ export async function encrypt(payload: AuthPayload) {
     .sign(encodedKey);
 }
 
-export async function decrypt(jwt: string | undefined = "") {
+export async function decrypt(jwt: string) {
   try {
     const { payload } = await jwtVerify<AuthPayload>(jwt, encodedKey, {
       algorithms: ["HS256"],
