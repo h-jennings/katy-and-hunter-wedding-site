@@ -15,6 +15,7 @@ import {
   type NoRsvpResponsesError,
   noRsvpResponsesError,
 } from "~/app/lib/errors/rsvp.errors";
+import { sendRsvpNotificationEmail } from "~/app/lib/notifications/email.notifications";
 
 export async function submitRsvp(_previousState: RsvpState, formData: FormData): Promise<RsvpState> {
   const result = safeTry(async function* () {
@@ -31,11 +32,12 @@ export async function submitRsvp(_previousState: RsvpState, formData: FormData):
 
     yield* validateGuestOwnership(partyId, Array.from(guestIds));
 
-    // Update RSVPs first (critical operation)
     yield* updateRsvpsInDb(rsvpUpdates);
-
-    // Then update party timestamp (less critical)
     yield* updatePartyRespondedAt(partyId);
+
+    sendRsvpNotificationEmail(partyId).catch((error) => {
+      console.error("[RSVP Action] Notification send failed:", error);
+    });
 
     return ok(undefined);
   });
