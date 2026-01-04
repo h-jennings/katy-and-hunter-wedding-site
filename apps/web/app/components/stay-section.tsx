@@ -1,8 +1,24 @@
+import { MarsIcon, VenusIcon } from "lucide-react";
 import Link from "next/link";
+import { twMerge } from "tailwind-merge";
 import { AirBnbLogomark } from "~/app/components/airbnb-logomark";
 import { Container, ContainerInner } from "~/app/components/container";
 import { ANCHORS } from "~/app/constants/anchors.constants";
 import { chunky, copy, fancyHeading, label } from "~/app/styles/text.styles";
+
+type Price = "cheap" | "moderate" | "expensive";
+type FavoriteVariant = "bride" | "groom";
+
+const PRICE_LABEL = {
+  cheap: "$",
+  moderate: "$$",
+  expensive: "$$$",
+} satisfies Record<Price, string>;
+
+const WISHLIST_URL = "https://www.airbnb.com/wishlists/v/1345405123";
+
+const BADGE_BOX_SHADOW =
+  "rgba(255, 255, 255, 0.06) 0px -12px 16px 0px inset, rgba(255, 255, 255, 0.16) 0px 4px 16px 0px inset, rgba(255, 255, 255, 0.12) 0px 0.75px 0.25px 0px inset, rgba(255, 255, 255, 0.32) 0px 0.25px 0.25px 0px inset, rgba(0, 0, 0, 0.02) 0px 6px 12px 0px, rgba(0, 0, 0, 0.03) 0px 3px 6px 0px, rgba(0, 0, 0, 0.03) 0px 1px 2px 0px, rgba(0, 0, 0, 0.06) 0px 0.5px 0.5px 0px, rgba(0, 0, 0, 0.04) 0px 3px 6px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px";
 
 export function Stay() {
   return (
@@ -82,12 +98,14 @@ export function Stay() {
               <Suggestion
                 name="The Roosevelt"
                 price="expensive"
-                description="Upscale Southern restaurant offering refined comfort food and an extensive bourbon selection in an elegant setting. (Hunter's Favorite)"
+                favorite="groom"
+                description="Upscale Southern restaurant offering refined comfort food and an extensive bourbon selection in an elegant setting."
               />
               <Suggestion
                 name="Grisette"
                 price="expensive"
-                description="Easygoing restaurant with vintage surrounds serving meat & cheese boards, plus steaks & desserts. (Katy's Favorite)"
+                favorite="bride"
+                description="Easygoing restaurant with vintage surrounds serving meat & cheese boards, plus steaks & desserts."
               />
               <Suggestion
                 name="Alewife"
@@ -110,7 +128,8 @@ export function Stay() {
               <Suggestion
                 name="Blanchard's Coffee Broad Street"
                 price="cheap"
-                description="Bustling coffee shop serving espresso drinks, pour overs and drip coffee, plus tea, and pastries. (Katy's Favorite)"
+                favorite="bride"
+                description="Bustling coffee shop serving espresso drinks, pour overs and drip coffee, plus tea, and pastries."
               />
               <Suggestion
                 name="Brambly Park"
@@ -130,7 +149,8 @@ export function Stay() {
               <Suggestion
                 name="The Jasper"
                 price="moderate"
-                description="Intimate neighborhood bar and restaurant offering craft cocktails and elevated comfort food in a cozy setting. (Hunter's Favorite)"
+                favorite="groom"
+                description="Intimate neighborhood bar and restaurant offering craft cocktails and elevated comfort food in a cozy setting."
               />
               <Suggestion
                 name="Get Tight Lounge"
@@ -176,12 +196,31 @@ export function Stay() {
   );
 }
 
-function Suggestion({ name, price, description }: { name: string; price?: Price; description: string }) {
+interface SuggestionProps {
+  name: string;
+  price?: Price;
+  description: string;
+  favorite?: FavoriteVariant;
+}
+
+function Suggestion({ name, price, description, favorite }: SuggestionProps) {
   return (
     <div className="flex flex-col gap-y-2">
       <div>
         <span className={chunky()}>
-          {name}&nbsp;&nbsp;{price && <span className="font-normal text-sm">{PRICE_LABEL[price]}</span>}
+          {name}
+          {price && (
+            <>
+              &nbsp;&nbsp;
+              <span className="font-normal text-sm">{PRICE_LABEL[price]}</span>
+            </>
+          )}
+          {favorite && (
+            <>
+              &nbsp;&nbsp;
+              <FavoriteBadge variant={favorite} />
+            </>
+          )}
         </span>
       </div>
       <div className={copy()}>{description}</div>
@@ -189,7 +228,27 @@ function Suggestion({ name, price, description }: { name: string; price?: Price;
   );
 }
 
-const WISHLIST_URL = "https://www.airbnb.com/wishlists/v/1345405123";
+interface FavoriteBadgeProps {
+  variant: FavoriteVariant;
+}
+
+function FavoriteBadge({ variant }: FavoriteBadgeProps) {
+  const isBride = variant === "bride";
+  const Icon = isBride ? VenusIcon : MarsIcon;
+  const iconColor = isBride ? "text-pink-700" : "text-blue-800";
+
+  return (
+    <span
+      className="inline-flex items-center rounded-sm bg-bg-foundation px-1 py-0.5 font-medium text-[11px] text-bg-inverse normal-case"
+      style={{ boxShadow: BADGE_BOX_SHADOW }}
+    >
+      <span className={twMerge("inline-grid size-[1lh] shrink-0 place-items-center", iconColor)}>
+        <Icon className="size-[1em]" />
+      </span>
+      <span className="inline-block flex-1 whitespace-nowrap px-0.5 capitalize">{variant} Favorite</span>
+    </span>
+  );
+}
 
 function AirbnbWishlistCallout() {
   return (
@@ -244,10 +303,3 @@ function AirbnbWishlistCallout() {
     </div>
   );
 }
-
-type Price = "cheap" | "moderate" | "expensive";
-const PRICE_LABEL = {
-  cheap: "$",
-  moderate: "$$",
-  expensive: "$$$",
-} satisfies Record<Price, string>;
