@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import { SiteLayout } from "~/app/components/primary-layout";
+import { SmoothScroll } from "~/app/components/smooth-scroll";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -95,6 +96,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${kapakana.variable}`}>
         <SiteLayout>{children}</SiteLayout>
         <Analytics />
+        <SmoothScroll />
       </body>
     </html>
   );
