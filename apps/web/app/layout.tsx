@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Kapakana } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
+import "lenis/dist/lenis.css";
 import { Analytics } from "@vercel/analytics/next";
 import { SiteLayout } from "~/app/components/primary-layout";
 import { SmoothScroll } from "~/app/components/smooth-scroll";
@@ -94,9 +95,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${kapakana.variable}`}>
+        <SmoothScroll />
         <SiteLayout>{children}</SiteLayout>
         <Analytics />
-        <SmoothScroll />
       </body>
     </html>
   );
