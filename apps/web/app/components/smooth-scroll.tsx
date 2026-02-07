@@ -1,5 +1,5 @@
-'use client';
-import { ReactLenis } from 'lenis/react';
+"use client";
+import { ReactLenis } from "lenis/react";
 
 export function SmoothScroll() {
   return <ReactLenis root />;
