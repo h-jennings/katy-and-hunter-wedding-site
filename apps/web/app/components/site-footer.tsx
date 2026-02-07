@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { BackToTop } from "~/app/components/back-to-top";
 import { Container } from "~/app/components/container";
 import { KathrynAndHunter } from "~/app/components/k-and-h";
 import { PRIMARY_NAVIGATION } from "~/app/constants/navigation.constants";
@@ -30,14 +31,7 @@ export function SiteFooter() {
                   <span className={label()}>Navigation</span>
                   <ul className="inline-flex flex-col gap-1">
                     <li>
-                      <Link
-                        href={{
-                          hash: "#",
-                        }}
-                        className="font-medium font-sans text-base text-orange leading-none md:text-lg"
-                      >
-                        Back to top ↑
-                      </Link>
+                      <BackToTop />
                     </li>
                     {PRIMARY_NAVIGATION.map((item) => {
                       return (
