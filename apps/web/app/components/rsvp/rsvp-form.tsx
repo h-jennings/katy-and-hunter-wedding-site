@@ -4,12 +4,15 @@ import { AlertCircleIcon } from "lucide-react";
 import * as React from "react";
 import { Button } from "~/app/components/button";
 import { type RsvpError, submitRsvp } from "~/app/lib/actions/rsvp.actions";
+import { radio } from "~/app/styles/input.styles";
 import { copy, fancyHeading, label } from "~/app/styles/text.styles";
 
 export function RsvpForm({
-  formInformation,
+  events,
+  needsTransportation,
+  afterPartyEventId,
 }: {
-  formInformation: Array<{
+  events: Array<{
     id: string;
     name: string;
     date: string;
@@ -25,19 +28,44 @@ export function RsvpForm({
       status: "pending" | "attending" | "declined";
     }>;
   }>;
+  needsTransportation: boolean | null;
+  afterPartyEventId: string | null;
 }) {
   const [state, submitAction, isPending] = React.useActionState(submitRsvp, null);
+  const formRef = React.useRef<HTMLFormElement>(null);
+  const [showTransportation, setShowTransportation] = React.useState(() => {
+    if (needsTransportation != null) return true;
+    if (!afterPartyEventId) return false;
+    const afterParty = events.find((ev) => ev.id === afterPartyEventId);
+    return afterParty?.rsvps.some((g) => g.status === "attending") ?? false;
+  });
+
+  const handleRsvpChange = () => {
+    if (!formRef.current || !afterPartyEventId) return;
+
+    const afterPartyEvent = events.find((ev) => ev.id === afterPartyEventId);
+
+    if (!afterPartyEvent) return;
+
+    const hasAfterPartyAttendee = afterPartyEvent.rsvps.some((guest) => {
+      const fieldName = `${afterPartyEvent.id}_${guest.id}_rsvpStatus`;
+      const input = formRef.current?.elements.namedItem(fieldName) as HTMLInputElement | null;
+      return input?.value === "attending";
+    });
+
+    setShowTransportation(hasAfterPartyAttendee);
+  };
 
   return (
-    <form action={submitAction} className="flex flex-col gap-y-24">
+    <form action={submitAction} ref={formRef} className="flex flex-col gap-y-24">
       <div className="mx-auto flex w-full max-w-site-container-w-inner flex-col gap-y-16">
-        {formInformation.map((event) => {
+        {events.map((event) => {
           const prettyDate = new Intl.DateTimeFormat("en-US", {
             dateStyle: "long",
           }).format(new Date(event.date));
 
           return (
-            <div key={event.id} className="grid grid-cols-[auto_1fr] gap-x-10 gap-y-4 md:px-8 md:[grid-column:unset]">
+            <div key={event.id} className="grid grid-cols-[auto_1fr] gap-x-10 gap-y-4 md:col-[unset] md:px-8">
               <h2 className={fancyHeading({ size: "md", className: "col-span-full" })}>{event.name}</h2>
               <div className="col-span-full grid grid-cols-subgrid">
                 <span className={label()}>Date</span>
@@ -90,7 +118,8 @@ export function RsvpForm({
                                 value="attending"
                                 defaultChecked={guest.status === "attending"}
                                 required
-                                className="outine-none size-4 appearance-none rounded-full border border-transparent bg-bg-foundation opacity-90 ring-2 ring-black/10 transition-all checked:border-2 checked:border-bg-foundation checked:bg-black checked:opacity-100 checked:ring-black/50 focus-within:opacity-100 focus-within:ring-black/25 hover:opacity-100 hover:ring-3 not-checked:hover:ring-black/25"
+                                className={radio()}
+                                onChange={handleRsvpChange}
                               />
                               <label className={copy()} htmlFor={`${fieldId}_attend`}>
                                 Accepts
@@ -104,7 +133,8 @@ export function RsvpForm({
                                 value="declined"
                                 defaultChecked={guest.status === "declined"}
                                 required
-                                className="outine-none size-4 appearance-none rounded-full border border-transparent bg-bg-foundation opacity-90 ring-2 ring-black/10 transition-all checked:border-2 checked:border-bg-foundation checked:bg-black checked:opacity-100 checked:ring-black/50 focus-within:opacity-100 focus-within:ring-black/25 hover:opacity-100 hover:ring-3 not-checked:hover:ring-black/25"
+                                className={radio()}
+                                onChange={handleRsvpChange}
                               />
                               <label className={copy()} htmlFor={`${fieldId}_decline`}>
                                 Declines
@@ -120,6 +150,47 @@ export function RsvpForm({
             </div>
           );
         })}
+
+        {/* conditional transportation question */}
+        {showTransportation && (
+          <div className="bg-accent p-6">
+            <div className="flex flex-col gap-y-2 pb-6">
+              <h2 className={copy({ className: "font-medium text-bg-foundation text-lg" })}>Need a ride?</h2>
+              <p className={copy({ className: "text-bg-foundation" })}>
+                We're planning on arranging transportation to the <strong>after party</strong> for guests who need it.
+                If you think you'll need a ride, please let us know!
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+              <div className="flex items-center gap-x-2">
+                <input
+                  type="radio"
+                  id="transportation_yes"
+                  name="needsTransportation"
+                  value="yes"
+                  defaultChecked={needsTransportation === true}
+                  className={radio()}
+                />
+                <label className={copy({ className: "text-bg-foundation" })} htmlFor="transportation_yes">
+                  Yes, I will need transportation
+                </label>
+              </div>
+              <div className="flex items-center gap-x-2">
+                <input
+                  type="radio"
+                  id="transportation_no"
+                  name="needsTransportation"
+                  value="no"
+                  defaultChecked={needsTransportation === false}
+                  className={radio()}
+                />
+                <label className={copy({ className: "text-bg-foundation" })} htmlFor="transportation_no">
+                  No thanks, I'll make my own way there
+                </label>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
       <div className="mx-auto flex flex-col items-center gap-y-8">
         <Button type="submit" disabled={isPending}>
@@ -127,7 +198,7 @@ export function RsvpForm({
         </Button>
         {state?.status === "error" && (
           <div className="flex items-center gap-x-2 rounded-md border border-red-800 px-4 py-3 text-red-800">
-            <div className="grid h-[1lh] place-items-center">
+            <div className="grid h-lh place-items-center">
               <AlertCircleIcon className="size-4 shrink-0" />
             </div>
             <p className={copy({ className: "text-red-800" })}>{getErrorMessage(state.error._tag)}</p>

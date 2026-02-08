@@ -34,6 +34,8 @@ export async function submitRsvp(_previousState: RsvpState, formData: FormData):
 
     yield* updateRsvpsInDb(rsvpUpdates);
     yield* updatePartyRespondedAt(partyId);
+    const transportationValue = formData.get("needsTransportation");
+    yield* updatePartyTransportationNeeds(partyId, transportationValue ? transportationValue === "yes" : null);
 
     sendRsvpNotificationEmail(partyId).catch((error) => {
       console.error("[RSVP Action] Notification send failed:", error);
@@ -171,6 +173,19 @@ function updatePartyRespondedAt(partyId: string) {
       })
       .where(and(eq(parties.id, partyId), isNull(parties.respondedAt))),
     () => databaseError("Failed to update party response timestamp"),
+  );
+}
+
+function updatePartyTransportationNeeds(partyId: string, needsTransportation: boolean | null) {
+  return fromPromise(
+    db
+      .update(parties)
+      .set({
+        needsTransportation,
+        updatedAt: new Date(),
+      })
+      .where(eq(parties.id, partyId)),
+    () => databaseError("Failed to update party transportation needs"),
   );
 }
 

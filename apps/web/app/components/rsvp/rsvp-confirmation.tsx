@@ -6,7 +6,15 @@ import { ScrollToTop } from "~/app/components/scroll-to-top";
 import { getRsvpDetailsByPartyId } from "~/app/lib/queries/rsvp.queries";
 import { chunky, copy, fancyHeading, label } from "~/app/styles/text.styles";
 
-export async function RsvpConfirmation({ partyId, partyName }: { partyId: string; partyName: string }) {
+export async function RsvpConfirmation({
+  partyId,
+  partyName,
+  needsTransportation,
+}: {
+  partyId: string;
+  partyName: string;
+  needsTransportation: boolean | null;
+}) {
   const result = await getRsvpDetailsByPartyId(partyId);
 
   return (
@@ -88,6 +96,16 @@ export async function RsvpConfirmation({ partyId, partyName }: { partyId: string
                 );
               })}
             </div>
+            {needsTransportation != null && (
+              <div className="mx-auto flex w-full max-w-site-container-w-inner flex-col gap-y-2 rounded-md bg-accent p-6 md:px-8">
+                <span className={label({ className: "text-bg-foundation" })}>Transportation</span>
+                <span className={copy({ className: "text-bg-foundation" })}>
+                  {needsTransportation
+                    ? "You've indicated that you'll need a ride to the after party."
+                    : "You've indicated that you'll make your own way to the after party."}
+                </span>
+              </div>
+            )}
             <div className="mx-auto">
               <ButtonLink
                 href={{

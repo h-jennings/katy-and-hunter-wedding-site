@@ -25,23 +25,49 @@ export default async function RsvpPage({
   }
 
   if (editParam != null) {
-    return <PartyFormView eyebrow="Edit RSVP" title="Adjust your response below" partyId={party.id} />;
+    return (
+      <PartyFormView
+        eyebrow="Edit RSVP"
+        title="Adjust your response below"
+        partyId={party.id}
+        needsTransportation={party.needsTransportation}
+      />
+    );
   }
 
   return (
     <div>
       {party?.respondedAt != null ? (
-        <RsvpConfirmation partyId={state.partyId} partyName={party.displayName} />
+        <RsvpConfirmation
+          partyId={state.partyId}
+          partyName={party.displayName}
+          needsTransportation={party.needsTransportation}
+        />
       ) : (
-        <PartyFormView title="Let's celebrate together!" partyId={party.id} />
+        <PartyFormView
+          title="Let's celebrate together!"
+          partyId={party.id}
+          needsTransportation={party.needsTransportation}
+        />
       )}
     </div>
   );
 }
 
-async function PartyFormView({ eyebrow, title, partyId }: { eyebrow?: string; title: string; partyId: string }) {
+async function PartyFormView({
+  eyebrow,
+  title,
+  partyId,
+  needsTransportation,
+}: {
+  eyebrow?: string;
+  title: string;
+  partyId: string;
+  needsTransportation: boolean | null;
+}) {
   const rsvpDetails = await getRsvpDetailsByPartyId(partyId);
-  const rsvpFormInformation = rsvpDetails.map((event) => {
+  const afterPartyEventId = rsvpDetails.find((event) => event.name.trim().toLowerCase() === "after party")?.id ?? null;
+  const events = rsvpDetails.map((event) => {
     return {
       id: event.id,
       name: event.name,
@@ -65,7 +91,7 @@ async function PartyFormView({ eyebrow, title, partyId }: { eyebrow?: string; ti
   return (
     <ScrollToTop key={title}>
       <RsvpLayout eyebrow={eyebrow} title={title}>
-        <RsvpForm formInformation={rsvpFormInformation} />
+        <RsvpForm events={events} needsTransportation={needsTransportation} afterPartyEventId={afterPartyEventId} />
       </RsvpLayout>
     </ScrollToTop>
   );
