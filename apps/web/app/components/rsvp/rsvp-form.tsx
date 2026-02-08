@@ -153,7 +153,7 @@ export function RsvpForm({
 
         {/* conditional transportation question */}
         {showTransportation && (
-          <div className="bg-accent p-6">
+          <div className="rounded-md bg-accent p-6">
             <div className="flex flex-col gap-y-2 pb-6">
               <h2 className={copy({ className: "font-medium text-bg-foundation text-lg" })}>Need a ride?</h2>
               <p className={copy({ className: "text-bg-foundation" })}>
@@ -169,6 +169,7 @@ export function RsvpForm({
                   name="needsTransportation"
                   value="yes"
                   defaultChecked={needsTransportation === true}
+                  required
                   className={radio()}
                 />
                 <label className={copy({ className: "text-bg-foundation" })} htmlFor="transportation_yes">
@@ -182,6 +183,7 @@ export function RsvpForm({
                   name="needsTransportation"
                   value="no"
                   defaultChecked={needsTransportation === false}
+                  required
                   className={radio()}
                 />
                 <label className={copy({ className: "text-bg-foundation" })} htmlFor="transportation_no">
