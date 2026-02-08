@@ -1,0 +1,1 @@
+ALTER TABLE "parties" ADD COLUMN "needs_transportation" boolean DEFAULT false;

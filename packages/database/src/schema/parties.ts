@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core";
+import { boolean, pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core";
 import { generateId, NANOID_LENGTH } from "../utils/generate-id";
 import { guests } from "./guests";
 
@@ -28,6 +28,7 @@ export const parties = pgTable("parties", {
   phoneNumber: varchar("phone_number", { length: 20 }),
   address: text("address"),
   notes: text("notes"),
+  needsTransportation: boolean("needs_transportation").default(false),
 });
 
 export const partiesRelations = relations(parties, ({ many }) => {
