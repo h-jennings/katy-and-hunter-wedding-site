@@ -1,0 +1,1 @@
+ALTER TABLE "parties" ADD CONSTRAINT "parties_display_name_unique" UNIQUE("display_name");
