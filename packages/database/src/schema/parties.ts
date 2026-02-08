@@ -28,7 +28,7 @@ export const parties = pgTable("parties", {
   phoneNumber: varchar("phone_number", { length: 20 }),
   address: text("address"),
   notes: text("notes"),
-  needsTransportation: boolean("needs_transportation").default(false),
+  needsTransportation: boolean("needs_transportation"),
 });
 
 export const partiesRelations = relations(parties, ({ many }) => {

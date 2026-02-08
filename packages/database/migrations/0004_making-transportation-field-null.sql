@@ -1,0 +1,1 @@
+ALTER TABLE "parties" ALTER COLUMN "needs_transportation" DROP DEFAULT;
