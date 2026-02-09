@@ -2,7 +2,11 @@ import type { getRsvpDetailsByPartyId } from "~/app/lib/queries/rsvp.queries";
 
 type RsvpDetails = Awaited<ReturnType<typeof getRsvpDetailsByPartyId>>;
 
-export function formatRsvpNotificationEmail(partyDisplayName: string, rsvpDetails: RsvpDetails): string {
+export function formatRsvpNotificationEmail(
+  partyDisplayName: string,
+  rsvpDetails: RsvpDetails,
+  needsTransportation: boolean | null,
+): string {
   const lines = [`New RSVP submission from ${partyDisplayName}`, "", "Responses:", ""];
 
   for (const event of rsvpDetails) {
@@ -15,6 +19,13 @@ export function formatRsvpNotificationEmail(partyDisplayName: string, rsvpDetail
     }
 
     lines.push("");
+  }
+
+  if (needsTransportation !== null) {
+    lines.push(
+      needsTransportation ? "Transportation: Yes, needs a ride" : "Transportation: No, making their own way",
+      "",
+    );
   }
 
   return lines.join("\n");

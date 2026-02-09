@@ -27,7 +27,7 @@ export async function sendRsvpNotificationEmail(partyId: string): Promise<void> 
       return;
     }
 
-    const emailBody = formatRsvpNotificationEmail(party.displayName, rsvpDetails);
+    const emailBody = formatRsvpNotificationEmail(party.displayName, rsvpDetails, party.needsTransportation);
     const resend = new Resend(apiKey);
 
     await resend.emails.send({
