@@ -81,9 +81,9 @@ export function Stay() {
             <div className="flex min-w-[min(30ch,100%)] flex-1 flex-col items-center gap-y-8">
               <h3 className={fancyHeading({ size: "md", className: "text-center" })}>Eat</h3>
               <Suggestion
-                name="North End Juice Co."
+                name="Sub Rosa"
                 price="cheap"
-                description="Fresh-pressed juices, smoothies, and acai bowls in Richmond's Museum District with quality ingredients and healthy options."
+                description="Wood-fired artisanal bakery in Church Hill known for stone-milled breads, flaky croissants, and pastries in a warm, thoughtful atmosphere."
               />
               <Suggestion
                 name="Stanleys"
@@ -113,9 +113,9 @@ export function Stay() {
                 description="Award-winning Mid-Atlantic seafood restaurant in Church Hill, nationally recognized for innovative dishes and creative cocktails."
               />
               <Suggestion
-                name="Heritage"
-                price="expensive"
-                description="New American restaurant featuring seasonal cuisine and craft cocktails in a contemporary brick-walled space with innovative dishes."
+                name="Janet's"
+                price="moderate"
+                description="Cozy café and bakery on Forest Hill serving fresh-baked pastries, focaccia sandwiches, and specialty coffee with a neighborhood feel."
               />
             </div>
             <div className="flex min-w-[min(30ch,100%)] flex-1 flex-col items-center gap-y-8">
@@ -153,9 +153,9 @@ export function Stay() {
                 description="Intimate neighborhood bar and restaurant offering craft cocktails and elevated comfort food in a cozy setting."
               />
               <Suggestion
-                name="Get Tight Lounge"
+                name="Jardin"
                 price="moderate"
-                description="Hip cocktail lounge with creative drinks, DJ sets, and a trendy atmosphere perfect for late-night socializing."
+                description="Wine bar and shop on West Main with charcuterie boards, natural wines, and a spacious patio perfect for an afternoon pour."
               />
             </div>
             <div className="flex min-w-[min(30ch,100%)] flex-1 flex-col items-center gap-y-8">
