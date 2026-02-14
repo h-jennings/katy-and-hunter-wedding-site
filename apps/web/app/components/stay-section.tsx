@@ -86,6 +86,11 @@ export function Stay() {
                 description="Wood-fired artisanal bakery in Church Hill known for stone-milled breads, flaky croissants, and pastries in a warm, thoughtful atmosphere."
               />
               <Suggestion
+                name="Janet's"
+                price="moderate"
+                description="Cozy café and bakery on Forest Hill serving fresh-baked pastries, focaccia sandwiches, and specialty coffee with a neighborhood feel."
+              />
+              <Suggestion
                 name="Stanleys"
                 price="moderate"
                 description="Popular Richmond restaurant known for its welcoming atmosphere, locally-sourced American cuisine, and wonderful cheesteaks."
@@ -111,11 +116,6 @@ export function Stay() {
                 name="Alewife"
                 price="expensive"
                 description="Award-winning Mid-Atlantic seafood restaurant in Church Hill, nationally recognized for innovative dishes and creative cocktails."
-              />
-              <Suggestion
-                name="Janet's"
-                price="moderate"
-                description="Cozy café and bakery on Forest Hill serving fresh-baked pastries, focaccia sandwiches, and specialty coffee with a neighborhood feel."
               />
             </div>
             <div className="flex min-w-[min(30ch,100%)] flex-1 flex-col items-center gap-y-8">
