@@ -1,5 +1,5 @@
 "use client";
-import { type Easing, motion } from "motion/react";
+import { type Easing, motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import { KathrynAndHunter } from "~/app/components/k-and-h";
 
@@ -8,13 +8,13 @@ const CENTER_TEXT_ANIMATION_DURATION = 0.65;
 const OUTER_ELM_DELAY = CENTER_TEXT_ANIMATION_DURATION + CENTER_TEXT_ANIMATION_DURATION * 0.33;
 
 export function Hero() {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
-    <section className="h-[calc(60vh-var(--spacing-site-header-h))] md:h-[calc(90vh-var(--spacing-site-header-h))] lg:h-screen">
+    <section className="-mt-site-header-h h-[calc(60vh-var(--spacing-site-header-h))] md:h-[calc(90vh-var(--spacing-site-header-h))] lg:h-screen">
       <motion.div
         className="grid h-full [--gutter:0px] [--top-inset:var(--spacing-site-header-h)] sm:[--gutter:1.5rem] sm:[--top-inset:calc(var(--spacing-site-header-h)*var(--gutter-multi))] md:[--gutter:2rem]"
-        initial={{
-          "--gutter-multi": 0,
-        }}
+        initial={shouldReduceMotion ? false : { "--gutter-multi": 0 }}
         animate={{
           "--gutter-multi": 1,
         }}
@@ -33,12 +33,8 @@ export function Hero() {
           <div className="relative z-1 grid flex-1 grid-cols-1 items-end gap-3 pt-[calc(--spacing(8)+--spacing(3))] pb-8 text-center text-sm sm:gap-5 sm:text-base md:gap-16 md:text-2xl">
             <span className="block overflow-clip font-black text-text-inverse uppercase leading-none tracking-tighter">
               <motion.span
-                initial={{
-                  y: "100%",
-                }}
-                animate={{
-                  y: "0%",
-                }}
+                initial={shouldReduceMotion ? false : { y: "100%" }}
+                animate={{ y: "0%" }}
                 transition={{
                   type: "tween",
                   duration: CENTER_TEXT_ANIMATION_DURATION,
@@ -51,12 +47,8 @@ export function Hero() {
             </span>
             <span className="block self-start overflow-clip font-black text-text-inverse uppercase leading-none tracking-tighter">
               <motion.span
-                initial={{
-                  y: "100%",
-                }}
-                animate={{
-                  y: "0%",
-                }}
+                initial={shouldReduceMotion ? false : { y: "100%" }}
+                animate={{ y: "0%" }}
                 transition={{
                   type: "tween",
                   duration: CENTER_TEXT_ANIMATION_DURATION,
@@ -73,12 +65,8 @@ export function Hero() {
             <span className="sr-only">Kathryn and Hunter</span>
             <div className="w-full overflow-clip px-3 pb-3">
               <motion.div
-                initial={{
-                  clipPath: "inset(0 0 100% 0)",
-                }}
-                animate={{
-                  clipPath: "inset(0 0 0 0)",
-                }}
+                initial={shouldReduceMotion ? false : { clipPath: "inset(0 0 100% 0)" }}
+                animate={{ clipPath: "inset(0 0 0 0)" }}
                 transition={{
                   type: "tween",
                   duration: CENTER_TEXT_ANIMATION_DURATION * 2.5,

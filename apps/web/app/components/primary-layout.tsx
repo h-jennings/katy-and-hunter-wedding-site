@@ -29,7 +29,7 @@ export async function SiteLayout({ children }: { children: React.ReactNode }) {
           <RsvpPlaceholder />
         )}
       </SiteHeader>
-      <div className="relative z-0">{children}</div>
+      <div className="relative z-0 pt-site-header-h">{children}</div>
       <SiteFooter />
     </div>
   );
