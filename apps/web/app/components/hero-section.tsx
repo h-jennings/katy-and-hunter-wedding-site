@@ -4,8 +4,9 @@ import Image from "next/image";
 import { KathrynAndHunter } from "~/app/components/k-and-h";
 
 const TEXT_ANIMATION_EASE: Easing = [0.22, 0.61, 0.36, 1];
+const INITIAL_DELAY = 0.2;
 const CENTER_TEXT_ANIMATION_DURATION = 0.65;
-const OUTER_ELM_DELAY = CENTER_TEXT_ANIMATION_DURATION + CENTER_TEXT_ANIMATION_DURATION * 0.33;
+const OUTER_ELM_DELAY = INITIAL_DELAY + CENTER_TEXT_ANIMATION_DURATION + CENTER_TEXT_ANIMATION_DURATION * 0.33;
 
 export function Hero() {
   const shouldReduceMotion = useReducedMotion();
@@ -39,6 +40,7 @@ export function Hero() {
                   type: "tween",
                   duration: CENTER_TEXT_ANIMATION_DURATION,
                   ease: TEXT_ANIMATION_EASE,
+                  delay: INITIAL_DELAY,
                 }}
                 className="block"
               >
@@ -53,7 +55,7 @@ export function Hero() {
                   type: "tween",
                   duration: CENTER_TEXT_ANIMATION_DURATION,
                   ease: TEXT_ANIMATION_EASE,
-                  delay: 0.2,
+                  delay: INITIAL_DELAY + 0.2,
                 }}
                 className="block"
               >
