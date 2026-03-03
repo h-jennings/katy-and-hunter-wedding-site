@@ -62,9 +62,9 @@ export function SiteHeader({ children }: { children: React.ReactNode }) {
     <React.Fragment>
       {isMenuOpen && <meta name="theme-color" content="#ec4926" />}
 
-      <header ref={headerRef} className="sticky top-0 left-0 z-1 px-6 md:px-16">
+      <header ref={headerRef} className="fixed top-0 left-0 z-1 w-full px-6 md:px-16">
         <div className="z-1 mx-auto h-site-header-h w-full max-w-site-container-w">
-          <nav className="flex h-full items-center justify-between">
+          <nav className="flex h-full items-center justify-between sm:motion-safe:animate-header-enter">
             <div className="block md:hidden">
               <MobileMenuTrigger isMenuOpen={isMenuOpen} onClick={toggle} ref={menuButtonRef} />
             </div>
