@@ -18,6 +18,13 @@ import {
 import { sendRsvpNotificationEmail } from "~/app/lib/notifications/email.notifications";
 
 export async function submitRsvp(_previousState: RsvpState, formData: FormData): Promise<RsvpState> {
+  if (process.env.NEXT_PUBLIC_RSVP_CLOSED === "true") {
+    return {
+      status: "error" as const,
+      error: unauthorizedError("RSVPs are closed. Please text Katy directly to update your response."),
+    };
+  }
+
   const result = safeTry(async function* () {
     const { partyId } = yield* fromPromise(getAuthState(), () => {
       return unauthorizedError("You must be authorized to submit RSVPs");

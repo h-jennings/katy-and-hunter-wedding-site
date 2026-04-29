@@ -56,7 +56,7 @@ export function DialogContent({
           {showCloseButton && (
             <DialogPrimitive.Close
               data-slot="dialog-close"
-              className="absolute top-6 right-6 rounded-xs text-sm opacity-70 ring-offset-bg-foundation transition-opacity hover:opacity-100 focus:outline-hidden focus:ring-2 focus:ring-neutral focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:text-text-secondary"
+              className="absolute top-6 right-6 rounded-xs text-sm opacity-70 ring-offset-bg-foundation transition-opacity hover:opacity-100 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-neutral focus-visible:ring-offset-2 disabled:pointer-events-none data-[state=open]:text-text-secondary"
             >
               Close
             </DialogPrimitive.Close>
