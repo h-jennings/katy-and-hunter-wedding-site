@@ -1,3 +1,4 @@
+import { Faq } from "~/app/components/faq-section";
 import { Hero } from "~/app/components/hero-section";
 import { Registry } from "~/app/components/registry-section";
 import { Stay } from "~/app/components/stay-section";
@@ -11,6 +12,7 @@ export default function Home() {
       <Story />
       <Wedding />
       <Stay />
+      <Faq />
       <Registry />
     </main>
   );
