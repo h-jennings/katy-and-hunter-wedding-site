@@ -13,6 +13,7 @@ export default async function RsvpPage({
 }) {
   const editParam = (await searchParams).edit;
   const state = await getAuthState();
+  const rsvpClosed = process.env.NEXT_PUBLIC_RSVP_CLOSED === "true";
 
   if (state.partyId == null) {
     return redirect("/");
@@ -22,6 +23,21 @@ export default async function RsvpPage({
 
   if (!party) {
     return redirect("/");
+  }
+
+  if (rsvpClosed) {
+    if (party.respondedAt == null) {
+      return redirect("/");
+    }
+    return (
+      <div>
+        <RsvpConfirmation
+          partyId={state.partyId}
+          partyName={party.displayName}
+          needsTransportation={party.needsTransportation}
+        />
+      </div>
+    );
   }
 
   if (editParam != null) {

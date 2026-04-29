@@ -2,6 +2,7 @@ import { Circle, CircleCheckIcon, CircleXIcon } from "lucide-react";
 import { ButtonLink } from "~/app/components/button";
 import { Container, ContainerInner } from "~/app/components/container";
 import { ClearParty } from "~/app/components/rsvp/rsvp-clear-party-action";
+import { RsvpClosedBanner } from "~/app/components/rsvp/rsvp-closed-banner";
 import { ScrollToTop } from "~/app/components/scroll-to-top";
 import { getRsvpDetailsByPartyId } from "~/app/lib/queries/rsvp.queries";
 import { chunky, copy, fancyHeading, label } from "~/app/styles/text.styles";
@@ -16,6 +17,7 @@ export async function RsvpConfirmation({
   needsTransportation: boolean | null;
 }) {
   const result = await getRsvpDetailsByPartyId(partyId);
+  const rsvpClosed = process.env.NEXT_PUBLIC_RSVP_CLOSED === "true";
 
   return (
     <ScrollToTop>
@@ -106,15 +108,19 @@ export async function RsvpConfirmation({
                 </span>
               </div>
             )}
-            <div className="mx-auto">
-              <ButtonLink
-                href={{
-                  search: "edit",
-                }}
-              >
-                Edit RSVP
-              </ButtonLink>
-            </div>
+            {rsvpClosed ? (
+              <RsvpClosedBanner />
+            ) : (
+              <div className="mx-auto">
+                <ButtonLink
+                  href={{
+                    search: "edit",
+                  }}
+                >
+                  Edit RSVP
+                </ButtonLink>
+              </div>
+            )}
           </ContainerInner>
         </Container>
       </main>

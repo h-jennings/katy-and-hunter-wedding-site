@@ -3,12 +3,24 @@ import { db } from "@repo/database";
 import { err, ok, safeTry } from "neverthrow";
 import "server-only";
 import { queryDbArrayOrNotFound } from "~/app/lib/db/query-helpers";
-import { type NameRequiredError, nameRequiredError } from "~/app/lib/errors/auth.errors";
+import {
+  type NameRequiredError,
+  nameRequiredError,
+  type UnauthorizedError,
+  unauthorizedError,
+} from "~/app/lib/errors/auth.errors";
 import type { DatabaseError, NotFoundError } from "~/app/lib/errors/db.errors";
 import type { RateLimitError } from "~/app/lib/errors/rate-limit.errors";
 import { checkRateLimit, lookupRateLimit } from "~/app/lib/rate-limit/rate-limit.helpers";
 
 export async function lookupParty(_previousState: LookupPartyState, formData: FormData): Promise<LookupPartyState> {
+  if (process.env.NEXT_PUBLIC_RSVP_CLOSED === "true") {
+    return {
+      status: "error" as const,
+      error: unauthorizedError("RSVPs are closed. Please text Katy directly."),
+    };
+  }
+
   const result = safeTry(async function* () {
     yield* checkRateLimit(lookupRateLimit);
     const [firstName, lastName] = yield* parseFullName(formData);
@@ -104,7 +116,7 @@ export type PartyData = Array<{
   }>;
 }>;
 
-export type LookupPartyError = DatabaseError | NotFoundError | NameRequiredError | RateLimitError;
+export type LookupPartyError = DatabaseError | NotFoundError | NameRequiredError | RateLimitError | UnauthorizedError;
 
 export type LookupPartyState =
   | { status: "success"; data: PartyData }

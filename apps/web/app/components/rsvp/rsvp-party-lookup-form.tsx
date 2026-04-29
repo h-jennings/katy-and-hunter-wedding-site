@@ -72,6 +72,13 @@ function PartyLookupError({ error }: { error: LookupPartyError }) {
           case "RATE_LIMIT_EXCEEDED": {
             return <p className={copy({ className: "text-red-800" })}>{error.message}</p>;
           }
+          case "UNAUTHORIZED": {
+            return (
+              <p className={copy({ className: "text-pretty text-off-white" })}>
+                RSVPs are closed. Please text Katy directly to update your response.
+              </p>
+            );
+          }
           default: {
             const _exhaustive: never = error;
 
