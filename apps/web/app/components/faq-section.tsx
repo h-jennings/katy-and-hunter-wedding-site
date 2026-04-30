@@ -14,15 +14,6 @@ const FAQS: Array<{ topic: string; answer: string }> = [
       "We're running a shuttle from the Virginia House to Common House right after the reception, but seats may be limited, so be ready to rideshare if needed. It's a quick 15-minute drive, and Ubers are easy to grab in Richmond. We'll share final shuttle details closer to the day.",
   },
   {
-    topic: "Kids",
-    answer: "Kids are welcome at the Welcome Party and the wedding. The After Party is 21+ only.",
-  },
-  {
-    topic: "Who's Invited to Each Event",
-    answer:
-      "Every guest is invited to all three events. You RSVP'd for each separately, so we've got your count. The one exception: the After Party is 21+ only.",
-  },
-  {
     topic: "Welcome Party Food",
     answer: "It's a buffet, and there'll be plenty. Come hungry, no need to grab dinner first.",
   },
