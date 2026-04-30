@@ -17,6 +17,11 @@ export const PRIMARY_NAVIGATION = [
     hash: ANCHORS.STAY,
   },
   {
+    label: "FAQ",
+    path: "/",
+    hash: ANCHORS.FAQ,
+  },
+  {
     label: "Registry",
     path: "/",
     hash: ANCHORS.REGISTRY,
