@@ -4,23 +4,28 @@ import { chunky, copy, fancyHeading } from "~/app/styles/text.styles";
 
 const FAQS: Array<{ topic: string; answer: string }> = [
   {
-    topic: "Parking",
+    topic: "Parking — Welcome Party",
     answer:
-      "For the wedding at the Virginia House, rideshare is the easiest move. There's a lot next door at Agecroft Hall & Gardens with around 60 spots, plus some street parking nearby (just be mindful, it's a residential area). Street parking works for the Welcome Party at Laura Lee's, and Common House has small lots plus street parking on Broad. Cars can't stay overnight at any of the venues, so plan your ride home accordingly.",
+      "Rideshare is the preferred method of transportation to Laura Lee's. Street parking is available nearby, but is limited.",
   },
   {
-    topic: "Getting to the After Party",
-    answer:
-      "We're running a shuttle from the Virginia House to Common House right after the reception, but seats may be limited, so be ready to rideshare if needed. It's a quick 15-minute drive, and Ubers are easy to grab in Richmond. We'll share final shuttle details closer to the day.",
+    topic: "Schedule",
+    answer: "The ceremony will begin at 4:00 PM. We kindly ask that guests arrive by 3:30 PM.",
   },
   {
-    topic: "Welcome Party Food",
-    answer: "It's a buffet, and there'll be plenty. Come hungry, no need to grab dinner first.",
+    topic: "Parking — Wedding",
+    answer:
+      "Rideshare is the preferred method of transportation to the Virginia House. If you choose to drive, there is ample parking next door at Agecroft Hall & Gardens. Please note no parking is permitted overnight.",
   },
   {
     topic: "Indoor or Outdoor",
     answer:
-      "At the Virginia House, the ceremony and cocktail hour will be indoors. Dinner and the reception are under a tent, so we're covered (literally) if the weather turns. Bring a light layer just in case.",
+      "The ceremony, cocktail hour, dinner, and reception will all take place outdoors. A tent and indoor spaces will be available in the event of inclement weather. We recommend bringing a light layer just in case. Much of the grounds are grassy, so if you plan to wear heels, we suggest comfortable block heels.",
+  },
+  {
+    topic: "Getting to the After Party",
+    answer:
+      "A shuttle will run from the Virginia House to Common House immediately following the reception. If you choose to drive, there is ample parking at Common House. Rideshare is also a great option.",
   },
 ];
 
