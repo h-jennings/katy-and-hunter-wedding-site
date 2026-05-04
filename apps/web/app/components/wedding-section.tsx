@@ -36,7 +36,8 @@ export function Wedding() {
           <Day date="5/16" dow="Saturday">
             <Event name="Wedding Ceremony & Reception">
               <EventDetail label="Time">
-                <span className="font-medium">4PM to 9PM</span>
+                <span className="font-medium">3:30PM Arrival</span>
+                <span className="font-medium"> &mdash; 4PM Ceremony</span>
               </EventDetail>
               <EventDetail label="Place">
                 The Virginia House <br />
