@@ -15,6 +15,22 @@ export function Wedding() {
         </div>
 
         <div className="mx-auto grid w-full max-w-site-container-w-inner grid-cols-[auto_auto_1fr] gap-x-8 gap-y-16">
+          <Day date="5/14" dow="Thursday">
+            <Event name="Wine Bar Meetup">
+              <EventDetail label="Time">
+                <span className="font-medium">7PM to 9:30PM</span>
+              </EventDetail>
+              <EventDetail label="Place">
+                Jardin <br /> 1520 W Main St, <br />
+                Richmond, VA 23220
+              </EventDetail>
+              <EventDetail label="Attire">Casual</EventDetail>
+              <EventDetail label="Details">
+                For anyone already in town. Come hang out with us on the patio at Jardin for drinks and good company! No
+                RSVP needed. Just drop by anytime.
+              </EventDetail>
+            </Event>
+          </Day>
           <Day date="5/15" dow="Friday">
             <Event name="Welcome Party">
               <EventDetail label="Time">
