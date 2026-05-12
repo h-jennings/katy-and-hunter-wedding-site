@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type * as React from "react";
 import { Container, ContainerInner } from "~/app/components/container";
 import { ANCHORS } from "~/app/constants/anchors.constants";
@@ -84,24 +85,35 @@ export function Wedding() {
               </EventDetail>
             </Event>
           </Day>
-          {/* <Day date="5/17" dow="Sunday"> */}
-          {/*   <Event name="Fairwell Cookout"> */}
-          {/*     <EventDetail label="Time"> */}
-          {/*       <span className="font-medium">1PM</span> */}
-          {/*     </EventDetail> */}
-          {/*     <EventDetail label="Place"> */}
-          {/*       The Jennings' Home <br /> 604 N 33rd St, <br /> */}
-          {/*       Richmond, VA 23223 */}
-          {/*     </EventDetail> */}
-          {/**/}
-          {/*     <EventDetail label="Attire">Casual</EventDetail> */}
-          {/**/}
-          {/*     <EventDetail label="Details"> */}
-          {/*       Join us for a relaxed cookout before you head home, a perfect way to say goodbye and reminisce about the */}
-          {/*       weekend. */}
-          {/*     </EventDetail> */}
-          {/*   </Event> */}
-          {/* </Day> */}
+          <Day date="5/17" dow="Sunday">
+            <Event name="Farewell Cookout">
+              <EventDetail label="Time">
+                <span className="font-medium">2PM</span>
+              </EventDetail>
+              <EventDetail label="Place">
+                The Jennings' Home <br /> 511 W 26th St, <br />
+                Richmond, VA 23225
+              </EventDetail>
+
+              <EventDetail label="Attire">Casual</EventDetail>
+
+              <EventDetail label="Details">
+                <p className="pb-2">
+                  If you're still in town, join us for a relaxed cookout before you head home. A perfect way to say
+                  goodbye and reminisce about the weekend.{" "}
+                </p>
+
+                <Link
+                  className="w-fit text-text-primary underline underline-offset-4 transition-colors hover:text-text-secondary"
+                  href="https://partiful.com/e/dplKU5qxrrLVrF7XfJHW?np"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  RSVP for the Cookout
+                </Link>
+              </EventDetail>
+            </Event>
+          </Day>
         </div>
       </ContainerInner>
     </Container>
