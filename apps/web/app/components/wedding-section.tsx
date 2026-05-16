@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type * as React from "react";
+import { twMerge } from "tailwind-merge";
 import { Container, ContainerInner } from "~/app/components/container";
 import { ANCHORS } from "~/app/constants/anchors.constants";
 import { chunky, copy, fancyHeading, label as labelStyles } from "~/app/styles/text.styles";
@@ -22,8 +23,10 @@ export function Wedding() {
                 <span className="font-medium">7PM to 9:30PM</span>
               </EventDetail>
               <EventDetail label="Place">
-                Jardin <br /> 1520 W Main St, <br />
-                Richmond, VA 23220
+                <PlaceLink query="Jardin, 1520 W Main St, Richmond, VA 23220">
+                  Jardin <br /> 1520 W Main St, <br />
+                  Richmond, VA 23220
+                </PlaceLink>
               </EventDetail>
               <EventDetail label="Attire">Casual</EventDetail>
               <EventDetail label="Details">
@@ -38,8 +41,10 @@ export function Wedding() {
                 <span className="font-medium">5PM to 10PM</span>
               </EventDetail>
               <EventDetail label="Place">
-                Laura Lee’s <br /> 3410 Semmes Ave, <br />
-                Richmond, VA 23225
+                <PlaceLink query="Laura Lee's, 3410 Semmes Ave, Richmond, VA 23225">
+                  Laura Lee’s <br /> 3410 Semmes Ave, <br />
+                  Richmond, VA 23225
+                </PlaceLink>
               </EventDetail>
               <EventDetail label="Attire">
                 Cocktail; knee-length, midi, or cocktail dresses, jumpsuits, suit and tie, or a blazer with dress pants.
@@ -57,8 +62,21 @@ export function Wedding() {
                 <span className="font-medium"> &mdash; 4PM Ceremony</span>
               </EventDetail>
               <EventDetail label="Place">
-                The Virginia House <br />
-                4301 Sulgrave Road, <br /> Richmond, VA 23221
+                <PlaceLink query="Virginia House Museum, 4301 Sulgrave Road, Richmond, VA 23221">
+                  The Virginia House <br />
+                  4301 Sulgrave Road, <br /> Richmond, VA 23221
+                </PlaceLink>
+                <span className="mt-3 block text-text-secondary text-xs leading-snug">
+                  Heads up: Apple Maps may steer you to a different “Virginia Home” on the other side of Richmond —
+                  that’s not us. If the link above doesn’t work, navigate to{" "}
+                  <PlaceLink
+                    query="Agecroft Hall & Gardens, 4305 Sulgrave Rd, Richmond, VA 23221"
+                    className="underline underline-offset-2"
+                  >
+                    Agecroft Hall &amp; Gardens
+                  </PlaceLink>{" "}
+                  next door.
+                </span>
               </EventDetail>
 
               <EventDetail label="Attire">
@@ -75,8 +93,10 @@ export function Wedding() {
                 <span className="font-medium">9PM to 12AM</span>
               </EventDetail>
               <EventDetail label="Place">
-                Common House <br /> 303 W Broad St, <br />
-                Richmond, VA 23221
+                <PlaceLink query="Common House Richmond, 303 W Broad St, Richmond, VA 23221">
+                  Common House <br /> 303 W Broad St, <br />
+                  Richmond, VA 23221
+                </PlaceLink>
               </EventDetail>
 
               <EventDetail label="Details">
@@ -91,8 +111,10 @@ export function Wedding() {
                 <span className="font-medium">2PM</span>
               </EventDetail>
               <EventDetail label="Place">
-                Bailey and Hannah's House <br /> 511 W 26th St, <br />
-                Richmond, VA 23225
+                <PlaceLink query="511 W 26th St, Richmond, VA 23225">
+                  Bailey and Hannah's House <br /> 511 W 26th St, <br />
+                  Richmond, VA 23225
+                </PlaceLink>
               </EventDetail>
 
               <EventDetail label="Attire">Casual</EventDetail>
@@ -147,5 +169,22 @@ function EventDetail({ label, children }: { label: string; children: React.React
       <span className={labelStyles()}>{label}</span>
       <span className={copy()}>{children}</span>
     </div>
+  );
+}
+
+function PlaceLink({ query, children, className }: { query: string; children: React.ReactNode; className?: string }) {
+  const href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={twMerge(
+        "text-text-primary underline decoration-text-secondary/40 underline-offset-4 transition-colors hover:text-text-secondary",
+        className,
+      )}
+    >
+      {children}
+    </a>
   );
 }

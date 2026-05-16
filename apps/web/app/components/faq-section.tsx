@@ -18,6 +18,11 @@ const FAQS: Array<{ topic: string; answer: string }> = [
       "Rideshare is the preferred method of transportation to the Virginia House. If you choose to drive, there is ample parking next door at Agecroft Hall & Gardens. Please note no parking is permitted overnight.",
   },
   {
+    topic: "Finding the Virginia House",
+    answer:
+      "Apple Maps sometimes pins a different 'Virginia Home' on the other side of Richmond — that's not us. We recommend tapping the address link on this site, which opens Google Maps. If you're still having trouble, navigate to Agecroft Hall & Gardens at 4305 Sulgrave Rd — it's right next door to the venue.",
+  },
+  {
     topic: "Indoor or Outdoor",
     answer:
       "The ceremony, cocktail hour, dinner, and reception will all take place outdoors. A tent and indoor spaces will be available in the event of inclement weather. We recommend bringing a light layer just in case. Much of the grounds are grassy, so if you plan to wear heels, we suggest comfortable block heels.",
