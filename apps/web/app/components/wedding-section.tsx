@@ -91,7 +91,7 @@ export function Wedding() {
                 <span className="font-medium">2PM</span>
               </EventDetail>
               <EventDetail label="Place">
-                The Jennings' Home <br /> 511 W 26th St, <br />
+                Bailey and Hannah's House <br /> 511 W 26th St, <br />
                 Richmond, VA 23225
               </EventDetail>
 
