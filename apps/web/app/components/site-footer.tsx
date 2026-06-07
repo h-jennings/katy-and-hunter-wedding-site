@@ -21,9 +21,9 @@ export function SiteFooter() {
                     <br /> please contact{" "}
                     <Link
                       className="text-text-primary underline underline-offset-4 hover:text-text-secondary"
-                      href="mailto:pentz.katy@gmail.com"
+                      href="mailto:hello@example.com"
                     >
-                      pentz.katy@gmail.com
+                      hello@example.com
                     </Link>
                   </p>
                 </div>
