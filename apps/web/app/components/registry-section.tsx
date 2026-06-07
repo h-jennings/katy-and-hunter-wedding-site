@@ -36,9 +36,9 @@ export function Registry() {
             <div className="mx-auto max-w-site-container-w-inner overflow-y-auto xl:mt-[min(11.8vw,200px)] xl:max-h-[min(37vw,620px)] xl:max-w-[1014px]">
               <div className="flex h-full w-full flex-col items-center overflow-clip rounded-md bg-white px-3 py-3">
                 <Link
-                  href="https://zola.com/registry/katyandhunter2026"
+                  href="https://zola.com/registry/example"
                   className="zola-registry-embed rounded-lg bg-black px-4 py-3 font-medium font-sans text-base text-text-inverse"
-                  data-registry-key="katyandhunter2026"
+                  data-registry-key="example"
                 >
                   Our Zola Registry
                 </Link>

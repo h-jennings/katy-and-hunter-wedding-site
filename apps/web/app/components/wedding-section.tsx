@@ -111,8 +111,8 @@ export function Wedding() {
                 <span className="font-medium">2PM</span>
               </EventDetail>
               <EventDetail label="Place">
-                <PlaceLink query="511 W 26th St, Richmond, VA 23225">
-                  Bailey and Hannah's House <br /> 511 W 26th St, <br />
+                <PlaceLink query="Richmond, VA 23225">
+                  A Friend's House <br /> 123 Example St, <br />
                   Richmond, VA 23225
                 </PlaceLink>
               </EventDetail>
@@ -127,7 +127,7 @@ export function Wedding() {
 
                 <Link
                   className="w-fit text-text-primary underline underline-offset-4 transition-colors hover:text-text-secondary"
-                  href="https://partiful.com/e/dplKU5qxrrLVrF7XfJHW?np"
+                  href="https://partiful.com/e/example"
                   target="_blank"
                   rel="noopener noreferrer"
                 >

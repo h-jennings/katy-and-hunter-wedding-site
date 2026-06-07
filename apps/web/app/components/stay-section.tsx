@@ -15,7 +15,7 @@ const PRICE_LABEL = {
   expensive: "$$$",
 } satisfies Record<Price, string>;
 
-const WISHLIST_URL = "https://www.airbnb.com/wishlists/v/1345405123";
+const WISHLIST_URL = "https://www.airbnb.com/wishlists/v/example";
 
 const BADGE_BOX_SHADOW =
   "rgba(255, 255, 255, 0.06) 0px -12px 16px 0px inset, rgba(255, 255, 255, 0.16) 0px 4px 16px 0px inset, rgba(255, 255, 255, 0.12) 0px 0.75px 0.25px 0px inset, rgba(255, 255, 255, 0.32) 0px 0.25px 0.25px 0px inset, rgba(0, 0, 0, 0.02) 0px 6px 12px 0px, rgba(0, 0, 0, 0.03) 0px 3px 6px 0px, rgba(0, 0, 0, 0.03) 0px 1px 2px 0px, rgba(0, 0, 0, 0.06) 0px 0.5px 0.5px 0px, rgba(0, 0, 0, 0.04) 0px 3px 6px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px";
